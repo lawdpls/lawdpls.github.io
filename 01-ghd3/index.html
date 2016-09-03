@@ -1,0 +1,79 @@
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<!-- <svg id = "me" width="80%" height="80%">
+</svg> -->
+<p id='#ourParagraphs'>fdfd</p>
+
+<script>
+  console.log(d3); // test if d3 is loaded
+
+// var A = [
+// 	7, 24, 68, 1, 7
+// ];
+
+// var vis = d3.select('body').select('svg');
+// var v = document.getElementById("me").getBoundingClientRect();
+
+
+// console.log(v.height);
+
+// vis.selectAll('circle')
+//   .data(A)
+//   .enter().append('circle')
+//   .attr('cx',function(d, i){
+//   	return 10 + 10*i + "%";
+//   })
+//   .attr('cy',function(d, i){
+//   	return 75 -  d + "%";
+//   })
+//   .attr('r', "1em");
+
+// vis.selectAll('circle')
+//  .on('mouseover', function(d) {
+//    d3.select(this)
+//      // .transition()
+//      // .duration(2000)
+//      .style('fill', 'red');
+//  })
+//  .on('mouseout', function(d) {
+//    d3.select(this)
+//      .transition()
+//      .duration(1000)
+//      .style('fill', 'black');
+//  })
+
+var selection = 
+  // d3.select('#ourParapraghs')
+    d3.selectAll('p');
+
+console.log(selection);
+
+var A = [
+	1, 2, 3, 4, 5
+];
+
+// var binding = selection.data(A);
+
+// binding
+//   .enter().append('p')
+//   .text(function(d, i){
+//   	return d;
+//   });
+
+selection
+  .data(A)
+  .style('color', 'green')
+  .style('font-size', function(d,i){
+  	return i+1+'em';
+  });
+
+  // Add an SVG
+
+  // Add Rectangles
+
+  // Add Circles
+
+  // Add Lines
+
+  // Add Polygons
+</script>
