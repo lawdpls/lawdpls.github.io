@@ -2,6 +2,10 @@
 
 [Link to the submission](http://lawdpls.github.io/01-ghd3/index.html).
 
+Interaction guide: Mouseover Kim's face will cause him to go berserk. Mouseout to appease him.
+
+Detailed description:
+
 For this assignment I created a tribute to the supreme leader Kim Jong Un. The idea is simple, to capture his splendor and grandeur with the simple shapes and colors required in the assignment.
 
 Naturally, using an 8-bit artstyle is a great solution to implement this. So his torso and limbs, along with accessories like sunglasses and buttons are all presented with rectangles.
