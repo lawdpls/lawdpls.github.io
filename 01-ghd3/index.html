@@ -1,79 +1,193 @@
+<head>
+
 <script src="https://d3js.org/d3.v4.min.js"></script>
 
-<!-- <svg id = "me" width="80%" height="80%">
-</svg> -->
-<p id='#ourParagraphs'>fdfd</p>
+</head>
+
+<body>
+
+<p>
+<font size="40">Don't touch his face</font>
+</p>
 
 <script>
-  console.log(d3); // test if d3 is loaded
 
-// var A = [
-// 	7, 24, 68, 1, 7
-// ];
+var bg = d3.select("body").append("svg")
+                          .attr("width", "100%")
+                          .attr("height", "100%");
 
-// var vis = d3.select('body').select('svg');
-// var v = document.getElementById("me").getBoundingClientRect();
+bg.append("polyline")
+             .attr("class", "face")
+             .attr("points", "630,250 770,250 770,170 735,170 735,155 665,155 665,170 630,170")
+             .attr("fill", "#b0a89c");
 
+bg.append("polyline")
+             .attr("class", "face")
+             .attr("points", "635,245 765,245 765,170 735,170 735,157 665,157 665,170 635,170")
+             .attr("fill", "#eee1c4");
 
-// console.log(v.height);
+bg.append("polyline")
+             .attr("class", "face")
+             .attr("id", "face")
+             .attr("points", "650,240 760,240 760,170 735,170 735,159 665,159 665,170 650,170")
+             .attr("fill", "#ffefcc");      
 
-// vis.selectAll('circle')
-//   .data(A)
-//   .enter().append('circle')
-//   .attr('cx',function(d, i){
-//   	return 10 + 10*i + "%";
-//   })
-//   .attr('cy',function(d, i){
-//   	return 75 -  d + "%";
-//   })
-//   .attr('r', "1em");
+bg.append("polyline")
+  .attr("points", "630,170 665,170 665,155 735,155 735,170 770,170 770,110 630,110")
+  .attr("stroke-width", "0.5px")
+  .attr("stroke", "black");
 
-// vis.selectAll('circle')
-//  .on('mouseover', function(d) {
-//    d3.select(this)
-//      // .transition()
-//      // .duration(2000)
-//      .style('fill', 'red');
-//  })
-//  .on('mouseout', function(d) {
-//    d3.select(this)
-//      .transition()
-//      .duration(1000)
-//      .style('fill', 'black');
-//  })
+bg.append("circle")
+  .attr("cx", 665)
+  .attr("cy", 110)
+  .attr("r", 35);
 
-var selection = 
-  // d3.select('#ourParapraghs')
-    d3.selectAll('p');
+bg.append("circle")
+  .attr("cx", 735)
+  .attr("cy", 110)
+  .attr("r", 35);
 
-console.log(selection);
+bg.append("line")
+  .attr("x1", 630)
+  .attr("y1", 190)
+  .attr("x2", 770)
+  .attr("y2", 190)
+  .attr("stroke-width", 3)
+  .attr("stroke", "black");
 
-var A = [
-	1, 2, 3, 4, 5
-];
+bg.append("rect")
+  .attr("x", 670)
+  .attr("y", 182)
+  .attr("width", 22)
+  .attr("height", 16)
+  .style("fill", "black");
 
-// var binding = selection.data(A);
+bg.append("rect")
+  .attr("x", 715)
+  .attr("y", 182)
+  .attr("width", 22)
+  .attr("height", 16)
+  .style("fill", "black");
 
-// binding
-//   .enter().append('p')
-//   .text(function(d, i){
-//   	return d;
-//   });
+bg.append("rect")
+  .attr("x", 600)
+  .attr("y", 250)
+  .attr("width", 200)
+  .attr("height", 200)
+  .style("fill", "#00004d");
 
-selection
-  .data(A)
-  .style('color', 'green')
-  .style('font-size', function(d,i){
-  	return i+1+'em';
-  });
+bg.append("rect")
+  .attr("x", 610)
+  .attr("y", 260)
+  .attr("width", 180)
+  .attr("height", 180)
+  .style("fill", "#292960");
 
-  // Add an SVG
+bg.append("rect")
+  .attr("x", 640)
+  .attr("y", 290)
+  .attr("width", 130)
+  .attr("height", 130)
+  .style("fill", "#363663");
 
-  // Add Rectangles
+bg.append("rect")
+  .attr("x", 700)
+  .attr("y", 320)
+  .attr("width", 10)
+  .attr("height", 10)
+  .style("fill", "#00802b");
 
-  // Add Circles
+bg.append("rect")
+  .attr("x", 700)
+  .attr("y", 350)
+  .attr("width", 10)
+  .attr("height", 10)
+  .style("fill", "#00802b");
 
-  // Add Lines
+bg.append("rect")
+  .attr("x", 700)
+  .attr("y", 380)
+  .attr("width", 10)
+  .attr("height", 10)
+  .style("fill", "#00802b");
 
-  // Add Polygons
+bg.append("rect")
+  .attr("x", 570)
+  .attr("y", 190)
+  .attr("width", 30)
+  .attr("height", 160)
+  .style("fill", "#00004d");
+
+bg.append("circle")
+  .attr("cx", 585)
+  .attr("cy", 175)
+  .attr("r", 15)
+  .style("fill", "#eee1c4");
+
+bg.append("rect")
+  .attr("x", 800)
+  .attr("y", 290)
+  .attr("width", 30)
+  .attr("height", 200)
+  .style("fill", "#00004d");
+
+bg.append("circle")
+  .attr("cx", 815)
+  .attr("cy", 505)
+  .attr("r", 15)
+  .style("fill", "#eee1c4");
+
+bg.append("rect")
+  .attr("x", 620)
+  .attr("y", 450)
+  .attr("width", 80)
+  .attr("height", 120)
+  .style("fill", "#00004d");
+
+bg.append("rect")
+  .attr("x", 705)
+  .attr("y", 450)
+  .attr("width", 80)
+  .attr("height", 120)
+  .style("fill", "#00004d");
+
+bg.append("rect")
+  .attr("x", 590)
+  .attr("y", 570)
+  .attr("width", 110)
+  .attr("height", 40)
+  .style("fill", "#00001a");
+
+bg.append("rect")
+  .attr("x", 705)
+  .attr("y", 570)
+  .attr("width", 110)
+  .attr("height", 40)
+  .style("fill", "#00001a");
+
+bg.select("#face")
+ .on("mouseover", function() {
+   d3.select("body").selectAll("p")
+   .text("GET YER FILTHY MOUZ OFF OF ME!!!1!11")
+   .style("font-size","45");
+   d3.select("body").selectAll(".face")
+     .transition()
+     .duration(500)
+     .style("fill", "red");
+ })
+ .on("mouseout", function() {
+   d3.select("body").selectAll("p")
+   .transition().delay(700)
+   .text("Behave yourselves, plebs")
+   .style("font-size","40");
+   d3.select("body").selectAll(".face")
+     .transition()
+     .duration(2000)
+     .style("fill", function(){
+      return this.color;
+     });
+ })
+
 </script>
+
+</body>
