@@ -168,7 +168,7 @@ bg.append("rect")
 bg.select("#face")
  .on("mouseover", function() {
    d3.select("body").selectAll("p")
-   .text("GET YER FILTHY MOUZ OFF OF ME!!!1!11")
+   .text('"GET YER FILTHY MOUZ OFF OF ME!!!1!11"')
    .style("font-size","45");
    d3.select("body").selectAll(".face")
      .transition()
@@ -178,7 +178,7 @@ bg.select("#face")
  .on("mouseout", function() {
    d3.select("body").selectAll("p")
    .transition().delay(700)
-   .text("Behave yourselves, plebs")
+   .text('"Behave yourselves, plebs"')
    .style("font-size","40");
    d3.select("body").selectAll(".face")
      .transition()
