@@ -8,9 +8,9 @@ Detailed description:
 
 For this assignment I created a tribute to the supreme leader Kim Jong Un. The idea is simple, to capture his splendor and grandeur with the simple shapes and colors required in the assignment.
 
-Naturally, using an 8-bit artstyle is a great solution to implement this. So his torso and limbs, along with accessories like sunglasses and buttons are all presented with rectangles.
+Naturally, using an 8-bit artstyle is a great solution to implement this. So his torso and limbs, along with accessories like sunglasses and buttons are all presented with rectangles. To make it more stylish, I used multiple layers of similiar color with different lightness and saturation to present the shade and light.
 
-Since we have the requirement of using polygons, I decided to [shape his head with polygons instead of rectangles](http://lawdpls.github.io/01-ghd3/pic1.png). Thus the majority of his hair is also a polygon. The hair is completed with two circles to recreate Kim's impressive hairstyle.
+Since we have the requirement of using polygons, I decided to [shape his head with polygons instead of rectangles](http://lawdpls.github.io/01-ghd3/pic1.png). The majority of his hair is also a polygon. The hair is completed with two circles to recreate Kim's impressive hairstyle.
 
 Speaking of circles, his hands are also little circles. Using smooth edges like circles violates the coarseness essence of 8-bit art, but to fulfill the requirement I have to adopt it and keep the impact as low as possible. Therefore I didn't use a lot of circles.
 
