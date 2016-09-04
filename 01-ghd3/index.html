@@ -8,18 +8,20 @@
 
 <p>
 <font size="40">Don't touch his face</font>
-</p>
+</p> 
 
 <script>
 
 var bg = d3.select("body").append("svg")
                           .attr("width", "100%")
-                          .attr("height", "100%");
+                          .attr("height", "100%"); //Set up the canvas
+
+//Start with the face, which has three layers of shades.
 
 bg.append("polyline")
              .attr("class", "face")
              .attr("points", "630,250 770,250 770,170 735,170 735,155 665,155 665,170 630,170")
-             .attr("fill", "#b0a89c");
+             .attr("fill", "#b0a89c"); 
 
 bg.append("polyline")
              .attr("class", "face")
@@ -31,6 +33,8 @@ bg.append("polyline")
              .attr("id", "face")
              .attr("points", "650,240 760,240 760,170 735,170 735,159 665,159 665,170 650,170")
              .attr("fill", "#ffefcc");      
+
+//Draw the hair. 
 
 bg.append("polyline")
   .attr("points", "630,170 665,170 665,155 735,155 735,170 770,170 770,110 630,110")
@@ -46,6 +50,8 @@ bg.append("circle")
   .attr("cx", 735)
   .attr("cy", 110)
   .attr("r", 35);
+
+//Draw the sunglasses.
 
 bg.append("line")
   .attr("x1", 630)
@@ -69,6 +75,8 @@ bg.append("rect")
   .attr("height", 16)
   .style("fill", "black");
 
+//Draw the clothes, which also have three layers of shades.
+
 bg.append("rect")
   .attr("x", 600)
   .attr("y", 250)
@@ -90,6 +98,8 @@ bg.append("rect")
   .attr("height", 130)
   .style("fill", "#363663");
 
+//Buttons on the clothes.
+
 bg.append("rect")
   .attr("x", 700)
   .attr("y", 320)
@@ -110,6 +120,8 @@ bg.append("rect")
   .attr("width", 10)
   .attr("height", 10)
   .style("fill", "#00802b");
+
+//Arms and hands.
 
 bg.append("rect")
   .attr("x", 570)
@@ -136,6 +148,8 @@ bg.append("circle")
   .attr("cy", 505)
   .attr("r", 15)
   .style("fill", "#eee1c4");
+
+//Legs and feet.
 
 bg.append("rect")
   .attr("x", 620)
@@ -165,11 +179,13 @@ bg.append("rect")
   .attr("height", 40)
   .style("fill", "#00001a");
 
+//The interaction and animation part.
+
 bg.select("#face")
  .on("mouseover", function() {
    d3.select("body").selectAll("p")
    .text('"GET YER FILTHY MOUZ OFF OF ME!!!1!11"')
-   .style("font-size","45");
+   .style("font-size","45"); 
    d3.select("body").selectAll(".face")
      .transition()
      .duration(500)
