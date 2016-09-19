@@ -1,0 +1,151 @@
+<html>
+<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="jquery.csv.js"></script>
+		<script src="Chart.js"></script>
+</head>
+<body>
+<div style="max-width: 900px; max-height:600px">
+<canvas id="myChart" width="900" height="600"></canvas>
+<script>
+$.ajax({
+    url: "http://localhost:8080/CS573/cars-sample.csv",
+    	async: false,
+    	success: function (csvd) {
+        data = $.csv.toArrays(csvd);
+    },
+   	dataType: "text",
+    	complete: function () {
+   	 	}
+});
+var bmw = [];
+	toyota = [],
+	honda = [],
+	merc = [],
+	ford = [],
+	bcount = 0,
+	tcount = 0,
+	hcount = 0,
+	mcount = 0,
+	fcount = 0;
+for (i = 0; i<data.length;i++){
+	var temp = new Array(2);
+	var ob={};
+	if (data[i][2] == "bmw") {
+		ob.x = parseFloat(data[i][7]);
+		ob.y = parseFloat(data[i][3]);
+		var ra = ob.x/500;
+		ob.r = ra;
+		bmw.push(ob);
+		bcount++;
+	} else if (data[i][2] == "ford") {
+		ob.x = parseFloat(data[i][7]);
+		ob.y = parseFloat(data[i][3]);
+		var ra = ob.x/500;
+		ob.r = ra;
+		ford.push(ob);
+		fcount++;
+	} else if (data[i][2] == "mercedes") {
+		ob.x = parseFloat(data[i][7]);
+		ob.y = parseFloat(data[i][3]);
+		var ra = ob.x/500;
+		ob.r = ra;
+		merc.push(ob);
+		mcount++;
+	} else if (data[i][2] == "toyota") {
+		ob.x = parseFloat(data[i][7]);
+		ob.y = parseFloat(data[i][3]);
+		var ra = ob.x/500;
+		ob.r = ra;
+		toyota.push(ob);
+		tcount++;
+	} else if (data[i][2] == "honda") {
+		ob.x = parseFloat(data[i][7]);
+		ob.y = parseFloat(data[i][3]);
+		var ra = ob.x/500;
+		ob.r = ra;
+		honda.push(ob);
+		hcount++;
+	}
+}
+var ctx = document.getElementById("myChart");
+
+var data = {
+    datasets: [
+        {
+            label: 'honda',
+            data: honda,
+            backgroundColor:'rgba(228,26,28,0.5)',
+            borderWidth: 2,
+            borderColor:'rgba(255,255,255,0.8)',
+            hoverBackgroundColor: 'rgba(228,26,28,1)'
+        },{
+			label: 'bmw',
+            data: bmw,
+            backgroundColor:'rgba(55,126,184,0.5)',
+            borderWidth: 2,
+            borderColor:'rgba(255,255,255,0.8)',
+            hoverBackgroundColor: 'rgba(55,126,184,1)'
+        },{
+        	label: 'mercedes',
+        	data: merc,
+        	backgroundColor:'rgba(77,175,74,0.5)',
+        	borderWidth: 2,
+            borderColor:'rgba(255,255,255,0.8)',
+        	hoverBackgroundColor: 'rgba(77,175,74,1)'
+        },{
+        	label: 'toyota',
+        	data: toyota,
+        	backgroundColor:'rgba(152,78,163,0.5)',
+        	borderWidth: 2,
+            borderColor:'rgba(255,255,255,0.8)',
+        	hoverBackgroundColor: 'rgba(152,78,163,1)'
+        },{
+        	label: 'ford',
+        	data: ford,
+        	backgroundColor:'rgba(255,127,0,0.5)',
+        	borderWidth: 2,
+            borderColor:'rgba(255,255,255,0.8)',
+        	hoverBackgroundColor: 'rgba(255,127,0,1)'
+        }]
+};
+var myChart = new Chart(ctx, {
+    type: 'bubble',
+    data: data,
+    options: {
+    	global: {
+    		responsive:true,
+    		maintainAspectRatio:true
+    	},
+    	title: {
+    		display: true,
+    		text: 'Cars Sample'
+    	},
+        scales: {
+        	xAxes: [{
+    			ticks: {
+    				min: 1400
+    			},
+                scaleLabel: {
+        			display: true,
+        			labelString: 'Weight'
+      			}
+        	}],
+            yAxes: [{
+                ticks: {
+                    max: 48,
+                    min: 8,
+                    stepSize:10
+                },
+                scaleLabel: {
+        			display: true,
+        			labelString: 'MPG'
+      			}
+            }]
+        }
+    }
+});
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+
+<style>
+body {
+	font: 11px sans-serif;
+}
+
+.axis path,
+.axis line {
+	fill:none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+.dot {
+	stroke: #000;
+}
+
+.tooltip {
+	position: absolute;
+	width: 200px;
+	height: 28px;
+	pointer-events: none;
+}
+</style>
+<body>
+<script src="http://d3js.org/d3.v4.min.js"></script>
+
+<script>
+var margin = {top: 20, right: 20, bottom: 50, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 600 - margin.top - margin.bottom;
+
+// setup x 
+var xScale = d3.scaleLinear().domain([1200,5200]).range([0, width]), 
+
+// setup y
+    yScale = d3.scaleLinear().domain([8,50]).range([height, 0]),
+
+// setup fill color
+    cValue = function(d) { return d.Manufacturer;};
+    color = d3.scaleOrdinal(d3.schemeCategory10);
+
+// add the graph canvas to the body of the webpage
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// add the tooltip area to the webpage
+var tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+// load data
+d3.csv("http://localhost:8080/CS573/cars-sample.csv", function(error, data) {
+// setup r
+rScale = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.Weight; })]).range([1, 10]),
+// x-axis
+svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(xScale))
+    // .append("text")
+    //   .attr("class", "label")
+    //   .attr("x", width)
+    //   .attr("y", -6)
+    //   .style("text-anchor", "end")
+    //   .text("Weight");
+ svg.append("text")             
+      .attr("transform",
+            "translate(" + (width/2) + " ," + 
+                           (height + margin.top + 20) + ")")
+      .style("text-anchor", "middle")
+      .text("Weight");
+
+  // y-axis
+svg.append("g")
+    .attr("transform", "translate(0,0)")
+    .call(d3.axisLeft(yScale));
+    // .append("text")
+    //   .attr("class", "label")
+    //   .attr("transform", "rotate(-90)")
+    //   .attr("y", 6)
+    //   .attr("dy", ".71em")
+    //   .style("text-anchor", "end")
+    //   .text("MPG");
+svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("MPG");  
+
+  // draw dots
+svg.selectAll(".dot")
+      .data(data)
+      .enter().append("circle")
+      .attr("class", "dot")
+      .attr("r", function(d){
+        return rScale(d.Weight);
+   		})
+      .attr("cx", function(d) {
+        return xScale(d.Weight);
+   		})
+      .attr("cy", function(d) {
+        return d.MPG == "NA"? 1000:yScale(d.MPG);
+   		})
+      .style("opacity", 0.5)
+      .style("fill", function(d) { return color(cValue(d));}) 
+svg.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 0 + (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .text("Cars Sample");
+  // draw legend
+  var legend = svg.selectAll(".legend")
+      .data(color.domain())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  // draw legend colored rectangles
+  legend.append("circle")
+      .attr("cx", width)
+      .attr("cy", margin.top/2)
+      .attr("r", 4)
+      .style("fill", color);
+
+  // draw legend text
+  legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d;})
+});
+
+</script>
+</body>
+</html>

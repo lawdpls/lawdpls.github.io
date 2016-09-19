@@ -1,0 +1,153 @@
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+		<script src="jquery.csv.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$.ajax({
+    			url: "http://localhost:8080/CS573/cars-sample.csv",
+    				async: false,
+    				success: function (csvd) {
+        			data = $.csv.toArrays(csvd);
+    			},
+   				dataType: "text",
+    				complete: function () {
+   	 				}
+			});
+			var bmw = [];
+			toyota = [],
+			honda = [],
+			merc = [],
+			ford = [],
+			bcount = 0,
+			tcount = 0,
+			hcount = 0,
+			mcount = 0,
+			fcount = 0;
+			for (i = 0; i<data.length;i++){
+				var temp = new Array(2);
+				var ob={};
+				if (data[i][2] == "bmw") {
+					ob.x = parseFloat(data[i][7]);
+					ob.y = parseFloat(data[i][3]);
+					var ra = ob.x/500;
+					ob.marker = {radius: ra};
+					bmw.push(ob);
+					bcount++;
+				} else if (data[i][2] == "ford") {
+					ob.x = parseFloat(data[i][7]);
+					ob.y = parseFloat(data[i][3]);
+					var ra = ob.x/500;
+					ob.marker = {radius: ra};
+					ford.push(ob);
+					fcount++;
+				} else if (data[i][2] == "mercedes") {
+					ob.x = parseFloat(data[i][7]);
+					ob.y = parseFloat(data[i][3]);
+					var ra = ob.x/500;
+					ob.marker = {radius: ra};
+					merc.push(ob);
+					mcount++;
+				} else if (data[i][2] == "toyota") {
+					ob.x = parseFloat(data[i][7]);
+					ob.y = parseFloat(data[i][3]);
+					var ra = ob.x/500;
+					ob.marker = {radius: ra};
+					toyota.push(ob);
+					tcount++;
+				} else if (data[i][2] == "honda") {
+					ob.x = parseFloat(data[i][7]);
+					ob.y = parseFloat(data[i][3]);
+					var ra = ob.x/500;
+					ob.marker = {radius: ra};
+					honda.push(ob);
+					hcount++;
+				}
+			}
+    		var chart;
+    		$(document).ready(function() {
+        		chart = new Highcharts.Chart({
+            	chart: {
+                	renderTo: 'container',
+                	type: 'scatter',
+                	plotBackgroundColor: null,
+                	plotBorderWidth: null,
+                	plotShadow: false
+            	},
+            	title: {
+                	text: 'Cars-sample'
+            	},
+        		xAxis: {
+					title: {
+						enable: true,
+						text: 'Weight'
+					},
+					max: 5000,
+					startOnTick: false,
+					endOnTick: false,
+					showLastLabel: false,
+				},
+				yAxis: {
+					title: {
+						enable: true,
+						text: 'MPG'
+					},
+					lineWidth: 1,
+					gridLineWidth: 0,
+					minorGridLineWidth: 0,
+					tickWidth: 2,
+					min: 8,
+					max: 50,
+					startOnTick: false,
+					endOnTick:false,
+					showLastLabel: true
+				},
+				series: [{
+					color: 'rgba(223, 83, 83, .5)',
+                	name: 'bmw',
+                	marker: {
+                		symbol : 'circle'
+                	},
+                	data: bmw
+            	}, {
+            		name: 'ford',
+            		color: 'rgba(83, 223, 83, .5)',
+            		marker: {
+                		symbol : 'circle'
+                	},
+            		data: ford
+            	}, {
+            		name: 'honda',
+            		color: 'rgba(83, 83, 223, .5)',
+            		marker: {
+                		symbol : 'circle'
+                	},
+            		data: honda
+            	}, {
+            		name: 'mercedes',
+            		color: 'rgba(223, 223, 83, .5)',
+            		marker: {
+                		symbol : 'circle'
+                	},
+            		data: merc
+            	}, {
+            		name: 'toyota',
+            		color: 'rgba(83, 223, 223, .5)',
+            		marker: {
+                		symbol : 'circle'
+                	},
+            		data: toyota
+            	}]
+        	});
+    });
+});
+</script>
+</head>
+<body>
+
+	<div id="container" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>
+
+	</body>
+</html>
