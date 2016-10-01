@@ -18,7 +18,7 @@
         height = 700 - margin.top - margin.bottom,
         width = 1000 - margin.right - margin.left;
 
-d3.csv("https://lawdpls.github.io/slope/data.csv", function(data) {
+d3.csv("data.csv", function(data) {
     svg = d3.select("div")
             .append("svg")
             .attr("height", height + margin.top + margin.bottom)
@@ -115,7 +115,7 @@ d3.csv("https://lawdpls.github.io/slope/data.csv", function(data) {
     }
   })
 
-d3.csv("https://lawdpls.github.io/slope/data.csv", function(data) {
+d3.csv("data.csv", function(data) {
     svg = d3.select("div")
             .append("svg")
             .attr("height", height + margin.top + margin.bottom)
