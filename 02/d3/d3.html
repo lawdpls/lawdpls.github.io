@@ -56,7 +56,7 @@ var tooltip = d3.select("body").append("div")
     .style("opacity", 0);
 
 // load data
-d3.csv("http://localhost:8080/CS573/cars-sample.csv", function(error, data) {
+d3.csv("https://lawdpls.github.io/02/cars-sample.csv", function(error, data) {
 // setup r
 rScale = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.Weight; })]).range([1, 10]),
 // x-axis
