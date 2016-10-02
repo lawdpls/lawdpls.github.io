@@ -3,21 +3,54 @@
 <meta charset="utf-8">
 
 <style>
+h1 {
+    font-family: 'Raleway',sans-serif; 
+    font-size: 62px; 
+    font-weight: 800; 
+    line-height: 72px; 
+    text-align: center; 
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0; 
+}
+div{
+    text-align: center;
+    padding-top: 50px;
+}
+.button {
+    background-color: lightgray;
+    border: 1px gray;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    float: right;
+    position: relative;
+    left: -40%;
+
+}
+.button:hover {
+    background-color: black;
+    color:white;
+}
 </style>
 
 <body>
 <h1 align=center> Animated Transitions </h1>
-<button id="bubButt" >Bubble</button>
-<button id="barButt" >Bar</button>
-<button id="scaButt" >Scatter</button>
+<button id="bubButt" class="button">Bubble</button>
+<button id="scaButt" class="button">Scatter</button>
+<button id="barButt" class="button">Bar</button>
 <div></div>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
 var margin = {top:40, bottom:40, right:40, left:20},
-    height = 700 - margin.top - margin.bottom,
+    height = 600 - margin.top - margin.bottom,
     width = 1000 - margin.right - margin.left,
-    bandwidth = 62.2,
+    duration,
 	svg = d3.select("div")
             .append("svg")
             .attr("height", height + margin.top + margin.bottom)
@@ -25,31 +58,14 @@ var margin = {top:40, bottom:40, right:40, left:20},
     canvas = svg.append("g")
                 .attr("id", "canvas")
     		    .attr("transform", "translate(" + margin.left + " " + margin.top + ")"),
-	color = d3.scaleOrdinal([
-    "#24A222",
-    "#8D5649",
-    "#DBDC88",
-    "#C59C93",
-    "#F8B5D2",
-    "#FF7F00",
-    "#D8241F",
-    "#FFBC72",
-    "#FF9794",
-    "#9564BF",
-    "#96E086",
-    "#1776B6",
-    "#BCBF00",
-    "#7F7F7F",
-    "#C7C7C7"
-	]);
-var ChartStates = {
-    NOTHING: "nothing",
-    VERTICAL_BARS: "vertical bars",
-    SCATTER: "scatter",
-    BUBBLES: "bubbles"
-};
-var state = ChartStates.NOTHING;
-	// color = d3.scaleOrdinal(d3.schemeCategory20);
+    chartType = {
+        bar: "1",
+        Scatter: "2",
+        Bubble: "3"
+    },
+    currentType = "0";
+var	color = d3.scaleOrdinal(d3.schemeCategory20);
+
 d3.csv("https://lawdpls.github.io/03/fruit.csv", function(err, data) {
 	if(err) {
 		console.log(err);
@@ -57,33 +73,13 @@ d3.csv("https://lawdpls.github.io/03/fruit.csv", function(err, data) {
 	data.forEach(function (d) {
         d.Count = Number(d.Count);
     });
-	// data.sort(function(a, b){ 
-	// 	return d3.descending(a.Count, b.Count);
-	// });
 	var fruits = [];
     for (i = 0; i<data.length;i++){
     	fruits[i] = data[i].Fruit;
     }
 
-	// var	radius = Math.min(width, height) / 2;
-
-	// var pie = d3.pie()
-	// 			.sort(null)
-	// 			.value(function(d) {
-	// 				return d.Count;
-	// 			});
-
-	// var arc = d3.arc()
-	// 			.outerRadius(radius * 0.8)
-	// 			.innerRadius(radius * 0.4);
-
-	// var outerArc = d3.arc()
-	// 				 .innerRadius(radius * 0.9)
-	// 				 .outerRadius(radius * 0.9); 
-
-    // console.log(data.map(function (d) { return d.Fruit; }))
-    // console.log(fruits)
     barChart(data);
+
 	d3.select("#barButt")
         .on("click", function () {
             barChart(data);
@@ -99,26 +95,22 @@ d3.csv("https://lawdpls.github.io/03/fruit.csv", function(err, data) {
             scatterChart(data);
             d3.event.preventDefault();
         });
-function dataKey (d) {
-    return d.data ? d.data.Fruit : d.Fruit;
-}
+
 function transit () {
-    var duration;
-    switch (state) {
-        case ChartStates.VERTICAL_BARS:
+    duration = 0;
+    if(currentType === chartType.bar) {
             duration = 1000;
-            canvas.select("#barXAxis")
+            canvas.select("#barX")
                 .transition()
                 .duration(duration)
-                .attr("transform", "translate(0 " + (height + 20) + ")")
+                .attr("transform", "translate(0 " + (height + 40) + ")")
                 .remove();
-            canvas.select("#barYAxis")
+            canvas.select("#barY")
                 .transition()
                 .duration(duration)
-                .attr("transform", "translate(-25 0)")
+                .attr("transform", "translate(-40 0)")
                 .remove();
-            break;
-        case ChartStates.SCATTER:
+    } else if (currentType === chartType.Scatter) {
             duration = 1000;
             canvas.selectAll(".grid")
                 .transition()
@@ -135,58 +127,52 @@ function transit () {
                   .duration(duration)
                   .style("opacity", 0)
                   .remove()
-            break;
-        case ChartStates.BUBBLES:
+    } else if (currentType === chartType.Bubble) {
             duration = 1000;
-            canvas.selectAll(".element")
+            canvas.selectAll(".unit")
                 .select("text")
                 .transition()
                 .duration(duration)
                 .style("opacity", 0)
                 .remove();
-            break;
-        case ChartStates.NOTHING:
-            duration = 0;
-            break;
     }
     return duration;
 }
+
 function barChart (data) {
-    if (state !== ChartStates.VERTICAL_BARS) {
-    var delay = transit(); 
-    // data.forEach( function(d){
-    // 	console.log(d.Fruit)
-    // })
-    // var canvas = svg.append("g")
-    // 		    	.attr("transform", "translate(" + margin.left + " " + margin.top + ")"),
-    	max = d3.max(data, function(d) { return d.Count; })
-    	xScale = d3.scaleBand()
+    if (currentType !== chartType.bar) {
+    currentType = chartType.bar;
+
+    var delay = transit();
+
+        xScale = d3.scaleBand()
         		   .domain(fruits)
         		   .range([0, width])
         		   .padding(0),
-    	bandWidth = xScale.bandwidth(),
+        max = d3.max(data, function(d) { return d.Count; }),
     	yScale = d3.scaleLinear()
         		   .domain([0, max])
         		   .range([height, 0]),
     	xAxis = canvas.append("g")
-        			  .attr("id", "barXAxis")
+        			  .attr("id", "barX")
         			  .attr("transform", "translate(0 " + (height + 40) + ")")
         			  .call(d3.axisBottom(xScale)),
     	yAxis = canvas.append("g")
-        			  .attr("id", "barYAxis")
+        			  .attr("id", "barY")
         			  .attr("transform", "translate(-30 0)")
-        			  .call(d3.axisLeft(yScale));
+        			  .call(d3.axisLeft(yScale)),
+        barWid = xScale.bandwidth();
 
-    canvas.selectAll(".element")
+    canvas.selectAll(".unit")
           .data(data)
           .enter()
           .append("g")
-          .attr("class", "element")
+          .attr("class", "unit")
           .append("rect")
           .attr("x", function (d) { return xScale(d.Fruit); })
-          // .attr("x", function (d) { return xScale(fruits); }) This will change the way bars appear
+          // .attr("x", function (d) { return xScale(fruits); }) This will change the way bar appear
           .attr("y", height)
-          .attr("width", bandWidth)
+          .attr("width", barWid)
           .attr("height", 0)
           .style("fill", function (d) { return color(d.Fruit); });
         // .style("stroke", "black")
@@ -197,51 +183,49 @@ function barChart (data) {
         // .on("mouseout", function (d) {
         //     d3.select(this).style("stroke-width", 0);
         // });
-    var bars = canvas.selectAll(".element")
-        			 .data(data)
-        			 .select("rect")
-          			 .transition()
-        			 .delay(1000)
-					 .duration(2000);
-					 // console.log(bars)
+    var bar = canvas.selectAll(".unit")
+        			// .data(data)
+        			.select("rect")
+          			.transition()
+        			.delay(1000)
+					.duration(2000);
         // .delay(delay);
-    // if (state === ChartStates.BUBBLES) {
-    //     bars = bars.duration(2000)
-    //         .attr("x", function (d) { return x(d.Fruit); })
-    //         .attr("y", 250 - x.bandwidth() / 2)
-    //         .attr("width", x.bandwidth())
-    //         .attr("height", x.bandwidth())
-    //         .attr("rx", x.bandwidth() / 2)
+    // if (currentType === chartType.Bubble) {
+    //     bar = bar.duration(2000)
+            // .attr("x", function (d) { return xScale(d.Fruit); })
+            // .attr("y", 250 - barWid / 2)
+            // .attr("width", barWid)
+            // .attr("height", barWid)
+            // .attr("rx", barWid / 2)
     //         .transition()
     //         .duration(1000);
     //     delay += 3000;
     // } else {
-    //     bars = bars.duration(2000);
+    //     bar = bar.duration(2000);
     //     delay += 2000;
     // }
-    bars.attr("rx", 0)
+    bar.attr("rx", 0)
         .attr("x", function (d) { return xScale(d.Fruit); })
         .attr("y", function (d) { return yScale(d.Count); })
-        .attr("width", bandWidth)
+        .attr("width", barWid)
         .attr("height", function (d) { return height - yScale(d.Count); });
     xAxis.transition()
-        // .delay(delay - 500)
+        .delay(2500)
          .duration(1000)
          .attr("transform", "translate(0 " + height + ")");
     yAxis.transition()
-        // .delay(delay - 500)
+        .delay(2500)
          .duration(1000)
          .attr("transform", "translate(0 0)");
-    state = ChartStates.VERTICAL_BARS;
     }
 }
 
 function scatterChart (data) {
-    if(state !== ChartStates.SCATTER){
+    if(currentType !== chartType.Scatter){
+    currentType = chartType.Scatter;
 
     var delay = transit();
-
-    canvas.selectAll(".element").select("rect")
+    canvas.selectAll(".unit").select("rect")
         .data(data)
         .transition()
         .delay(delay)
@@ -290,7 +274,7 @@ function scatterChart (data) {
           .attr("x", function(d) {return xScale(d.Fruit)+10})
 
     canvas.selectAll(".scaY")
-          .data(d3.range(25))
+          .data(d3.range(max+1))
           .enter()
           .append("g")
           .attr("class", "scaY")
@@ -306,13 +290,13 @@ function scatterChart (data) {
           .delay(1000)
           .duration(2000)
           .style("opacity", 1)
-
-    state = ChartStates.SCATTER;
     }
 }
 
 function bubbleChart (data) {
-    if(state !== ChartStates.BUBBLES) {
+    if(currentType !== chartType.Bubble) {
+    currentType = chartType.Bubble;
+
     var delay = transit();
     var pack = d3.pack()
                  .size([width, height])
@@ -322,18 +306,21 @@ function bubbleChart (data) {
         .sum(function (d) { return d.Count; })
         .sort(function (a, b) { return a.Count - b.Count; })
     pack(root);
-    var bubbles = svg.selectAll(".element")
+    function dataKey (d) {
+        return d.data ? d.data.Fruit : d.Fruit;
+    }
+    var Bubble = svg.selectAll(".unit")
         .data(root.descendants(), dataKey);
     
-    var rects = bubbles.select("rect")
+    var rects = Bubble.select("rect")
         .transition()
         .delay(delay)
-    // if (state === ChartStates.VERTICAL_BARS) {
+    // if (currentType === chartType.bar) {
     //     rects = rects.duration(1000)
-            // .attr("y", 250 - bandwidth / 2)
-            // .attr("width", bandwidth)
-            // .attr("height", bandwidth)
-            // .attr("rx", bandwidth)
+            // .attr("y", 250 - barWid / 2)
+            // .attr("width", barWid)
+            // .attr("height", barWid)
+            // .attr("rx", barWid)
             // .transition()
             .duration(2000)
     //     delay += 3000;
@@ -348,11 +335,11 @@ function bubbleChart (data) {
         .attr("width", function (d) { return d.r*2; })
         .attr("height", function (d) { return d.r*2; })
         .style("shape-rendering", "auto");
-    bubbles.append("text")
+    Bubble.append("text")
         .attr("x", function (d) { return d.x; })
         .attr("y", function (d) { return (d.y+5); })
         .style("fill", "black")
-        .style("font-size", "1em")
+        .style("font-size", "0.9em")
         .style("text-anchor", "middle")
         .style("opacity", 0)
         .text(function (d) { return d.data.Fruit; })
@@ -360,7 +347,6 @@ function bubbleChart (data) {
         .delay(delay + 1500)
         .duration(2000)
         .style("opacity", 1);
-    state = ChartStates.BUBBLES;
     }
 }
 
