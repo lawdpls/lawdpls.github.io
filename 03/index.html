@@ -138,11 +138,8 @@ function transit () {
     }
     return duration;
 }
-
 function barChart (data) {
     if (currentType !== chartType.bar) {
-    currentType = chartType.bar;
-
     var delay = transit();
 
         xScale = d3.scaleBand()
@@ -210,19 +207,19 @@ function barChart (data) {
         .attr("width", barWid)
         .attr("height", function (d) { return height - yScale(d.Count); });
     xAxis.transition()
-        .delay(2500)
+        .delay(delay - 500)
          .duration(1000)
          .attr("transform", "translate(0 " + height + ")");
     yAxis.transition()
-        .delay(2500)
+        .delay(delay - 500)
          .duration(1000)
          .attr("transform", "translate(0 0)");
     }
+    currentType = chartType.bar;
 }
 
 function scatterChart (data) {
     if(currentType !== chartType.Scatter){
-    currentType = chartType.Scatter;
 
     var delay = transit();
     canvas.selectAll(".unit").select("rect")
@@ -291,11 +288,11 @@ function scatterChart (data) {
           .duration(2000)
           .style("opacity", 1)
     }
+    currentType = chartType.Scatter;
 }
 
 function bubbleChart (data) {
     if(currentType !== chartType.Bubble) {
-    currentType = chartType.Bubble;
 
     var delay = transit();
     var pack = d3.pack()
@@ -348,6 +345,7 @@ function bubbleChart (data) {
         .duration(2000)
         .style("opacity", 1);
     }
+currentType = chartType.Bubble;
 }
 
 });
