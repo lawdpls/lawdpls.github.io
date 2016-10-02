@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+
+<style>
+</style>
+
+<body>
+<h1 align=center> Animated Transitions </h1>
+<button id="bubButt" >Bubble</button>
+<button id="barButt" >Bar</button>
+<button id="scaButt" >Scatter</button>
+<div></div>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+var margin = {top:40, bottom:40, right:40, left:20},
+    height = 700 - margin.top - margin.bottom,
+    width = 1000 - margin.right - margin.left,
+    bandwidth = 62.2,
+	svg = d3.select("div")
+            .append("svg")
+            .attr("height", height + margin.top + margin.bottom)
+            .attr("width", width + margin.right + margin.left),
+    canvas = svg.append("g")
+                .attr("id", "canvas")
+    		    .attr("transform", "translate(" + margin.left + " " + margin.top + ")"),
+	color = d3.scaleOrdinal([
+    "#24A222",
+    "#8D5649",
+    "#DBDC88",
+    "#C59C93",
+    "#F8B5D2",
+    "#FF7F00",
+    "#D8241F",
+    "#FFBC72",
+    "#FF9794",
+    "#9564BF",
+    "#96E086",
+    "#1776B6",
+    "#BCBF00",
+    "#7F7F7F",
+    "#C7C7C7"
+	]);
+var ChartStates = {
+    NOTHING: "nothing",
+    VERTICAL_BARS: "vertical bars",
+    SCATTER: "scatter",
+    BUBBLES: "bubbles"
+};
+var state = ChartStates.NOTHING;
+	// color = d3.scaleOrdinal(d3.schemeCategory20);
+d3.csv("https://lawdpls.github.io/03/fruit.csv", function(err, data) {
+	if(err) {
+		console.log(err);
+	}
+	data.forEach(function (d) {
+        d.Count = Number(d.Count);
+    });
+	// data.sort(function(a, b){ 
+	// 	return d3.descending(a.Count, b.Count);
+	// });
+	var fruits = [];
+    for (i = 0; i<data.length;i++){
+    	fruits[i] = data[i].Fruit;
+    }
+
+	// var	radius = Math.min(width, height) / 2;
+
+	// var pie = d3.pie()
+	// 			.sort(null)
+	// 			.value(function(d) {
+	// 				return d.Count;
+	// 			});
+
+	// var arc = d3.arc()
+	// 			.outerRadius(radius * 0.8)
+	// 			.innerRadius(radius * 0.4);
+
+	// var outerArc = d3.arc()
+	// 				 .innerRadius(radius * 0.9)
+	// 				 .outerRadius(radius * 0.9); 
+
+    // console.log(data.map(function (d) { return d.Fruit; }))
+    // console.log(fruits)
+    barChart(data);
+	d3.select("#barButt")
+        .on("click", function () {
+            barChart(data);
+            d3.event.preventDefault();
+        });
+    d3.select("#bubButt")
+        .on("click", function () {
+            bubbleChart(data);
+            d3.event.preventDefault();
+        });
+    d3.select("#scaButt")
+        .on("click", function () {
+            scatterChart(data);
+            d3.event.preventDefault();
+        });
+function dataKey (d) {
+    return d.data ? d.data.Fruit : d.Fruit;
+}
+function transit () {
+    var duration;
+    switch (state) {
+        case ChartStates.VERTICAL_BARS:
+            duration = 1000;
+            canvas.select("#barXAxis")
+                .transition()
+                .duration(duration)
+                .attr("transform", "translate(0 " + (height + 20) + ")")
+                .remove();
+            canvas.select("#barYAxis")
+                .transition()
+                .duration(duration)
+                .attr("transform", "translate(-25 0)")
+                .remove();
+            break;
+        case ChartStates.SCATTER:
+            duration = 1000;
+            canvas.selectAll(".grid")
+                .transition()
+                .duration(duration*1.5)
+                .attr("transform", "translate(1000 0)")
+                .remove();
+            canvas.selectAll(".scaLabel")
+                  .transition()
+                  .duration(duration)
+                  .attr("transform", "translate(1000 0)")
+                  .remove()
+            canvas.selectAll(".scaY")
+                  .transition()
+                  .duration(duration)
+                  .style("opacity", 0)
+                  .remove()
+            break;
+        case ChartStates.BUBBLES:
+            duration = 1000;
+            canvas.selectAll(".element")
+                .select("text")
+                .transition()
+                .duration(duration)
+                .style("opacity", 0)
+                .remove();
+            break;
+        case ChartStates.NOTHING:
+            duration = 0;
+            break;
+    }
+    return duration;
+}
+function barChart (data) {
+    if (state !== ChartStates.VERTICAL_BARS) {
+    var delay = transit(); 
+    // data.forEach( function(d){
+    // 	console.log(d.Fruit)
+    // })
+    // var canvas = svg.append("g")
+    // 		    	.attr("transform", "translate(" + margin.left + " " + margin.top + ")"),
+    	max = d3.max(data, function(d) { return d.Count; })
+    	xScale = d3.scaleBand()
+        		   .domain(fruits)
+        		   .range([0, width])
+        		   .padding(0),
+    	bandWidth = xScale.bandwidth(),
+    	yScale = d3.scaleLinear()
+        		   .domain([0, max])
+        		   .range([height, 0]),
+    	xAxis = canvas.append("g")
+        			  .attr("id", "barXAxis")
+        			  .attr("transform", "translate(0 " + (height + 40) + ")")
+        			  .call(d3.axisBottom(xScale)),
+    	yAxis = canvas.append("g")
+        			  .attr("id", "barYAxis")
+        			  .attr("transform", "translate(-30 0)")
+        			  .call(d3.axisLeft(yScale));
+
+    canvas.selectAll(".element")
+          .data(data)
+          .enter()
+          .append("g")
+          .attr("class", "element")
+          .append("rect")
+          .attr("x", function (d) { return xScale(d.Fruit); })
+          // .attr("x", function (d) { return xScale(fruits); }) This will change the way bars appear
+          .attr("y", height)
+          .attr("width", bandWidth)
+          .attr("height", 0)
+          .style("fill", function (d) { return color(d.Fruit); });
+        // .style("stroke", "black")
+        // .style("stroke-width", 0)
+        // .on("mouseover", function (d) {
+        //     d3.select(this).style("stroke-width", 2)
+        // })
+        // .on("mouseout", function (d) {
+        //     d3.select(this).style("stroke-width", 0);
+        // });
+    var bars = canvas.selectAll(".element")
+        			 .data(data)
+        			 .select("rect")
+          			 .transition()
+        			 .delay(1000)
+					 .duration(2000);
+					 // console.log(bars)
+        // .delay(delay);
+    // if (state === ChartStates.BUBBLES) {
+    //     bars = bars.duration(2000)
+    //         .attr("x", function (d) { return x(d.Fruit); })
+    //         .attr("y", 250 - x.bandwidth() / 2)
+    //         .attr("width", x.bandwidth())
+    //         .attr("height", x.bandwidth())
+    //         .attr("rx", x.bandwidth() / 2)
+    //         .transition()
+    //         .duration(1000);
+    //     delay += 3000;
+    // } else {
+    //     bars = bars.duration(2000);
+    //     delay += 2000;
+    // }
+    bars.attr("rx", 0)
+        .attr("x", function (d) { return xScale(d.Fruit); })
+        .attr("y", function (d) { return yScale(d.Count); })
+        .attr("width", bandWidth)
+        .attr("height", function (d) { return height - yScale(d.Count); });
+    xAxis.transition()
+        // .delay(delay - 500)
+         .duration(1000)
+         .attr("transform", "translate(0 " + height + ")");
+    yAxis.transition()
+        // .delay(delay - 500)
+         .duration(1000)
+         .attr("transform", "translate(0 0)");
+    state = ChartStates.VERTICAL_BARS;
+    }
+}
+
+function scatterChart (data) {
+    if(state !== ChartStates.SCATTER){
+
+    var delay = transit();
+
+    canvas.selectAll(".element").select("rect")
+        .data(data)
+        .transition()
+        .delay(delay)
+        .duration(1000)
+        .attr("x", function (d) { return xScale(d.Fruit)+27.5; })
+        .attr("y", function (d) { return yScale(d.Count)-5; })
+        // .attr("width", function (d) { return x(d.Count); })
+        .attr("height", 10)
+        .attr("width", 10)
+        .attr("rx", 5);
+        // .style("shape-rendering", "crispEdges");
+    
+    canvas.selectAll(".grid")
+          .data(d3.range(25))
+          .enter()
+          .append("g")
+          .attr("class", "grid")
+          .append("line")
+          .attr("x1", 0)
+          .attr("y1", function(d){return yScale(d);})
+          .attr("x2", 0)
+          .attr("y2", function(d){return yScale(d);})
+          .attr("stroke", "gray")
+          .style("stroke-dasharray", ("4,4"))
+          .attr("stroke-width", 0.8)
+          .transition()
+          .delay(1000)
+          .duration(1000)
+          .attr("x2", width);
+
+    canvas.selectAll(".scaLabel")
+          .data(data)
+          .enter()
+          .append("g")
+          .attr("class", "scaLabel")
+          .append("text")
+          .style("fill", "black")
+          .style("opacity", 0)
+          .attr("x", -100)
+          .attr("y", function(d) {return yScale(d.Count)-10})
+          .text(function(d) {return d.Fruit})
+          .transition()
+          .delay(1000)
+          .duration(2000)
+          .style("opacity", 0.8)
+          .attr("x", function(d) {return xScale(d.Fruit)+10})
+
+    canvas.selectAll(".scaY")
+          .data(d3.range(25))
+          .enter()
+          .append("g")
+          .attr("class", "scaY")
+          .append("text")
+          .style("fill", "gray")
+          .style("opacity", 0)
+          .attr("x", function(d){
+            return d%2 === 1? -10: width;
+          })
+          .attr("y", function(d) {return yScale(d)})
+          .text(function(d){return d})
+          .transition()
+          .delay(1000)
+          .duration(2000)
+          .style("opacity", 1)
+
+    state = ChartStates.SCATTER;
+    }
+}
+
+function bubbleChart (data) {
+    if(state !== ChartStates.BUBBLES) {
+    var delay = transit();
+    var pack = d3.pack()
+                 .size([width, height])
+                 .padding(5);
+        
+    var root = d3.hierarchy({children: data})
+        .sum(function (d) { return d.Count; })
+        .sort(function (a, b) { return a.Count - b.Count; })
+    pack(root);
+    var bubbles = svg.selectAll(".element")
+        .data(root.descendants(), dataKey);
+    
+    var rects = bubbles.select("rect")
+        .transition()
+        .delay(delay)
+    // if (state === ChartStates.VERTICAL_BARS) {
+    //     rects = rects.duration(1000)
+            // .attr("y", 250 - bandwidth / 2)
+            // .attr("width", bandwidth)
+            // .attr("height", bandwidth)
+            // .attr("rx", bandwidth)
+            // .transition()
+            .duration(2000)
+    //     delay += 3000;
+    // } else {
+    //     rects = rects.duration(2500);
+    //     delay += 2500;
+    // }
+    
+        .attr("rx", function (d) { return d.r; })
+        .attr("x", function (d) { return d.x - d.r; })
+        .attr("y", function (d) { return d.y - d.r; })
+        .attr("width", function (d) { return d.r*2; })
+        .attr("height", function (d) { return d.r*2; })
+        .style("shape-rendering", "auto");
+    bubbles.append("text")
+        .attr("x", function (d) { return d.x; })
+        .attr("y", function (d) { return (d.y+5); })
+        .style("fill", "black")
+        .style("font-size", "1em")
+        .style("text-anchor", "middle")
+        .style("opacity", 0)
+        .text(function (d) { return d.data.Fruit; })
+        .transition()
+        .delay(delay + 1500)
+        .duration(2000)
+        .style("opacity", 1);
+    state = ChartStates.BUBBLES;
+    }
+}
+
+});
+</script>
+</body>
+</html>
