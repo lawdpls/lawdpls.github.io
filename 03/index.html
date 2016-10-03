@@ -36,7 +36,7 @@ div{
     background-color: black;
     color:white;
 }
-.button2 {
+/*.button2 {
     background-color: lightgray;
     border: 1px gray;
     color: black;
@@ -48,13 +48,13 @@ div{
     cursor: pointer;
     float: right;
     position: relative;
-    right: 8.5%;
+    right: 17%;
     visibility: hidden;
 }
 .button2:hover {
     background-color: black;
     color:white;
-}
+}*/
 </style>
 
 <body>
@@ -62,9 +62,9 @@ div{
 <button id="bubButt" class="button">Bubble</button>
 <button id="scaButt" class="button">Scatter</button>
 <button id="barButt" class="button">Bar</button>
-<button id="altBubButt" class="button2">Bubble</button>
+<!-- <button id="altBubButt" class="button2">Bubble</button>
 <button id="altScaButt" class="button2">Scatter</button>
-<button id="altBarButt" class="button2">Bar</button>
+<button id="altBarButt" class="button2">Bar</button> -->
 <div></div>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -142,6 +142,10 @@ d3.csv("https://lawdpls.github.io/03/fruit.csv", function(err, data) {
              .range([height, 0]),
     barWid = xScale.bandwidth();
 
+    d3.timer(function(t){
+      console.log(currentType)
+    })
+
     var norm = canvas.append("g")
           .attr("class","init");
 
@@ -209,7 +213,7 @@ d3.csv("https://lawdpls.github.io/03/fruit.csv", function(err, data) {
               if (t>1000) {
                 timer.stop();
                 forceChart(data);
-                d3.selectAll(".button2")
+                d3.selectAll(".button")
                   .transition()
                   .delay(500)
                   .style("visibility","visible");
@@ -226,8 +230,6 @@ d3.csv("https://lawdpls.github.io/03/fruit.csv", function(err, data) {
           .text("Stellar")
           .style("fill", "black");
 
-    // forceChart(data);
-
 	  d3.select("#barButt")
       .on("click", function () {
             barChart(data);
@@ -240,16 +242,6 @@ d3.csv("https://lawdpls.github.io/03/fruit.csv", function(err, data) {
         .on("click", function () {
             scatterChart(data);
         });
-
-    d3.select("#removeDummy")
-        .on("click", function () {
-            removeDummy();
-        });
-
-function removeDummy() {
-    d3.selectAll(".button")
-      .style("visibility","visible")
-}
 
 function computeDelay() {
     delayMap.delay = 1000;
@@ -332,6 +324,19 @@ function barChart (data) {
     transit();
     computeDelay();  
 
+    d3.select("#barButt")
+      .on("click", function () {
+            barChart(data);
+        });
+    d3.select("#bubButt")
+        .on("click", function () {
+            bubbleChart(data);
+        });
+    d3.select("#scaButt")
+        .on("click", function () {
+            scatterChart(data);
+        });
+
     xScale = d3.scaleBand()
         	   .domain(fruits)
         	   .range([0, width])
@@ -391,6 +396,20 @@ function scatterChart (data) {
     computeDuration();
     transit();
     computeDelay();
+
+    d3.select("#barButt")
+      .on("click", function () {
+            barChart(data);
+        });
+    d3.select("#bubButt")
+        .on("click", function () {
+            bubbleChart(data);
+        });
+    d3.select("#scaButt")
+        .on("click", function () {
+            scatterChart(data);
+        });
+
     canvas.selectAll(".unit").select("rect")
         .data(data)
         .transition()
@@ -459,6 +478,20 @@ function scatterChart (data) {
 }
 
 function bubbleChart (data) {
+
+    d3.select("#barButt")
+      .on("click", function () {
+            barChart(data);
+        });
+    d3.select("#bubButt")
+        .on("click", function () {
+            bubbleChart(data);
+        });
+    d3.select("#scaButt")
+        .on("click", function () {
+            scatterChart(data);
+        });
+
     if(currentType !== chartType.Bubble) {
     computeDuration();
     transit();
@@ -566,38 +599,41 @@ function forceChart (data) {
                     .force("link")
                     .links(links);
 
-    d3.select("#altBarButt")
+    d3.select("#barButt")
       .on("click", function () {
         if (currentType === "0"){
-        d3.timer(function(t){
-          if (t>2000){
-          simulation.stop();
-          barChart(data);
+          var timer = d3.timer(function(t){
+            if (t>1000){
+              simulation.stop();
+              timer.stop()
+              barChart(data);
+            }
+          })
         }
-        })
-      }
       });
-    d3.select("#altScaButt")
+    d3.select("#scaButt")
       .on("click", function () {
         if (currentType === "0"){
-        d3.timer(function(t){
-          if (t>2000){
-          simulation.stop();
-          scatterChart(data);
+          var timer = d3.timer(function(t){
+            if (t>1000){
+              simulation.stop();
+              timer.stop()
+              scatterChart(data);
+            }
+          })
         }
-        })
-      }
       });
-    d3.select("#altBubButt")
+    d3.select("#bubButt")
       .on("click", function () {
         if (currentType === "0"){
-        d3.timer(function(t){
-          if (t>2000){
-          simulation.stop();
-          bubbleChart(data);
+          var timer = d3.timer(function(t){
+            if (t>1000){
+              simulation.stop();
+              timer.stop()
+              bubbleChart(data);
+            }
+          })
         }
-        })
-      }
       });
             function dragstarted(d) {
               if(currentType === "0"){
