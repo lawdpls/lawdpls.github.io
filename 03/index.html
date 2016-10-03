@@ -226,8 +226,8 @@ d3.csv("https://lawdpls.github.io/03/fruit.csv", function(err, data) {
           .attr("x",width*3/4)
           .attr("y",height/2)
           .style('opacity', 1)
-          .style('font-size', '4em')
-          .text("Stellar")
+          .style('font-size', '2em')
+          .text("Fruit Constellation")
           .style("fill", "black");
 
 	  d3.select("#barButt")
@@ -521,7 +521,7 @@ function bubbleChart (data) {
     unit.append("text")
         .attr("x", function(d) { return d.x; })
         .attr("y", function(d) { return (d.y+5); })
-        .style("fill", "black")
+        .style("fill", "gray")
         .style("font-size", "0.9em")
         .style("text-anchor", "middle")
         .style("opacity", 0)
@@ -557,7 +557,7 @@ function forceChart (data) {
                         return d.index
                     }))
                     .force("collide", d3.forceCollide(function (d) {
-                        return d.r + 8
+                        return d.r + 9
                     }).iterations(16))
                     .force("charge", d3.forceManyBody())
                     .force("center", d3.forceCenter(width / 2, height / 2))
@@ -569,6 +569,7 @@ function forceChart (data) {
                     .data(links)
                     .enter()
                     .append("line")
+                    .attr("stroke-width", 2)
                     .attr("stroke", "lightgray");
             var node = canvas.selectAll(".unit")
                     .data(nodes)
@@ -578,9 +579,9 @@ function forceChart (data) {
                     .append("rect")
                     .attr("x", 0)
                     .attr("y", 0)
-                    .attr("width",40)
-                    .attr("height",40)
-                    .attr("rx", 20)
+                    .attr("width", function(d) { return Math.log(d.Count)*20})
+                    .attr("height",function(d) { return Math.log(d.Count)*20})
+                    .attr("rx", function(d) { return Math.log(d.Count)*20/2})
                     .style("fill", function(d) { return color[d.Fruit]; })
                     .call(d3.drag()
                             .on("start", dragstarted)
@@ -591,13 +592,17 @@ function forceChart (data) {
                         .attr("y1", function (d) { return d.source.y; })
                         .attr("x2", function (d) { return d.target.x; })
                         .attr("y2", function (d) { return d.target.y; });
-                node.attr("x", function (d) { return d.x-20; })
-                    .attr("y", function (d) { return d.y-20; })
+                node.attr("x", function (d) { return d.x-Math.log(d.Count)*10; })
+                    .attr("y", function (d) { return d.y-Math.log(d.Count)*10; })
             };
             simulation.nodes(nodes)
                     .on("tick", ticked)
                     .force("link")
                     .links(links);
+
+    node.append("title")
+        .attr("class", "cons")
+        .text(function(d) { return d.Fruit + ":" + d.Count; });
 
     d3.select("#barButt")
       .on("click", function () {
@@ -605,7 +610,9 @@ function forceChart (data) {
           var timer = d3.timer(function(t){
             if (t>1000){
               simulation.stop();
-              timer.stop()
+              timer.stop();
+              d3.selectAll(".cons")
+                .remove()
               barChart(data);
             }
           })
@@ -617,7 +624,9 @@ function forceChart (data) {
           var timer = d3.timer(function(t){
             if (t>1000){
               simulation.stop();
-              timer.stop()
+              timer.stop();
+              d3.selectAll(".cons")
+                .remove()
               scatterChart(data);
             }
           })
@@ -629,7 +638,9 @@ function forceChart (data) {
           var timer = d3.timer(function(t){
             if (t>1000){
               simulation.stop();
-              timer.stop()
+              timer.stop();
+              d3.selectAll(".cons")
+                .remove()
               bubbleChart(data);
             }
           })
