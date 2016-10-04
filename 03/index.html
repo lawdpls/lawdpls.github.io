@@ -599,6 +599,7 @@ function forceChart (data) {
                     .on("tick", ticked)
                     .force("link")
                     .links(links);
+            simulation.alphaDecay(0.001);
 
     node.append("title")
         .attr("class", "cons")
