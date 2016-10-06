@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+#canvas {
+	padding:0;
+	margin: 0;
+	display: block;
+	margin: auto;
+}
+
+.counties {
+  fill: none;
+}
+
+.states {
+  fill: none;
+  stroke: #fff;
+  stroke-linejoin: round;
+}
+
+.q0-10 { fill-opacity:0; }
+.q1-10 { fill-opacity:0.2; }
+.q2-10 { fill-opacity:0.3; }
+.q3-10 { fill-opacity:0.4; }
+.q4-10 { fill-opacity:0.5; }
+.q5-10 { fill-opacity:0.6; }
+.q6-10 { fill-opacity:0.7; }
+.q7-10 { fill-opacity:0.8; }
+.q8-10 { fill-opacity:0.9; }
+.q9-10 { fill-opacity:1; }
+
+.Nothing { fill: #bcbcbc; }
+.d0 { fill: #fcfcab; }
+.d1 { fill: #fecc5c; }
+.d2 { fill: #fd8d3c; }
+.d3 { fill: #f03b20; }
+.d4 { fill: #bd0026; }
+
+</style>
+<svg width="1024" height="800"></svg>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/topojson.v1.min.js"></script>
+<script>
+
+var svg = d3.select("svg"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height");
+
+svg.attr("id", "canvas");
+
+var rateById = d3.map();
+
+var rateById2 = d3.map();
+
+var quantize = d3.scaleQuantize()
+    .domain([0, 100])
+    .range(d3.range(10).map(function(i) { return "q" + i + "-10"; }));
+
+var projection = d3.geoAlbersUsa()
+    .scale(1280)
+    .translate([width / 2, height / 2]);
+
+var path = d3.geoPath()
+    .projection(projection);
+
+var state = {
+	General : "General",
+	Nothing : "Nothing", 
+	D0 : "D0", 
+	D1 : "D1", 
+	D2 : "D2", 
+	D3 : "D3", 
+	D4 : "D4"};
+var currentState = state.D0;
+
+var data = [
+  	"#bcbcbc",
+  	"#fcfcab",
+  	"#fecc5c",
+  	"#fd8d3c",
+  	"#f03b20",
+  	"#bd0026",
+]
+
+var data2 = [
+  	"Nothing",
+  	"D0",
+  	"D1",
+  	"D2",
+  	"D3",
+  	"D4"
+]
+
+var colorScale = {
+	"Nothing" : "#bcbcbc",
+	"D0" : "#fcfcab",
+	"D1" : "#fecc5c",
+	"D2" : "#fd8d3c",
+	"D3" : "#f03b20",
+	"D4" : "#bd0026"
+}
+general();
+
+function ready(error, us) {
+  if (error) throw error;
+
+  var mapz = svg.append("g")
+      .attr("class", "counties")
+      .selectAll("path")
+      .data(topojson.feature(us, us.objects.counties).features,
+      	function (d) {
+        return d.id;})
+    .enter().append("path")      
+      .style("stroke","black")
+      .style("stroke-opacity",0.2)
+      .attr("d", path);
+    if (currentState === "General") {  
+      mapz.attr("class", function(d) {
+        var cell = rateById.get(d.id);
+        if (cell !== undefined) {
+          return cell.level;
+        }
+        return cell; })
+  }else{
+      mapz.attr("class", function(d) {
+      	return quantize(rateById2.get(d.id));
+      })
+      mapz.style("fill", function(){
+      	return colorScale[currentState]
+      })
+      mapz.append("title")
+      	  .text(function(d) { 
+      	  	return rateById2.get(d.id);
+      	  })
+  }
+  svg.append("path")
+      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+      .attr("class", "states")
+      .attr("d", path)
+      .style("stroke", "black")
+      .style("stroke-opacity",0.4)
+}
+
+for (i = 0; i<data.length; i++) {
+    svg.append("g")
+  	 .attr("class", "legend")
+  	 .attr("id", function(){
+  	 	return data2[i];
+  	 })
+  	 .append("rect")
+  	 .attr("x", 900)
+  	 .attr("y", function(){
+  	 	return i*20+520;
+  	 })
+  	 .attr("height", 20)
+  	 .attr("width", 20)
+  	 .style("fill", function(){
+  	 	return data[i];
+  	 })
+}
+
+svg.append("g")
+   .attr("class","legend")
+   .attr("id", "general")
+   .append("rect")
+   .attr("x", 900)
+   .attr("y", 480)
+   .attr("height", 20)
+   .attr("width", 100)
+   .attr("stroke", "black")
+   .style("fill", "white")
+
+svg.append("text")
+   .attr("x", 870)
+   .attr("y", 515)
+   .attr("font-size", "0.7em")
+   .attr("height", 20)
+   .attr("width", 100)
+   .attr("stroke", "black")
+   .text("Click on the legends for details")
+
+svg.select("#general")
+   .append("text")
+   .text("General View")
+   .style("text-anchor", "center")
+   .style("stroke", "black")
+   .attr("x",905)
+   .attr("y",495)
+
+svg.select("#Nothing")
+  	 	.append("text")
+  	 	.text("Nothing")
+  	 	.attr("x", 925)
+  	 	.attr("y", 535)
+
+svg.select("#D0")
+  	 	.append("text")
+  	 	.text("D0")
+  	 	.attr("x", 925)
+  	 	.attr("y", 555)
+
+svg.select("#D1")
+  	 	.append("text")
+  	 	.text("D1")
+  	 	.attr("x", 925)
+  	 	.attr("y", 575)
+
+svg.select("#D2")
+  	 	.append("text")
+  	 	.text("D2")
+  	 	.attr("x", 925)
+  	 	.attr("y", 595)
+
+svg.select("#D3")
+  	 	.append("text")
+  	 	.text("D3")
+  	 	.attr("x", 925)
+  	 	.attr("y", 615)
+
+svg.select("#D4")
+  	 	.append("text")
+  	 	.text("D4")
+  	 	.attr("x", 925)
+  	 	.attr("y", 635)
+
+function general (){
+   	if (currentState !== "General"){
+   	currentState = "General";	
+   	d3.queue()
+    .defer(d3.json, "https://lawdpls.github.io/us.json")
+    .defer(d3.tsv, "https://lawdpls.github.io/drought.tsv", function(d) { 
+    	var level = "Nothing";
+      d.Nothing = Number(d.Nothing);
+      d.D0 = Number(d.D0);
+      d.D1 = Number(d.D1);
+      d.D2 = Number(d.D2);
+      d.D3 = Number(d.D3);
+      d.D4 = Number(d.D4);
+      if (d.D0 > 0) level = "d0";
+      if (d.D1 > 0) level = "d1";
+      if (d.D2 > 0) level = "d2";
+      if (d.D3 > 0) level = "d3";
+      if (d.D4 > 0) level = "d4";
+      d.level = level;
+      rateById.set(d.FIPS, d);
+    })
+    .await(ready);
+	}
+}
+
+svg.select("#general")
+   .on("click", function(){
+   	general();
+   })
+
+svg.select("#Nothing")
+   .on("click", function(){
+   	if (currentState !== state.Nothing){
+   		currentState = state.Nothing;
+   	d3.selectAll(".counties")
+   	  .transition()
+   	  .style("opacity",0)
+   	  .remove();
+   	d3.selectAll(".states")
+   	  .transition()
+   	  .style("opacity",0)
+   	  .remove();
+   	 d3.queue()
+    .defer(d3.json, "https://lawdpls.github.io/us.json")
+    .defer(d3.tsv, "https://lawdpls.github.io/drought.tsv", function(d) { rateById2.set(d.FIPS, +d.Nothing); })
+    .await(ready);
+	}
+   })
+
+svg.select("#D0")
+   .on("click", function(){
+   	if (currentState !== state.D0){
+   		currentState = state.D0;
+   	d3.selectAll(".counties")
+   	  .transition()
+   	  .style("opacity",0)
+   	  .remove();
+   	d3.selectAll(".states")
+   	  .transition()
+   	  .style("opacity",0)
+   	  .remove();
+   	 d3.queue()
+    .defer(d3.json, "https://lawdpls.github.io/us.json")
+    .defer(d3.tsv, "https://lawdpls.github.io/drought.tsv", function(d) { 
+    	rateById2.set(d.FIPS, +d.D0 - +d.D1); })
+    .await(ready);
+	}
+   })
+
+svg.select("#D1")
+   .on("click", function(){
+   	if (currentState !== state.D1){
+   		currentState = state.D1;
+   	d3.selectAll(".counties")
+   	  .transition()
+   	  .style("opacity",0)
+   	  .remove();
+   	d3.selectAll(".states")
+   	  .transition()
+   	  .style("opacity",0)
+   	  .remove();
+   	 d3.queue()
+    .defer(d3.json, "https://lawdpls.github.io/us.json")
+    .defer(d3.tsv, "https://lawdpls.github.io/drought.tsv", function(d) { rateById2.set(d.FIPS, +d.D1 - +d.D2); })
+    .await(ready);
+	}
+   })
+
+svg.select("#D2")
+   .on("click", function(){
+   	if (currentState !== state.D2){
+   		currentState = state.D2;
+   	d3.selectAll(".counties")
+   	  .transition()
+   	  .style("opacity",0)
+   	  .remove();
+   	d3.selectAll(".states")
+   	  .transition()
+   	  .style("opacity",0)
+   	  .remove();
+   	 d3.queue()
+    .defer(d3.json, "https://lawdpls.github.io/us.json")
+    .defer(d3.tsv, "https://lawdpls.github.io/drought.tsv", function(d) { rateById2.set(d.FIPS, +d.D2 - +d.D3); })
+    .await(ready);
+	}
+   })
+
+svg.select("#D3")
+   .on("click", function(){
+   	if (currentState !== state.D3){
+   		currentState = state.D3;
+   	d3.selectAll(".counties")
+   	  .transition()
+   	  .style("opacity",0)
+   	  .remove();
+   	d3.selectAll(".states")
+   	  .transition()
+   	  .style("opacity",0)
+   	  .remove();
+   	 d3.queue()
+    .defer(d3.json, "https://lawdpls.github.io/us.json")
+    .defer(d3.tsv, "https://lawdpls.github.io/drought.tsv", function(d) { rateById2.set(d.FIPS, +d.D3 - +d.D4); })
+    .await(ready);
+	}
+   })
+
+svg.select("#D4")
+   .on("click", function(){
+   	if (currentState !== state.D4){
+   		currentState = state.D4;
+   	d3.selectAll(".counties")
+   	  .transition()
+   	  .style("opacity",0)
+   	  .remove();
+   	d3.selectAll(".states")
+   	  .transition()
+   	  .style("opacity",0)
+   	  .remove();
+   	 d3.queue()
+    .defer(d3.json, "https://lawdpls.github.io/us.json")
+    .defer(d3.tsv, "https://lawdpls.github.io/drought.tsv", function(d) { rateById2.set(d.FIPS, +d.D4); })
+    .await(ready);
+	}
+   })
+
+</script>
