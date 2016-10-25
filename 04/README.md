@@ -20,7 +20,7 @@ In our experiment there are four chart types, thus a corresponding latin square 
 
 - Stage 2: Proliferate other rows. Generate other rows to compelete the latin square. There are two ways to get there, namely cyclically right shift elements of first row to obtain a forward diagonal square, or cyclically left shift to obtain a reverse diagonal one.
 
--- For a forward diagonal latin square, e.g.
+For a forward diagonal latin square, e.g. 
 
 Cell 1 | Cell 2 | Cell 3 | Cell 4
 ------ | ------ | ------ | ------
@@ -29,7 +29,19 @@ Cell 1 | Cell 2 | Cell 3 | Cell 4
 3      | 4      | 1      | 2
 2      | 3      | 4      | 1
 
-Notice 
+Number represents chart types.
+Notice first cell of each row is the same as the last cell of last row. If we flatten the square and generate charts accordingly, we'll have adjacent charts every two other charts. It violates the intention of "evenly distribute all charts to reduce variance".
+
+Thus we go for reverse diagonal latin square, e.g.
+
+Cell 1 | Cell 2 | Cell 3 | Cell 4
+------ | ------ | ------ | ------
+1      | 2      | 3      | 4
+2      | 3      | 4      | 1
+3      | 4      | 1      | 2
+4      | 1      | 2      | 3
+
+For the 80 trials per participant, simply repeat the square 5 times.
 
 #Design Achievements
 
