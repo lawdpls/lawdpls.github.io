@@ -38,8 +38,8 @@ function changeView()
 	{
 		if(document.getElementById("reportedValue").value.length==0 || document.getElementById("reportedValue").value/100 > 1 || document.getElementById("reportedValue").value.match(/[^$,.\d]/))
 		{
-			document.getElementById("reportedValue").style.backgroundColor="red";
-			document.getElementById("reportedValue").title="This is a test";
+			document.getElementById("reportedValue").style.backgroundColor="yellow";
+			alert("Please input an integer between 0~100")
 			return;
 		}
 		document.getElementById("reportedValue").style.backgroundColor="initial";
@@ -69,7 +69,6 @@ function changeView()
 			document.getElementById("reportedValue").value="";
 			currentView++;
 			draw();
-			// console.log(trialReport);
 		break;
 	}
 }
