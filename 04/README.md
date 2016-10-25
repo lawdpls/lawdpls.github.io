@@ -41,8 +41,16 @@ Cell 1 | Cell 2 | Cell 3 | Cell 4
 3      | 4      | 1      | 2
 4      | 1      | 2      | 3
 
-For the 80 trials per participant, simply repeat the square 5 times.
+- Stage 3: Flatten the square and generate charts accordingly.
+
+- Stage 4: Apply the square to entire experiment. For the 80 trials per participant, simply repeat the procedure 5 times.
 
 #Design Achievements
 
-- The packed layout of d3 changes the ratio of input data, making radii of all bubbles closer to each other than they actually are. Therefore in order to keep the input data in the same range and fashion with other input charts, I manually altered the node data.
+###d3's ~pesky~ packed layout
+
+- The packed layout of d3 changes the ratio of input data, making radii of all bubbles closer to each other than they actually are. There's no official way to preserve the ratio as far as I'm concerned. Therefore in order to keep the input data in the same range and fashion with other input charts, I manually scaled the auto-generated node data, altering their "r" value.
+
+###No adjacent markers. 
+
+The two random markers are generated in a fashion that they are never adjacent to each other. 
