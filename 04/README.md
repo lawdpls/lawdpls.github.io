@@ -20,7 +20,7 @@ In our experiment there are four chart types, thus a corresponding latin square 
 
 - Stage 2: Proliferate other rows. Generate other rows to compelete the latin square. There are two ways to get there, namely cyclically right shift elements of first row to obtain a forward diagonal square, or cyclically left shift to obtain a reverse diagonal one.
 
-For a forward diagonal latin square, e.g.
+-- For a forward diagonal latin square, e.g.
 
 Cell 1 | Cell 2 | Cell 3 | Cell 4
 ------ | ------ | ------ | ------
@@ -28,6 +28,8 @@ Cell 1 | Cell 2 | Cell 3 | Cell 4
 4      | 1      | 2      | 3
 3      | 4      | 1      | 2
 2      | 3      | 4      | 1
+
+Notice 
 
 #Design Achievements
 
