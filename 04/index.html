@@ -31,6 +31,7 @@ var currentDifference;
 var chartType;
 var latinSquare = [];
 generateLatinSquare();
+bar();
 
 function changeView()
 {
@@ -79,7 +80,6 @@ function draw()
 {
 	canvas.selectAll("*").remove();
 	var row = Math.floor(currentView%16/4%5);
-	console.log(row);
 	switch(latinSquare[row][currentView%4])
 	{
 		case 0:
@@ -170,10 +170,6 @@ function radialBar() {
 	for(var i=0; i< 10; i++)
 	{
 		var temp=20+Math.floor(Math.random()*80);
-		if(random1==i)
-		value1=temp;
-		if(random2==i)
-		value2=temp;
 		var obj = {temp};
 		data.push(obj);
 	}
@@ -213,7 +209,8 @@ function radialBar() {
 	      .attr("r", 4)
 	      .attr("stroke", "black")
 	      .attr("fill", "black");
-
+	value1=barScale(data[random1].temp);
+	value2=barScale(data[random2].temp);
     currentDifference=(value2>value1)?value1/value2:value2/value1;
     currentDifference=Math.round(currentDifference*100)/100;
 }
@@ -229,16 +226,16 @@ function pie() {
 	{
 		random2 = Math.floor(Math.random()*10);
 	}
-	var pieData = [];
+	var data = [];
 
 	for(var i=0; i< 10; i++)
 	{
 		var temp=20+Math.floor(Math.random()*80);
-		if(random1==i)
+		if(i==random1)
 		value1=temp;
-		if(random2==i)
+		if(i==random2)
 		value2=temp;
-		pieData.push(temp);
+		data.push(temp);
 	}
 
 	var arc = d3.arc()
@@ -250,7 +247,7 @@ function pie() {
 	  			.value(function(d, i) { return d; });
 	
 	canvas.selectAll("path")
-	  	  .data(pie(pieData))
+	  	  .data(pie(data))
 	      .enter()
 	      .append("path")
 	      .attr("class", "pie")
@@ -260,15 +257,15 @@ function pie() {
 	      .attr("transform", "translate(350, 275)");
 
 	canvas.append("circle")
-		  .attr("cx", 350+5*(Math.sin(pie(pieData)[random1].endAngle-((pie(pieData)[random1].endAngle-pie(pieData)[random1].startAngle)/2))*15))
-		  .attr("cy", 275-5*(Math.cos(pie(pieData)[random1].endAngle-((pie(pieData)[random1].endAngle-pie(pieData)[random1].startAngle)/2))*15))
+		  .attr("cx", 350+5*(Math.sin(pie(data)[random1].endAngle-((pie(data)[random1].endAngle-pie(data)[random1].startAngle)/2))*15))
+		  .attr("cy", 275-5*(Math.cos(pie(data)[random1].endAngle-((pie(data)[random1].endAngle-pie(data)[random1].startAngle)/2))*15))
 		  .attr("r", 4)
 		  .attr("stroke", "black")
 		  .attr("fill", "black");
 
 	canvas.append("circle")
-	      .attr("cx", 350+5*(Math.sin(pie(pieData)[random2].endAngle-((pie(pieData)[random2].endAngle-pie(pieData)[random2].startAngle)/2))*15))
-	      .attr("cy", 275-5*(Math.cos(pie(pieData)[random2].endAngle-((pie(pieData)[random2].endAngle-pie(pieData)[random2].startAngle)/2))*15))
+	      .attr("cx", 350+5*(Math.sin(pie(data)[random2].endAngle-((pie(data)[random2].endAngle-pie(data)[random2].startAngle)/2))*15))
+	      .attr("cy", 275-5*(Math.cos(pie(data)[random2].endAngle-((pie(data)[random2].endAngle-pie(data)[random2].startAngle)/2))*15))
 	      .attr("r", 4)
 	      .attr("stroke", "black")
 	      .attr("fill", "black");
