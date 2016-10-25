@@ -20,6 +20,16 @@ The hypothesis we have for the experiment is two-fold.
  1. Aligned length has the best performance, followed by 		  angle then area.
  2. Radial axis leads to misunderstanding, and aligned length on radial axis will have much worse performance than aligned length on rectilinear axis.
 
+We gathered totally 10 people to conduct the experiment, for each of the participants 20 charts per type are shown, amounts to a total number of 80 charts. In each chart 10 random values will be generated, with two randomly marked. The two marked values are never adjacent to each other, and the chart is uncolored.
+
+- We have some ideas to test adjacency and/or color, see Design Achievement section for more information.
+
+Each participant are told to compare the value of marked value following the instruction. We decide to not explicitly tell participants what channel to look at, otherwise the misleading features of radial axis will be lost.
+
+All the values are initially generated between 0~100. After some thinking, we decide to give the values a baseline of 20. The reason for this is that 2 extremely small values will distort the effectiveness of the channel, making it less accurate than normal.
+
+The 80 charts are generated in random order following the latin square design to keep participants' performance steady and stable.
+
 #Technical Achievements
 
 ###Latin Square Design. 
@@ -39,7 +49,7 @@ Cell 1 | Cell 2 | Cell 3 | Cell 4
 2      | 3      | 4      | 1
 
 Number represents chart types.
-Notice first cell of each row is the same as the last cell of last row. If we flatten the square and generate charts accordingly, we'll have adjacent charts every two other charts. It violates the intention of "evenly distribute all charts to reduce variance".
+Notice first cell of each row is the same as the last cell of last row. If we flatten the square and generate charts accordingly, we'll have adjacent charts every two other charts. It violates the intention of "evenly distribute all charts to reduce performance deviation".
 
 Thus we go for reverse diagonal latin square, e.g.
 
