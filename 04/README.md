@@ -22,15 +22,12 @@ In our experiment there are four chart types, thus a corresponding latin square 
 
 For a forward diagonal latin square, e.g.
 
+Cell 1 | Cell 2 | Cell 3 | Cell 4
+------ | ------ | ------ | ------
 1      | 2      | 3      | 4
 4      | 1      | 2      | 3
 3      | 4      | 1      | 2
 2      | 3      | 4      | 1
-
-First Header  | Second Header
-------------- | -------------
-Content Cell  | Content Cell
-Content Cell  | Content Cell
 
 #Design Achievements
 
