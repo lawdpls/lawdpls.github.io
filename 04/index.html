@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<style>
+</style>
+
+<body>
+  <h1 align="center">Experiment</h1>
+  <div style="position: absolute; margin: auto; left:0; right:0; top:0; bottom:0; width: 700px">
+  <svg style="width: 800px; height: 500px;"></svg>
+  <p id="instructions" style="text-align:center">In this experiment, you are asked to judge what is the percent of a smaller value to a larger value in several charts.
+  <br><br>
+  We won"t record any other infromation from you except your answers. Click the agree button to begin.
+  <br><br>
+  Thank You!
+  <br><br><br>
+  <input type="button" onclick="changeView()" value="I Agree!">
+  </p>
+  </div>
+</body>
+
+<script>
+var currentView=-1;
+var canvas = d3.select("body").select("svg");
+var trialReport=[];
+var currentDifference;
+var chartType;
+var lastChart;
+var latinSquare = [];
+generateLatinSquare();
+
+function changeView()
+{
+	if (currentView>=0)
+	{
+		if(document.getElementById("reportedValue").value.length==0 || document.getElementById("reportedValue").value/100 > 1 || document.getElementById("reportedValue").value.match(/[^$,.\d]/))
+		{
+			document.getElementById("reportedValue").style.backgroundColor="red";
+			document.getElementById("reportedValue").title="This is a test";
+			return;
+		}
+		document.getElementById("reportedValue").style.backgroundColor="initial";
+	}
+	
+	switch(currentView)
+	{
+		case -1:
+			document.getElementById("instructions").innerHTML="Two values are marked with dots.<br>What percentage do you think the smaller value is of the larger value?<br>Please put your answer below.<br>e.g. If you think the smaller one is exactly half of the larger one,<br> please input 50<br><br><input id='reportedValue' type='tel' placeholder='Enter value here'><input type='button' onclick='changeView();' value='Next'>";
+			currentView++;
+			draw();
+		break;
+		
+		case 79:
+			var inputValue = document.getElementById("reportedValue").value;
+			inputValue = inputValue/100;
+			trialReport.push([currentView, chartType, currentDifference, inputValue]);
+			canvas.selectAll("*").remove();
+			document.getElementById("instructions").innerHTML="The experiment is complete. Thank you!";
+			sendReport();
+			break;
+					
+		default:
+			var inputValue = document.getElementById("reportedValue").value;
+			inputValue = inputValue/100;
+			trialReport.push([currentView, chartType, currentDifference, inputValue]);
+			document.getElementById("reportedValue").value="";
+			currentView++;
+			draw();
+			// console.log(trialReport);
+		break;
+	}
+}
+
+function draw()
+{
+	canvas.selectAll("*").remove();
+	var row = Math.floor(currentView%16/4%5);
+	console.log(row);
+	switch(latinSquare[row][currentView%4])
+	{
+		case 0:
+			pie();
+			break;
+		case 1:
+			bar();
+			break;
+		case 2:
+			bubble();
+			break;
+		case 3:
+			radialBar();
+		default:
+			break;
+	}
+}
+
+function bar()
+{
+	var random1 = Math.floor(Math.random()*10);
+	    random2 = Math.floor(Math.random()*10)
+	    value1 = 0
+	    value2 = 0
+	while(adjacent(random1, random2))
+	{
+		random2 = Math.floor(Math.random()*10);
+	}
+	chartType="Bar";
+	for(var i=0; i<10; i++)
+	{
+		var tempY=Math.floor(Math.random()*(350)+40);
+		canvas.append("rect")
+			  .attr("x", 25+(i*60))
+			  .attr("y", 490-tempY)
+			  .attr("width", 50)
+			  .attr("height", tempY)
+			  .attr("stroke", "black")
+			  .attr("fill", "white");
+		if(i==random1)
+		{
+			value1=tempY;
+			canvas.append("circle")
+				  .attr("cx", 50+(i*60))
+				  .attr("cy", 470)
+				  .attr("r", 4)
+				  .attr("stroke", "black")
+				  .attr("fill", "black");
+		}
+		if(i==random2)
+		{
+			value2=tempY;
+			canvas.append("circle")
+				  .attr("cx", 50+(i*60))
+				  .attr("cy", 470)
+				  .attr("r", 4)
+				  .attr("stroke", "black")
+				  .attr("fill", "black");
+		}
+	}
+	canvas.append('line')
+		  .attr('x1', 10)
+		  .attr('y1', 100)
+		  .attr('x2', 10)
+		  .attr('y2', 490)
+		  .attr('stroke-width', 1)
+		  .attr('stroke', "black");
+	canvas.append('line')
+		  .attr('x1', 10)
+		  .attr('y1', 490)
+		  .attr('x2', 640)
+		  .attr('y2', 490)
+		  .attr('stroke-width', 1)
+		  .attr('stroke', "black");
+
+	currentDifference=(value2>value1)?value1/value2:value2/value1;
+	currentDifference=Math.round(currentDifference*100)/100;
+}
+
+function radialBar() {
+  	var random1 = Math.floor(Math.random()*10)
+  	    random2 = Math.floor(Math.random()*10)
+  	    barHeight = 200
+	    value1 = 0
+	    value2 = 0
+	    data = [];
+	chartType = "RadialBar";
+	for(var i=0; i< 10; i++)
+	{
+		var temp=20+Math.floor(Math.random()*80);
+		if(random1==i)
+		value1=temp;
+		if(random2==i)
+		value2=temp;
+		var obj = {temp};
+		data.push(obj);
+	}
+	while(adjacent(random1, random2))
+	{
+		random2 = Math.floor(Math.random()*10);
+	}
+
+  	var barScale = d3.scaleLinear()
+      				 .domain([0, 100])
+      				 .range([0, barHeight]);
+
+  	var arc = d3.arc()
+      			.startAngle(function(d,i) { return (i*2*Math.PI)/10; })
+      			.endAngle(function(d,i) { return ((i+1)*2*Math.PI)/10; })
+      			.innerRadius(0);
+  
+  	canvas.selectAll("path")
+          .data(data)
+          .enter().append("path")
+          .each(function(d) { d.outerRadius = barScale(+d.temp); })
+          .style('fill', 'white')
+          .style('stroke', 'black')
+          .attr("d", arc)
+          .attr("transform", "translate(350, 275)");
+
+    canvas.append("circle")
+		  .attr("cx", 350+20*Math.sin(((random1+1)*2*Math.PI)/10-(((random1+1)*2*Math.PI)/10 - (random1*2*Math.PI)/10)/2))
+		  .attr("cy", 275-20*Math.cos(((random1+1)*2*Math.PI)/10-(((random1+1)*2*Math.PI)/10 - (random1*2*Math.PI)/10)/2))
+		  .attr("r", 4)
+		  .attr("stroke", "black")
+		  .attr("fill", "black");
+
+	canvas.append("circle")
+	      .attr("cx", 350+20*Math.sin(((random2+1)*2*Math.PI)/10-(((random2+1)*2*Math.PI)/10 - (random2*2*Math.PI)/10)/2))
+		  .attr("cy", 275-20*Math.cos(((random2+1)*2*Math.PI)/10-(((random2+1)*2*Math.PI)/10 - (random2*2*Math.PI)/10)/2))
+	      .attr("r", 4)
+	      .attr("stroke", "black")
+	      .attr("fill", "black");
+
+    currentDifference=(value2>value1)?value1/value2:value2/value1;
+    currentDifference=Math.round(currentDifference*100)/100;
+}
+
+function pie() {	
+	var random1 = Math.floor(Math.random()*10)
+	    random2 = Math.floor(Math.random()*10)
+	    value1 = 0
+	    value2 = 0
+	    radius = 150;
+	chartType="pie";
+	while(adjacent(random1, random2))
+	{
+		random2 = Math.floor(Math.random()*10);
+	}
+	var pieData = [];
+
+	for(var i=0; i< 10; i++)
+	{
+		var temp=20+Math.floor(Math.random()*80);
+		if(random1==i)
+		value1=temp;
+		if(random2==i)
+		value2=temp;
+		pieData.push(temp);
+	}
+
+	var arc = d3.arc()
+	  			.outerRadius(radius)
+	  			.innerRadius(0);
+	
+	var pie = d3.pie()
+				.sort(null)
+	  			.value(function(d, i) { return d; });
+	
+	canvas.selectAll("path")
+	  	  .data(pie(pieData))
+	      .enter()
+	      .append("path")
+	      .attr("class", "pie")
+	      .attr("d", arc)
+	      .attr("fill", "white")
+	      .attr("stroke", "black")
+	      .attr("transform", "translate(350, 275)");
+
+	canvas.append("circle")
+		  .attr("cx", 350+5*(Math.sin(pie(pieData)[random1].endAngle-((pie(pieData)[random1].endAngle-pie(pieData)[random1].startAngle)/2))*15))
+		  .attr("cy", 275-5*(Math.cos(pie(pieData)[random1].endAngle-((pie(pieData)[random1].endAngle-pie(pieData)[random1].startAngle)/2))*15))
+		  .attr("r", 4)
+		  .attr("stroke", "black")
+		  .attr("fill", "black");
+
+	canvas.append("circle")
+	      .attr("cx", 350+5*(Math.sin(pie(pieData)[random2].endAngle-((pie(pieData)[random2].endAngle-pie(pieData)[random2].startAngle)/2))*15))
+	      .attr("cy", 275-5*(Math.cos(pie(pieData)[random2].endAngle-((pie(pieData)[random2].endAngle-pie(pieData)[random2].startAngle)/2))*15))
+	      .attr("r", 4)
+	      .attr("stroke", "black")
+	      .attr("fill", "black");
+
+	currentDifference=(value2>value1)?value1/value2:value2/value1;
+	currentDifference=Math.round(currentDifference*100)/100;
+}
+
+function bubble() {
+	var random1 = Math.floor(Math.random()*10)
+	    random2 = Math.floor(Math.random()*10)
+	    value1 = 0
+	    value2 = 0
+	    data = [];
+	chartType = "Bubble";
+	while(adjacent(random1, random2))
+	{
+		random2 = Math.floor(Math.random()*10);
+	}
+	for(var i=0; i< 10; i++) {
+		var temp=20+Math.floor(Math.random()*80);
+		data.push(temp);
+	}
+	var bubble = d3.pack()
+                   .size([600, 400])
+                   .padding(1);
+    var node = d3.hierarchy({children: data})
+                 .sum(function(d) { return d; });
+    bubble(node);
+
+    for (var i=0; i< 10; i++) {
+    	node.children[i].r = data[i]/1.7;
+    }
+
+    value1=node.children[random1].r;
+    value2=node.children[random2].r;
+    canvas.selectAll("circle")
+    	  .data(node.leaves())
+    	  .enter()
+    	  .append("circle")
+    	  .attr("cx", function(d,i){ return d.x; })
+    	  .attr("cy", function(d,i){ return d.y; })
+    	  .attr("r", function(d){ return d.r; })
+    	  .attr("transform", "translate(40, 70)")
+    	  .style("fill", "white")
+    	  .style("stroke", "black");
+    canvas.append("circle")
+		  .attr("cx", node.children[random1].x)
+		  .attr("cy", node.children[random1].y)
+		  .attr("r", 2)
+		  .attr("stroke", "black")
+		  .attr("fill", "black")
+		  .attr("transform", "translate(40, 70)");
+	canvas.append("circle")
+		  .attr("cx", node.children[random2].x)
+		  .attr("cy", node.children[random2].y)
+		  .attr("r", 2)
+		  .attr("stroke", "black")
+		  .attr("fill", "black")
+		  .attr("transform", "translate(40, 70)");
+	currentDifference=(value2>value1)?value1/value2:value2/value1;
+	currentDifference=Math.round(currentDifference*100)/100;
+}
+
+function adjacent(a, b) {
+	if (a==b || a-b==1 || b-a==1 || a-b==9 || b-a==9) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function generateLatinSquare() {
+	var row = [];
+	// if (currentView > -1) {
+		while(row.length < 4){
+  			var randomnumber=Math.floor(Math.random()*4)
+  			var found=false;
+  			for(var i=0;i<row.length;i++) {
+				if(row[i]==randomnumber) {
+					found=true;
+					break;
+				}
+  			}
+  			if(!found) {
+  				row[row.length]=randomnumber;
+  			}
+		}
+	// }
+	latinSquare.push(row);
+	for (var i=1; i<4; i++) {
+		var nextRow = [];
+		for (var j=0; j<4; j++) {
+			if (j != 3) {
+				nextRow[j] = row[j+1];
+			} else {
+				nextRow[j] = row[0];
+			}
+		}
+		latinSquare.push(nextRow);
+		row = nextRow;
+	}
+}
+
+function sendReport() {
+	var csvContent = "data:text/csv;charset=utf-8,";
+	trialReport.forEach(function(inforoway, index){
+		dataString = inforoway.join(",");
+		csvContent += dataString+ "\n";
+	});
+
+	var encodedUri = encodeURI(csvContent);
+	window.open(encodedUri);
+}
+</script>
+</html>
