@@ -49,8 +49,14 @@ Cell 1 | Cell 2 | Cell 3 | Cell 4
 
 ###d3's ~~pesky~~ packed layout
 
-- The packed layout of d3 changes the ratio of input data, making radii of all bubbles closer to each other than they actually are. There's no official way to preserve the ratio as far as I'm concerned. Therefore in order to keep the input data in the same range and fashion with other input charts, I manually scaled the auto-generated node data, altering their "r" value.
+- The packed layout of d3 changes the ratio of input data, making radii of all bubbles closer to each other than they actually are. There's no official way to preserve the ratio as far as we're concerned. Therefore in order to keep the input data in the same format with other input charts, I manually scaled the auto-generated node data, altering their "r" value.
 
-###No adjacent markers. 
+###Switchable adjacent markers 
 
-The two random markers are generated in a fashion that they are never adjacent to each other. 
+We have implemented a switch to toggle on/off the policy of no adjacent markers. Checking the "Adjacent" box in the first page will make all charts to only generate adjacent markers. Therefore we can test out adjacency versus no adjacency on the same type of chart.
+
+###Switchable fill color 
+
+Similiarly, we have also implemented a switch to toggle on/off the policy of no color. Checking the "Color" box in the first page will make all charts to fill the marked values with two random colors. Thus we can test out what colors can do to human's perception of the two values.
+
+Very unfortunately, no one was willing to conduct a survey containing 240 pages. We decided to put in these features but follow only the vanilla experiment, for now.
