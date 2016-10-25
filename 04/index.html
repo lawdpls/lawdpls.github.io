@@ -11,7 +11,7 @@
   <h1 align="center">Experiment</h1>
   <div style="position: absolute; margin: auto; left:0; right:0; top:0; bottom:0; width: 700px">
   <svg style="width: 800px; height: 500px;"></svg>
-  <p id="instructions" style="text-align:center">In this experiment, you are asked to judge what is the percent of a smaller value to a larger value in several charts.
+  <p id="instructions" style="text-align: center">In this experiment, you are asked to judge what is the percent of a smaller value to a larger value in several charts.
   <br><br>
   We won"t record any other infromation from you except your answers. Click the agree button to begin.
   <br><br>
@@ -19,6 +19,7 @@
   <br><br><br>
   <input type="button" onclick="changeView()" value="I Agree!">
   </p>
+  <p id="counter" style="text-align: center"></p>
   </div>
 </body>
 
@@ -28,7 +29,6 @@ var canvas = d3.select("body").select("svg");
 var trialReport=[];
 var currentDifference;
 var chartType;
-var lastChart;
 var latinSquare = [];
 generateLatinSquare();
 
@@ -51,6 +51,7 @@ function changeView()
 			document.getElementById("instructions").innerHTML="Two values are marked with dots.<br>What percentage do you think the smaller value is of the larger value?<br>Please put your answer below.<br>e.g. If you think the smaller one is exactly half of the larger one,<br> please input 50<br><br><input id='reportedValue' type='tel' placeholder='Enter value here'><input type='button' onclick='changeView();' value='Next'>";
 			currentView++;
 			draw();
+			document.getElementById("counter").innerHTML=currentView+1+"/80";
 		break;
 		
 		case 79:
@@ -69,6 +70,7 @@ function changeView()
 			document.getElementById("reportedValue").value="";
 			currentView++;
 			draw();
+			document.getElementById("counter").innerHTML=currentView+1+"/80";
 		break;
 	}
 }
