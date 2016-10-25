@@ -5,13 +5,29 @@
 <script src="https://d3js.org/d3.v4.min.js"></script>
 
 <style>
+div {
+	position: absolute;
+	margin: auto; 
+	left:0; 
+	right:0; 
+	top:0; 
+	bottom:0; 
+	width: 700px;
+}
+#instructions {
+	text-align: center;
+}
+#counter {
+	text-align: center;
+}
 </style>
 
 <body>
-  <h1 align="center">Human Experimentation</h1>
-  <div style="position: absolute; margin: auto; left:0; right:0; top:0; bottom:0; width: 700px">
-  <svg style="width: 800px; height: 500px;"></svg>
-  <p id="instructions" style="text-align: center">In this experiment,
+  <h1 align="center">Obnoxious Human Experimentation &trade;</h1>
+  <div>
+  <svg>
+  </svg>
+  <p id="instructions">In this experiment,
   <br>
   you are asked to judge
   <br>
@@ -25,61 +41,34 @@
   <br><br>
   <input type="button" onclick="nextPage()" value="Agree">
   </p>
-  <p id="counter" style="text-align: center"></p>
+  <p id="counter"></p>
+  <br>
+  <form action="" align="center" id="form">
+  <p id="adjText">
+  <input type="checkbox" name="checkbox" id="adj">Adjacent
+  </p>
+  <p id="colorText">
+  <input type="checkbox" name="checkbox" id="color">Color<br>
+  </p>
+  <p>If you want to test out some interesting options, please check the boxes.
+  <br>
+  For our experiment the default setting is both boxes unchecked.
+  </p>
+  </form>
   </div>
 </body>
 
 <script>
-var chartNum=-1;
+var chartNum = -1;
 var canvas = d3.select("body").select("svg");
-var trialResult=[];
+var trialResult = [];
 var trueValue;
 var chartType;
 var latinSquare = [];
 generateLatinSquare();
-
-function nextPage()
-{
-	if (chartNum>=0)
-	{
-		if(document.getElementById("inputValue").value.length==0 || document.getElementById("inputValue").value/100 > 1 || document.getElementById("inputValue").value.match(/[^$,.\d]/))
-		{
-			document.getElementById("inputValue").style.backgroundColor="yellow";
-			alert("Please input an integer between 0~100")
-			return;
-		}
-		document.getElementById("inputValue").style.backgroundColor="initial";
-	}
-	
-	switch(chartNum)
-	{
-		case -1:
-			document.getElementById("instructions").innerHTML="Two values are marked with dots.<br>What percentage do you think the smaller value is of the larger value?<br>Please put your answer below.<br>e.g. If you think the smaller one is exactly half of the larger one,<br> please input 50<br><br><input id='inputValue' type='tel' placeholder='Enter value here'><input type='button' onclick='nextPage();' value='Next'>";
-			chartNum++;
-			draw();
-			document.getElementById("counter").innerHTML=chartNum+1+"/80";
-		break;
-		
-		case 79:
-			var input = document.getElementById("inputValue").value;
-			input = input/100;
-			trialResult.push([chartNum, chartType, trueValue, input]);
-			canvas.selectAll("*").remove();
-			document.getElementById("instructions").innerHTML="Sincerely thank you for finishing this!<br>Please send back the generated CSV file.";
-			sendReport();
-			break;
-					
-		default:
-			var input = document.getElementById("inputValue").value;
-			input = input/100;
-			trialResult.push([chartNum, chartType, trueValue, input]);
-			document.getElementById("inputValue").value="";
-			chartNum++;
-			draw();
-			document.getElementById("counter").innerHTML=chartNum+1+"/80";
-		break;
-	}
-}
+var adjFlag = 0;
+var colorFlag = 0;
+var color = d3.scaleOrdinal(d3.schemeCategory10);
 
 function draw()
 {
@@ -123,7 +112,13 @@ function bar()
 			  .attr("width", 50)
 			  .attr("height", tempY)
 			  .attr("stroke", "black")
-			  .attr("fill", "white");
+			  .attr("fill", function(d){
+          	if (colorFlag == 1 && (i == random1 || i == random2)) {
+          		return color(i);
+          	} else {
+          		return "white";
+          	}
+          });
 		if(i==random1)
 		{
 			value1=tempY;
@@ -145,20 +140,20 @@ function bar()
 				  .attr("fill", "black");
 		}
 	}
-	canvas.append('line')
-		  .attr('x1', 10)
-		  .attr('y1', 100)
-		  .attr('x2', 10)
-		  .attr('y2', 490)
-		  .attr('stroke-width', 1)
-		  .attr('stroke', "black");
-	canvas.append('line')
-		  .attr('x1', 10)
-		  .attr('y1', 490)
-		  .attr('x2', 640)
-		  .attr('y2', 490)
-		  .attr('stroke-width', 1)
-		  .attr('stroke', "black");
+	canvas.append("line")
+		  .attr("x1", 10)
+		  .attr("y1", 100)
+		  .attr("x2", 10)
+		  .attr("y2", 490)
+		  .attr("stroke-width", 1)
+		  .attr("stroke", "black");
+	canvas.append("line")
+		  .attr("x1", 10)
+		  .attr("y1", 490)
+		  .attr("x2", 640)
+		  .attr("y2", 490)
+		  .attr("stroke-width", 1)
+		  .attr("stroke", "black");
 
 	trueValue=(value2>value1)?value1/value2:value2/value1;
 	trueValue=Math.round(trueValue*100)/100;
@@ -196,8 +191,14 @@ function radialBar() {
           .data(data)
           .enter().append("path")
           .each(function(d) { d.outerRadius = barScale(+d.temp); })
-          .style('fill', 'white')
-          .style('stroke', 'black')
+          .style("fill", function(d,i){
+          	if (colorFlag == 1 && (i == random1 || i == random2)) {
+          		return color(i);
+          	} else {
+          		return "white";
+          	}
+          })
+          .style("stroke", "black")
           .attr("d", arc)
           .attr("transform", "translate(350, 275)");
 
@@ -257,7 +258,13 @@ function pie() {
 	      .append("path")
 	      .attr("class", "pie")
 	      .attr("d", arc)
-	      .attr("fill", "white")
+	      .attr("fill", function(d,i){
+          	if (colorFlag == 1 && (i == random1 || i == random2)) {
+          		return color(i);
+          	} else {
+          		return "white";
+          	}
+          })
 	      .attr("stroke", "black")
 	      .attr("transform", "translate(350, 275)");
 
@@ -278,7 +285,7 @@ function pie() {
 	trueValue=(value2>value1)?value1/value2:value2/value1;
 	trueValue=Math.round(trueValue*100)/100;
 }
-bubble();
+
 function bubble() {
 	var random1 = Math.floor(Math.random()*10)
 	    random2 = Math.floor(Math.random()*10)
@@ -315,38 +322,45 @@ function bubble() {
     	  .attr("cy", function(d,i){ return d.y; })
     	  .attr("r", function(d){ return d.r; })
     	  .attr("transform", "translate(40, 70)")
-    	  .style("fill", "white")
-    	  .style("stroke", "black")
-    	  .style("stroke-width", function(d,i){
-    	  	if (i == random1 || i == random2) {
-    	  		return 2;
-    	  	} else {
-    	  		return 1;
-    	  	}
-    	  });
- //    canvas.append("circle")
-	// 	  .attr("cx", node.children[random1].x)
-	// 	  .attr("cy", node.children[random1].y)
-	// 	  .attr("r", 2)
-	// 	  .attr("stroke", "black")
-	// 	  .attr("fill", "black")
-	// 	  .attr("transform", "translate(40, 70)");
-	// canvas.append("circle")
-	// 	  .attr("cx", node.children[random2].x)
-	// 	  .attr("cy", node.children[random2].y)
-	// 	  .attr("r", 2)
-	// 	  .attr("stroke", "black")
-	// 	  .attr("fill", "black")
-	// 	  .attr("transform", "translate(40, 70)");
+    	  .style("fill", function(d,i){
+          	if (colorFlag == 1 && (i == random1 || i == random2)) {
+          		return color(i);
+          	} else {
+          		return "white";
+          	}
+          })
+    	  .style("stroke", "black");
+    canvas.append("circle")
+		  .attr("cx", node.children[random1].x)
+		  .attr("cy", node.children[random1].y)
+		  .attr("r", 2)
+		  .attr("stroke", "black")
+		  .attr("fill", "black")
+		  .attr("transform", "translate(40, 70)");
+	canvas.append("circle")
+		  .attr("cx", node.children[random2].x)
+		  .attr("cy", node.children[random2].y)
+		  .attr("r", 2)
+		  .attr("stroke", "black")
+		  .attr("fill", "black")
+		  .attr("transform", "translate(40, 70)");
 	trueValue=(value2>value1)?value1/value2:value2/value1;
 	trueValue=Math.round(trueValue*100)/100;
 }
 
 function adjacent(a, b) {
-	if (a==b || a-b==1 || b-a==1 || a-b==9 || b-a==9) {
-		return true;
+	if (adjFlag == 0) {
+		if (a==b || a-b==1 || b-a==1 || a-b==9 || b-a==9) {
+			return true;
+		} else {
+			return false;
+		}
 	} else {
-		return false;
+		if (a-b==1 || b-a==1) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }
 
@@ -379,6 +393,62 @@ function generateLatinSquare() {
 		}
 		latinSquare.push(nextRow);
 		row = nextRow;
+	}
+}
+
+function nextPage()
+{
+	if (chartNum>=0) {
+		if(document.getElementById("inputValue").value.length==0 || document.getElementById("inputValue").value/100 > 1 || document.getElementById("inputValue").value.match(/[^$,.\d]/))
+		{
+			document.getElementById("inputValue").style.backgroundColor="yellow";
+			alert("Please input an integer between 0~100")
+			return;
+		}
+		document.getElementById("inputValue").style.backgroundColor="initial";
+	}
+	
+	switch(chartNum) {
+		case -1:
+			d3.selectAll("svg")
+			  .style("width",800)
+			  .style("height",500);
+			if (document.getElementById("adj").checked) {
+				adjFlag = 1;
+			} else {
+				adjFlag = 0;
+			}
+			if (document.getElementById("color").checked) {
+				colorFlag = 1;
+			} else {
+				colorFlag = 0;
+			}
+			d3.selectAll("#form")
+			  .style("visibility", "hidden");
+			document.getElementById("instructions").innerHTML="Two values are marked with dots.<br>What percentage do you think the smaller value is of the larger value?<br>Please put your answer below.<br>e.g. If you think the smaller one is exactly half of the larger one,<br> please input 50<br><br><input id='inputValue' type='number' placeholder='Please enter here'><input type='button' onclick='nextPage()' value='Next'>";
+			chartNum++;
+			draw();
+			document.getElementById("counter").innerHTML=chartNum+1+"/80";
+		break;
+		
+		case 79:
+			var input = document.getElementById("inputValue").value;
+			input = input/100;
+			trialResult.push([chartNum, chartType, trueValue, input]);
+			canvas.selectAll("*").remove();
+			document.getElementById("instructions").innerHTML="Sincerely thank you for finishing this!<br>Please send back the generated CSV file.";
+			sendReport();
+			break;
+					
+		default:
+			var input = document.getElementById("inputValue").value;
+			input = input/100;
+			trialResult.push([chartNum, chartType, trueValue, input]);
+			document.getElementById("inputValue").value="";
+			chartNum++;
+			draw();
+			document.getElementById("counter").innerHTML=chartNum+1+"/80";
+		break;
 	}
 }
 
