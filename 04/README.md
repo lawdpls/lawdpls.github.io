@@ -27,6 +27,11 @@ For a forward diagonal latin square, e.g.
 3 | 4 | 1 | 2
 2 | 3 | 4 | 1
 
+First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell
+
 #Design Achievements
 
 - The packed layout of d3 changes the ratio of input data, making radii of all bubbles closer to each other than they actually are. Therefore in order to keep the input data in the same range and fashion with other input charts, I manually altered the node data.
