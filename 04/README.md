@@ -22,7 +22,6 @@ In our experiment there are four chart types, thus a corresponding latin square 
 
 For a forward diagonal latin square, e.g.
 
------- | ------ | ------ | ------
 1      | 2      | 3      | 4
 4      | 1      | 2      | 3
 3      | 4      | 1      | 2
