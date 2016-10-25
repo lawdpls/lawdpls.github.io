@@ -8,69 +8,75 @@
 </style>
 
 <body>
-  <h1 align="center">Experiment</h1>
+  <h1 align="center">Human Experimentation</h1>
   <div style="position: absolute; margin: auto; left:0; right:0; top:0; bottom:0; width: 700px">
   <svg style="width: 800px; height: 500px;"></svg>
-  <p id="instructions" style="text-align: center">In this experiment, you are asked to judge what is the percent of a smaller value to a larger value in several charts.
+  <p id="instructions" style="text-align: center">In this experiment,
+  <br>
+  you are asked to judge
+  <br>
+  what is the percent of a smaller value to a larger value in several charts.
   <br><br>
-  We won"t record any other infromation from you except your answers. Click the agree button to begin.
+  We won"t record any other infromation from you except your answers. 
+  <br>
+  Click the "agree" button to begin.
   <br><br>
   Thank You!
-  <br><br><br>
-  <input type="button" onclick="changeView()" value="I Agree!">
+  <br><br>
+  <input type="button" onclick="nextPage()" value="Agree">
   </p>
   <p id="counter" style="text-align: center"></p>
   </div>
 </body>
 
 <script>
-var currentView=-1;
+var chartNum=-1;
 var canvas = d3.select("body").select("svg");
-var trialReport=[];
-var currentDifference;
+var trialResult=[];
+var trueValue;
 var chartType;
 var latinSquare = [];
 generateLatinSquare();
 
-function changeView()
+function nextPage()
 {
-	if (currentView>=0)
+	if (chartNum>=0)
 	{
-		if(document.getElementById("reportedValue").value.length==0 || document.getElementById("reportedValue").value/100 > 1 || document.getElementById("reportedValue").value.match(/[^$,.\d]/))
+		if(document.getElementById("inputValue").value.length==0 || document.getElementById("inputValue").value/100 > 1 || document.getElementById("inputValue").value.match(/[^$,.\d]/))
 		{
-			document.getElementById("reportedValue").style.backgroundColor="yellow";
+			document.getElementById("inputValue").style.backgroundColor="yellow";
 			alert("Please input an integer between 0~100")
 			return;
 		}
-		document.getElementById("reportedValue").style.backgroundColor="initial";
+		document.getElementById("inputValue").style.backgroundColor="initial";
 	}
 	
-	switch(currentView)
+	switch(chartNum)
 	{
 		case -1:
-			document.getElementById("instructions").innerHTML="Two values are marked with dots.<br>What percentage do you think the smaller value is of the larger value?<br>Please put your answer below.<br>e.g. If you think the smaller one is exactly half of the larger one,<br> please input 50<br><br><input id='reportedValue' type='tel' placeholder='Enter value here'><input type='button' onclick='changeView();' value='Next'>";
-			currentView++;
+			document.getElementById("instructions").innerHTML="Two values are marked with dots.<br>What percentage do you think the smaller value is of the larger value?<br>Please put your answer below.<br>e.g. If you think the smaller one is exactly half of the larger one,<br> please input 50<br><br><input id='inputValue' type='tel' placeholder='Enter value here'><input type='button' onclick='nextPage();' value='Next'>";
+			chartNum++;
 			draw();
-			document.getElementById("counter").innerHTML=currentView+1+"/80";
+			document.getElementById("counter").innerHTML=chartNum+1+"/80";
 		break;
 		
 		case 79:
-			var inputValue = document.getElementById("reportedValue").value;
-			inputValue = inputValue/100;
-			trialReport.push([currentView, chartType, currentDifference, inputValue]);
+			var input = document.getElementById("inputValue").value;
+			input = input/100;
+			trialResult.push([chartNum, chartType, trueValue, input]);
 			canvas.selectAll("*").remove();
-			document.getElementById("instructions").innerHTML="The experiment is complete. Thank you!";
+			document.getElementById("instructions").innerHTML="Sincerely thank you for finishing this!<br>Please send back the generated CSV file.";
 			sendReport();
 			break;
 					
 		default:
-			var inputValue = document.getElementById("reportedValue").value;
-			inputValue = inputValue/100;
-			trialReport.push([currentView, chartType, currentDifference, inputValue]);
-			document.getElementById("reportedValue").value="";
-			currentView++;
+			var input = document.getElementById("inputValue").value;
+			input = input/100;
+			trialResult.push([chartNum, chartType, trueValue, input]);
+			document.getElementById("inputValue").value="";
+			chartNum++;
 			draw();
-			document.getElementById("counter").innerHTML=currentView+1+"/80";
+			document.getElementById("counter").innerHTML=chartNum+1+"/80";
 		break;
 	}
 }
@@ -78,8 +84,8 @@ function changeView()
 function draw()
 {
 	canvas.selectAll("*").remove();
-	var row = Math.floor(currentView%16/4%5);
-	switch(latinSquare[row][currentView%4])
+	var row = Math.floor(chartNum%16/4%5);
+	switch(latinSquare[row][chartNum%4])
 	{
 		case 0:
 			pie();
@@ -154,8 +160,8 @@ function bar()
 		  .attr('stroke-width', 1)
 		  .attr('stroke', "black");
 
-	currentDifference=(value2>value1)?value1/value2:value2/value1;
-	currentDifference=Math.round(currentDifference*100)/100;
+	trueValue=(value2>value1)?value1/value2:value2/value1;
+	trueValue=Math.round(trueValue*100)/100;
 }
 
 function radialBar() {
@@ -210,8 +216,8 @@ function radialBar() {
 	      .attr("fill", "black");
 	value1=barScale(data[random1].temp);
 	value2=barScale(data[random2].temp);
-    currentDifference=(value2>value1)?value1/value2:value2/value1;
-    currentDifference=Math.round(currentDifference*100)/100;
+    trueValue=(value2>value1)?value1/value2:value2/value1;
+    trueValue=Math.round(trueValue*100)/100;
 }
 
 function pie() {	
@@ -269,10 +275,10 @@ function pie() {
 	      .attr("stroke", "black")
 	      .attr("fill", "black");
 
-	currentDifference=(value2>value1)?value1/value2:value2/value1;
-	currentDifference=Math.round(currentDifference*100)/100;
+	trueValue=(value2>value1)?value1/value2:value2/value1;
+	trueValue=Math.round(trueValue*100)/100;
 }
-
+bubble();
 function bubble() {
 	var random1 = Math.floor(Math.random()*10)
 	    random2 = Math.floor(Math.random()*10)
@@ -310,23 +316,30 @@ function bubble() {
     	  .attr("r", function(d){ return d.r; })
     	  .attr("transform", "translate(40, 70)")
     	  .style("fill", "white")
-    	  .style("stroke", "black");
-    canvas.append("circle")
-		  .attr("cx", node.children[random1].x)
-		  .attr("cy", node.children[random1].y)
-		  .attr("r", 2)
-		  .attr("stroke", "black")
-		  .attr("fill", "black")
-		  .attr("transform", "translate(40, 70)");
-	canvas.append("circle")
-		  .attr("cx", node.children[random2].x)
-		  .attr("cy", node.children[random2].y)
-		  .attr("r", 2)
-		  .attr("stroke", "black")
-		  .attr("fill", "black")
-		  .attr("transform", "translate(40, 70)");
-	currentDifference=(value2>value1)?value1/value2:value2/value1;
-	currentDifference=Math.round(currentDifference*100)/100;
+    	  .style("stroke", "black")
+    	  .style("stroke-width", function(d,i){
+    	  	if (i == random1 || i == random2) {
+    	  		return 2;
+    	  	} else {
+    	  		return 1;
+    	  	}
+    	  });
+ //    canvas.append("circle")
+	// 	  .attr("cx", node.children[random1].x)
+	// 	  .attr("cy", node.children[random1].y)
+	// 	  .attr("r", 2)
+	// 	  .attr("stroke", "black")
+	// 	  .attr("fill", "black")
+	// 	  .attr("transform", "translate(40, 70)");
+	// canvas.append("circle")
+	// 	  .attr("cx", node.children[random2].x)
+	// 	  .attr("cy", node.children[random2].y)
+	// 	  .attr("r", 2)
+	// 	  .attr("stroke", "black")
+	// 	  .attr("fill", "black")
+	// 	  .attr("transform", "translate(40, 70)");
+	trueValue=(value2>value1)?value1/value2:value2/value1;
+	trueValue=Math.round(trueValue*100)/100;
 }
 
 function adjacent(a, b) {
@@ -339,7 +352,7 @@ function adjacent(a, b) {
 
 function generateLatinSquare() {
 	var row = [];
-	// if (currentView > -1) {
+	// if (chartNum > -1) {
 		while(row.length < 4){
   			var randomnumber=Math.floor(Math.random()*4)
   			var found=false;
@@ -371,7 +384,7 @@ function generateLatinSquare() {
 
 function sendReport() {
 	var csvContent = "data:text/csv;charset=utf-8,";
-	trialReport.forEach(function(inforoway, index){
+	trialResult.forEach(function(inforoway, index){
 		dataString = inforoway.join(",");
 		csvContent += dataString+ "\n";
 	});
