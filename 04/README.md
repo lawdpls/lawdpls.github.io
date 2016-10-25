@@ -27,7 +27,7 @@ For a forward diagonal latin square, e.g.
 3 | 4 | 1 | 2
 2 | 3 | 4 | 1
 
-First Header  | Second Header
+ | 
 ------------- | -------------
 Content Cell  | Content Cell
 Content Cell  | Content Cell
