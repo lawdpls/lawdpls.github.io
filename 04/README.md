@@ -30,6 +30,13 @@ All the values are initially generated between 0~100. After some thinking, we de
 
 The 80 charts are generated in random order following the latin square design to keep participants' performance steady and stable.
 
+- See Technical Achievements section for details on the latin square design.
+
+After the experiment is completed, a CSV file will be generated locally, and we collect all files from the participants, merge them into one master CSV file, and start the analysis.
+
+Cover page of the experiment:
+![main](img/main.png)
+
 #Technical Achievements
 
 ###Latin Square Design. 
