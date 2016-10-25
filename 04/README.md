@@ -15,7 +15,16 @@ In this experiment, we have four chart types in total.
 
 ###Latin Square Design. 
 In our experiment there are four chart types, thus a corresponding latin square would be 4X4 in size. The algorithm to randomly generate this latin square contains 3 stages. 
-Stage 1: Generate the first row.
+
+- Stage 1: Generate the first row. Four elements of this row each contains a unique chart type, that is to say, distribute all chart types in this row.
+
+- Stage 2: Proliferate other rows. Generate other rows to compelete the latin square. There are two ways to get there, namely cyclically right shift elements of first row to obtain a forward diagonal square, or cyclically left shift to obtain a reverse diagonal one.
+
+For a forward diagonal latin square, e.g.
+1 | 2 | 3 | 4
+4 | 1 | 2 | 3
+3 | 4 | 1 | 2
+2 | 3 | 4 | 1
 
 #Design Achievements
 
