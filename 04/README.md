@@ -22,7 +22,7 @@ The hypothesis we have for the experiment is two-fold.
 
 We gathered totally 10 people to conduct the experiment, for each of the participants 20 charts per type are shown, amounts to a total number of 80 charts. In each chart 10 random values will be generated, with two randomly marked. The two marked values are never adjacent to each other, and the chart is uncolored.
 
-- We have some ideas to test adjacency and/or color, see Design Achievement section for more information.
+- We have some ideas on testing adjacency and/or color, see Design Achievement section for more information.
 
 Each participant are told to compare the value of marked value following the instruction. We decide to not explicitly tell participants what channel to look at, otherwise the misleading features of radial axis will be lost.
 
@@ -34,8 +34,16 @@ The 80 charts are generated in random order following the latin square design to
 
 After the experiment is completed, a CSV file will be generated locally, and we collect all files from the participants, merge them into one master CSV file, and start the analysis.
 
-Cover page of the experiment:
+Cover page of the experiment, note the options to test adjacency and/or color:
 ![main](img/main.png)
+Example of a bar chart:
+![bar](img/bar.png)
+Example of a pie chart:
+![pie](img/pie.png)
+Example of a bubble chart:
+![bub](img/bub.png)
+Example of a radial bar chart:
+![radial](img/radial.png)
 
 #Technical Achievements
 
@@ -73,6 +81,10 @@ Cell 1 | Cell 2 | Cell 3 | Cell 4
 
 #Design Achievements
 
+###Progress tracker
+
+This is just to give the participants some general sense of how far they've gone, because most people tend to rage quit without it after 30~40 charts.
+
 ###Switchable adjacent markers 
 
 - We have implemented a switch to toggle on/off the policy of no adjacent markers. Checking the "Adjacent" box in the first page will make all charts to only generate adjacent markers. Therefore we can test out adjacency versus no adjacency on the same type of chart.
@@ -85,6 +97,4 @@ Cell 1 | Cell 2 | Cell 3 | Cell 4
 
 ###d3's ~~pesky~~ packed layout
 
--The packed layout of d3 changes the ratio of input data, making radii of all bubbles closer to each other than they actually are. There's no official way to preserve the ratio as far as we're concerned. Therefore in order to keep the input data in the same format with other input charts, I manually scaled the auto-generated node data, altering their "r" value. This nullifies the "padding" attribute of the layout, so if you see(very rarely though) a bubble chart with some edges clipping each other, shame on ... him.
-
--Also packed layout will sometimes change the order of the random values to "pack" the bubbles, making my adjacent only design look like a joke. Duh.
+-The packed layout will sometimes change the order of the random values to "pack" the bubbles, making my adjacent only design look like a joke. Duh.

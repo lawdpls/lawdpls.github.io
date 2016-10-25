@@ -299,6 +299,12 @@ function bubble() {
 	}
 	for(var i=0; i< 10; i++) {
 		var temp=20+Math.floor(Math.random()*80);
+		if (i==random1){
+			value1 = temp;
+		}
+		if (i==random2){
+			value2 = temp;
+		}
 		data.push(temp);
 	}
 	var bubble = d3.pack()
@@ -308,12 +314,6 @@ function bubble() {
                  .sum(function(d) { return d; });
     bubble(node);
 
-    for (var i=0; i< 10; i++) {
-    	node.children[i].r = data[i]/1.7;
-    }
-
-    value1=node.children[random1].r;
-    value2=node.children[random2].r;
     canvas.selectAll("circle")
     	  .data(node.leaves())
     	  .enter()
@@ -346,6 +346,9 @@ function bubble() {
 		  .attr("transform", "translate(40, 70)");
 	trueValue=(value2>value1)?value1/value2:value2/value1;
 	trueValue=Math.round(trueValue*100)/100;
+	console.log(trueValue)
+	console.log(node.children[random1].r)
+	console.log(node.children[random2].r)
 }
 
 function adjacent(a, b) {
