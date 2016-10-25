@@ -17,8 +17,13 @@ This experiment follows the design philosophy of Cleveland and McGill's experime
 
 The hypothesis we have for the experiment is two-fold.
 
-Markup : 1. Aligned length has the best performance, followed by 		  angle then area.
-		 2. Radial axis leads to misunderstanding, and aligned length on radial axis will have much worse performance than aligned length on rectilinear axis.
+ Markup : 1. A numbered list
+           1. A nested numbered list
+           2. Which is numbered
+          2. Which is numbered
+
+ Markup : 1. Aligned length has the best performance, followed by 		  angle then area.
+		  2. Radial axis leads to misunderstanding, and aligned length on radial axis will have much worse performance than aligned length on rectilinear axis.
 
 #Technical Achievements
 
