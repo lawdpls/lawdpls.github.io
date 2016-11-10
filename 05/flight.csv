@@ -1,0 +1,101 @@
+DATE,DEP_TIME,CARRIER,ORIGIN,Source,ORIGIN_CITY,DEST,Target,DEST_CITY,Delay
+8/1/16,458,AA,BOS,2,"Boston, MA",CLT,4,"Charlotte, NC",0
+8/1/16,458,AA,BOS,2,"Boston, MA",DFW,7,"Dallas/Fort Worth, TX",0
+8/1/16,501,AA,BOS,2,"Boston, MA",PHL,22,"Philadelphia, PA",5
+8/1/16,554,AA,BOS,2,"Boston, MA",LGA,13,"New York, NY",8
+8/1/16,554,AA,BOS,2,"Boston, MA",ORD,21,"Chicago, IL",5
+8/1/16,555,AA,BOS,2,"Boston, MA",DCA,5,"Washington, DC",0
+8/1/16,557,AA,BOS,2,"Boston, MA",JFK,11,"New York, NY",0
+8/1/16,615,AA,BOS,2,"Boston, MA",PHX,23,"Phoenix, AZ",0
+8/1/16,641,AA,BOS,2,"Boston, MA",LAX,12,"Los Angeles, CA",0
+8/1/16,642,AA,BOS,2,"Boston, MA",MIA,17,"Miami, FL",0
+8/1/16,11,AA,CLT,4,"Charlotte, NC",JAX,10,"Jacksonville, FL",0
+8/1/16,18,AA,CLT,4,"Charlotte, NC",PHL,22,"Philadelphia, PA",0
+8/1/16,22,AA,CLT,4,"Charlotte, NC",ATL,0,"Atlanta, GA",0
+8/1/16,25,AA,CLT,4,"Charlotte, NC",PIT,24,"Pittsburgh, PA",0
+8/1/16,26,AA,CLT,4,"Charlotte, NC",MSP,18,"Minneapolis, MN",131
+8/1/16,32,AA,CLT,4,"Charlotte, NC",RSW,27,"Fort Myers, FL",7
+8/1/16,40,AA,CLT,4,"Charlotte, NC",BOS,2,"Boston, MA",10
+8/1/16,41,AA,CLT,4,"Charlotte, NC",BDL,1,"Hartford, CT",151
+8/1/16,44,AA,CLT,4,"Charlotte, NC",MCO,15,"Orlando, FL",24
+8/1/16,44,AA,CLT,4,"Charlotte, NC",MSY,19,"New Orleans, LA",8
+8/1/16,104,AA,CLT,4,"Charlotte, NC",BUF,3,"Buffalo, NY",39
+8/1/16,107,AA,CLT,4,"Charlotte, NC",RDU,25,"Raleigh/Durham, NC",37
+8/1/16,109,AA,CLT,4,"Charlotte, NC",DEN,6,"Denver, CO",164
+8/1/16,109,AA,CLT,4,"Charlotte, NC",FLL,9,"Fort Lauderdale, FL",54
+8/1/16,110,AA,CLT,4,"Charlotte, NC",DCA,5,"Washington, DC",50
+8/1/16,121,AA,CLT,4,"Charlotte, NC",PHX,23,"Phoenix, AZ",186
+8/1/16,142,AA,CLT,4,"Charlotte, NC",RIC,26,"Richmond, VA",74
+8/1/16,143,AA,CLT,4,"Charlotte, NC",MEM,16,"Memphis, TN",93
+8/1/16,149,AA,CLT,4,"Charlotte, NC",EWR,8,"Newark, NJ",84
+8/1/16,243,AA,CLT,4,"Charlotte, NC",MCI,14,"Kansas City, MO",148
+8/1/16,537,AA,DCA,5,"Washington, DC",DFW,7,"Dallas/Fort Worth, TX",0
+8/1/16,543,AA,DCA,5,"Washington, DC",CLT,4,"Charlotte, NC",0
+8/1/16,554,AA,DCA,5,"Washington, DC",LGA,13,"New York, NY",0
+8/1/16,555,AA,DCA,5,"Washington, DC",ORD,21,"Chicago, IL",0
+8/1/16,558,AA,DCA,5,"Washington, DC",MIA,17,"Miami, FL",0
+8/1/16,624,AA,DCA,5,"Washington, DC",BOS,2,"Boston, MA",0
+8/1/16,707,AA,DCA,5,"Washington, DC",PHX,23,"Phoenix, AZ",0
+8/1/16,735,AA,DCA,5,"Washington, DC",LAX,12,"Los Angeles, CA",0
+8/1/16,741,AA,DCA,5,"Washington, DC",LAS,29,"Las Vegas, NV",0
+8/1/16,745,AA,DCA,5,"Washington, DC",MCO,15,"Orlando, FL",0
+8/1/16,34,AA,DFW,7,"Dallas/Fort Worth, TX",OKC,20,"Oklahoma City, OK",154
+8/1/16,455,AA,DFW,7,"Dallas/Fort Worth, TX",MIA,17,"Miami, FL",0
+8/1/16,458,AA,DFW,7,"Dallas/Fort Worth, TX",CLT,4,"Charlotte, NC",5
+8/1/16,512,AA,DFW,7,"Dallas/Fort Worth, TX",ORD,21,"Chicago, IL",36
+8/1/16,557,AA,DFW,7,"Dallas/Fort Worth, TX",DCA,5,"Washington, DC",0
+8/1/16,557,AA,DFW,7,"Dallas/Fort Worth, TX",MCO,15,"Orlando, FL",0
+8/1/16,559,AA,DFW,7,"Dallas/Fort Worth, TX",PHX,23,"Phoenix, AZ",0
+8/1/16,603,AA,DFW,7,"Dallas/Fort Worth, TX",PHL,22,"Philadelphia, PA",0
+8/1/16,641,AA,DFW,7,"Dallas/Fort Worth, TX",LGA,13,"New York, NY",0
+8/1/16,704,AA,DFW,7,"Dallas/Fort Worth, TX",SEA,30,"Seattle, WA",6
+8/1/16,710,AA,DFW,7,"Dallas/Fort Worth, TX",ATL,0,"Atlanta, GA",6
+8/1/16,711,AA,DFW,7,"Dallas/Fort Worth, TX",MCI,14,"Kansas City, MO",0
+8/1/16,712,AA,DFW,7,"Dallas/Fort Worth, TX",PIT,24,"Pittsburgh, PA",0
+8/1/16,30,AA,LAS,29,"Las Vegas, NV",ORD,21,"Chicago, IL",0
+8/1/16,57,AA,LAS,29,"Las Vegas, NV",CLT,4,"Charlotte, NC",5
+8/1/16,114,AA,LAS,29,"Las Vegas, NV",PHL,22,"Philadelphia, PA",15
+8/1/16,131,AA,LAS,29,"Las Vegas, NV",DFW,7,"Dallas/Fort Worth, TX",18
+8/1/16,557,AA,LAS,29,"Las Vegas, NV",LAX,12,"Los Angeles, CA",0
+8/1/16,753,AA,LAS,29,"Las Vegas, NV",JFK,11,"New York, NY",8
+8/1/16,5,AA,LAX,12,"Los Angeles, CA",PHL,22,"Philadelphia, PA",6
+8/1/16,21,AA,LAX,12,"Los Angeles, CA",JFK,11,"New York, NY",31
+8/1/16,35,AA,LAX,12,"Los Angeles, CA",MSP,18,"Minneapolis, MN",36
+8/1/16,58,AA,LAX,12,"Los Angeles, CA",MIA,17,"Miami, FL",48
+8/1/16,126,AA,LAX,12,"Los Angeles, CA",CLT,4,"Charlotte, NC",31
+8/1/16,130,AA,LAX,12,"Los Angeles, CA",DFW,7,"Dallas/Fort Worth, TX",42
+8/1/16,214,AA,LAX,12,"Los Angeles, CA",ORD,21,"Chicago, IL",49
+8/1/16,547,AA,LGA,13,"New York, NY",MIA,17,"Miami, FL",0
+8/1/16,548,AA,LGA,13,"New York, NY",DFW,7,"Dallas/Fort Worth, TX",0
+8/1/16,553,AA,LGA,13,"New York, NY",PHL,22,"Philadelphia, PA",0
+8/1/16,557,AA,LGA,13,"New York, NY",DCA,5,"Washington, DC",0
+8/1/16,559,AA,LGA,13,"New York, NY",BOS,2,"Boston, MA",44
+8/1/16,759,AA,LGA,13,"New York, NY",CLT,4,"Charlotte, NC",0
+8/1/16,459,AA,ORD,21,"Chicago, IL",MIA,17,"Miami, FL",0
+8/1/16,500,AA,ORD,21,"Chicago, IL",PHX,23,"Phoenix, AZ",0
+8/1/16,502,AA,ORD,21,"Chicago, IL",DFW,7,"Dallas/Fort Worth, TX",0
+8/1/16,533,AA,ORD,21,"Chicago, IL",CLT,4,"Charlotte, NC",0
+8/1/16,551,AA,ORD,21,"Chicago, IL",PHL,22,"Philadelphia, PA",6
+8/1/16,555,AA,ORD,21,"Chicago, IL",BOS,2,"Boston, MA",0
+8/1/16,707,AA,ORD,21,"Chicago, IL",SAN,32,"San Diego, CA",7
+8/1/16,11,AA,PHX,23,"Phoenix, AZ",SMF,28,"Sacramento, CA",86
+8/1/16,37,AA,PHX,23,"Phoenix, AZ",MSP,18,"Minneapolis, MN",38
+8/1/16,48,AA,PHX,23,"Phoenix, AZ",PHL,22,"Philadelphia, PA",58
+8/1/16,53,AA,PHX,23,"Phoenix, AZ",MIA,17,"Miami, FL",24
+8/1/16,53,AA,PHX,23,"Phoenix, AZ",ORD,21,"Chicago, IL",8
+8/1/16,458,AA,PHX,23,"Phoenix, AZ",CLT,4,"Charlotte, NC",12
+8/1/16,505,AA,PHX,23,"Phoenix, AZ",DFW,7,"Dallas/Fort Worth, TX",5
+8/1/16,526,AA,PHX,23,"Phoenix, AZ",ORD,21,"Chicago, IL",0
+8/1/16,9,AA,SEA,30,"Seattle, WA",ORD,21,"Chicago, IL",14
+8/1/16,34,AA,SEA,30,"Seattle, WA",DFW,7,"Dallas/Fort Worth, TX",16
+8/1/16,37,AA,SEA,30,"Seattle, WA",PHL,22,"Philadelphia, PA",0
+8/1/16,45,AA,SEA,30,"Seattle, WA",CLT,4,"Charlotte, NC",0
+8/1/16,500,AA,SEA,30,"Seattle, WA",PHX,23,"Phoenix, AZ",0
+8/1/16,607,AA,SEA,30,"Seattle, WA",LAX,12,"Los Angeles, CA",0
+8/1/16,2,AA,SFO,31,"San Francisco, CA",ORD,21,"Chicago, IL",0
+8/1/16,8,AA,SFO,31,"San Francisco, CA",MIA,17,"Miami, FL",48
+8/1/16,20,AA,SFO,31,"San Francisco, CA",PHL,22,"Philadelphia, PA",0
+8/1/16,51,AA,SFO,31,"San Francisco, CA",DFW,7,"Dallas/Fort Worth, TX",6
+8/1/16,121,AA,SFO,31,"San Francisco, CA",CLT,4,"Charlotte, NC",101
+8/1/16,557,AA,SFO,31,"San Francisco, CA",LAX,12,"Los Angeles, CA",0
+8/1/16,709,AA,SFO,31,"San Francisco, CA",JFK,11,"New York, NY",0

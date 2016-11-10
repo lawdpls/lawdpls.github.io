@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <script src="http://d3js.org/d3.v3.js"></script>
+    <script src="https://d3js.org/topojson.v1.min.js"></script>
+
+    <style>
+        .states {
+            fill: #ccc;
+            stroke: #fff;
+            stroke-linejoin: round;
+        }
+
+    </style>
+</head>
+
+<body>
+<h1> Multiple Views </h1>
+<script>
+    // Add svg canvas
+    var width = 2000, height = 600, radius = 10;
+
+    var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+    // force directed graph
+    d3.csv("airport.csv", function(error, data) {
+        if (error) throw error;
+        var nodes = [];
+        for (var i = 0; i < data.length; i++) {
+            nodes.push ({
+                name: data[i].Code
+            })
+        }
+
+        d3.csv("flight.csv", function(error, data) {
+            if (error) throw error;
+            var links = [];
+            for (var i = 0; i < data.length; i++) {
+                data[i].Source = Number(data[i].Source);
+                data[i].Target = Number(data[i].Target);
+                data[i].Delay = Number(data[i].Delay);
+                links.push ({
+                    source: data[i].Source,
+                    target: data[i].Target,
+                    delay: data[i].Delay
+                })
+            }
+
+            var mouseOverFunction = function(d) {
+                var circle = d3.select(this);
+
+                node
+                        .transition(300)
+                        .style("opacity", 0.5)
+                        .style("fill", function(o) {
+                            if (isConnectedAsTarget(o, d)) return "blue";
+                            else return 'grey';
+                        });
+
+                link
+                        .transition(300)
+                        .style("stroke-opacity", function(o) {
+                            if (o.source === d) return 1;
+                            else return 0.5;
+                        })
+                        .style("stroke-width", function(o) {
+                            if (o.source === d)  return 2;
+                            else return 1;
+                        })
+                        .style("stroke", function(o) {
+                            if (o.source === d && o.delay > 0) return "red";
+                            if (o.source === d && o.delay == 0) return "green";
+                            else return "grey";
+                        })
+                        .transition(300)
+                        .attr("marker-end", function(o) {
+                            if (o.source === d) return  "url(#arrowhead)";
+                            else return "url()";
+                        });
+
+                circle
+                        .transition(300)
+                        .style("fill", "black")
+                        .style("opacity", 1)
+                        .attr("r", radius);
+
+                arrow
+                        .style("fill", "black");
+            };
+
+            var mouseOutFunction = function() {
+                var circle = d3.select(this);
+
+                node
+                        .transition(300);
+
+                link
+                        .transition(300);
+
+                circle
+                        .transition(300);
+            };
+
+            function isConnectedAsTarget(a, b) {
+                return linkedByIndex[b.index + "," + a.index];
+            }
+
+            function tick() {
+                link
+                        .attr("x1", function(d) { return d.source.x; })
+                        .attr("y1", function(d) { return d.source.y; })
+                        .attr("x2", function(d) { return d.target.x; })
+                        .attr("y2", function(d) { return d.target.y; });
+
+                node
+                        .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+            }
+
+
+            var force = d3.layout.force()
+                    .nodes(nodes)
+                    .links(links)
+                    .charge(-3000)
+                    .friction(0.6)
+                    .gravity(0.6)
+                    .size([width,height])
+                    .on("tick",tick)
+                    .start();
+
+            var linkedByIndex = {};
+            links.forEach(function(d) {
+                linkedByIndex[d.source.index + "," + d.target.index] = true;
+            });
+
+            var graph1 = svg.append("g")
+                    .attr("width", 400)
+                    .attr("height", 400)
+                    .attr("transform", "translate(-700, -50)");
+
+            var link = graph1.selectAll("line")
+                    .data(links)
+                    .enter().append("line")
+                    .style("stroke", "grey")
+                    .style("stroke-width", 1)
+                    .style("stroke-opacity", 0.5)
+                    .attr("marker-end", "url()");
+
+            var node = graph1.selectAll(".node")
+                    .data(nodes)
+                    .enter().append("g")
+                    .attr("class", "node")
+                    .append("circle")
+                    .style("fill", "grey")
+                    .style("opacity", 0.5)
+                    .attr("r", radius)
+                    .call(force.drag)
+                    .on("mouseover", mouseOverFunction)
+                    .on("mouseout", mouseOutFunction);
+
+            var arrow = graph1.append("marker")
+                    .attr("id", "arrowhead")
+                    .attr("refX", 6 + 3)
+                    .attr("refY", 2)
+                    .attr("markerWidth", 6)
+                    .attr("markerHeight", 4)
+                    .attr("orient", "auto")
+                    .append("path")
+                    .attr("d", "M 0,0 V 4 L6,2 Z");
+        });
+    });
+
+
+
+    // bar graph
+    var graph2 = svg.append("g")
+            .attr("width", 400)
+            .attr("height", 300)
+            .attr("transform", "translate(500, 100)");
+
+    // delay data for flights from BOS
+    var data = [
+            ["CLT", 0],
+            ["DFW", 0],
+            ["PHL", 5],
+            ["LGA", 8],
+            ["ORD", 5],
+            ["DCA", 0],
+            ["JFK", 0],
+            ["PHX", 0],
+            ["LAX", 0],
+            ["MIA", 0]
+    ];
+
+    var x = d3.scale.ordinal()
+            .domain(data.map(function(d) {
+                return d[0];
+            }))
+            .rangeRoundBands([0, 400]);
+
+    var y = d3.scale.linear()
+            .domain([0, d3.max(data, function(d) { return d[1]; })])
+            .range([300, 0]);
+
+    var xAxis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left");
+
+    graph2.append("g")
+            .attr("class", "xAxis")
+            .attr("transform", "translate(0, 300)")
+            .call(xAxis)
+            .append("text")
+            .attr("x", 200)
+            .attr("y", 40)
+            .style("text-anchor", "middle")
+            .text("Airport");
+
+    graph2.append("g")
+            .attr("class", "yAxis")
+            .call(yAxis)
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("x", -150)
+            .attr("y", -30)
+            .style("text-anchor", "middle")
+            .text("Arrival Delay Time (min)");
+
+    graph2.selectAll(".bar")
+            .data(data)
+            .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", function(d) { return x(d[0]); })
+            .attr("y", function(d) { return y(d[1]); })
+            .attr("width", x.rangeBand()-5)
+            .attr("height", function(d) { return 300 - y(d[1]); });
+
+
+
+    // map
+    var graph3 = svg.append("g")
+            .attr("width", 300)
+            .attr("height", 300)
+            .attr("transform", "translate(800, 0)");
+
+    d3.json("us.json", function(error, data) {
+        if (error) throw error;
+
+        graph3.append("path")
+                .attr("class", "states")
+                .datum(topojson.feature(data, data.objects.states))
+                .attr("d", d3.geo.path());
+    });
+
+</script>
+</body>
+</html>
