@@ -30,7 +30,7 @@ var groups = [
   "65 Years and Over"
 ];
 
-d3.csv("http://lawdpls.github.io/05/data.csv", type, function(error, states) {
+d3.csv("https://lawdpls.github.io/05/data.csv", type, function(error, states) {
   if (error) throw error;
   var stateById = d3.map();
   states.forEach(function(d) { stateById.set(d.id, d); });
