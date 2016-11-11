@@ -1,0 +1,528 @@
+[
+    {
+      "code": "ATL",
+      "city": "Atlanta",
+      "state": "Georgia",
+      "latitude": 33.7489954,
+      "longitude": -84.3879824
+    },
+    {
+      "code": "AUS",
+      "city": "Austin",
+      "state": "Texas",
+      "latitude": 30.267153,
+      "longitude": -97.7430608
+    },
+    {
+      "code": "BDL",
+      "city": "Hartford",
+      "state": "Connecticut",
+      "latitude": 41.76371109999999,
+      "longitude": -72.6850932
+    },
+    {
+      "code": "BNA",
+      "city": "Nashville",
+      "state": "Tennessee",
+      "latitude": 36.1626638,
+      "longitude": -86.7816016
+    },
+    {
+      "code": "BOS",
+      "city": "Boston",
+      "state": "Massachusetts",
+      "latitude": 42.3600825,
+      "longitude": -71.0588801
+    },
+    {
+      "code": "BUF",
+      "city": "Buffalo",
+      "state": "New York",
+      "latitude": 42.88644679999999,
+      "longitude": -78.8783689
+    },
+    {
+      "code": "BWI",
+      "city": "Baltimore",
+      "state": "Maryland",
+      "latitude": 39.2903848,
+      "longitude": -76.6121893
+    },
+    {
+      "code": "CLE",
+      "city": "Cleveland",
+      "state": "Ohio",
+      "latitude": 41.49932,
+      "longitude": -81.6943605
+    },
+    {
+      "code": "CLT",
+      "city": "Charlotte",
+      "state": "North Carolina",
+      "latitude": 35.2270869,
+      "longitude": -80.8431267
+    },
+    {
+      "code": "CMH",
+      "city": "Columbus",
+      "state": "Ohio",
+      "latitude": 39.9611755,
+      "longitude": -82.99879419999999
+    },
+    {
+      "code": "DCA",
+      "city": "Washington",
+      "state": "District of Columbia",
+      "latitude": 38.8514444,
+      "longitude": -77.0377222
+    },
+    {
+      "code": "DEN",
+      "city": "Denver",
+      "state": "Colorado",
+      "latitude": 39.7392358,
+      "longitude": -104.990251
+    },
+    {
+      "code": "DFW",
+      "city": "Dallas/Fort",
+      "state": "Texas",
+      "latitude": 32.8972316,
+      "longitude": -97.0376949
+    },
+    {
+      "code": "EWR",
+      "city": "Newark",
+      "state": "New Jersey",
+      "latitude": 40.735657,
+      "longitude": -74.1723667
+    },
+    {
+      "code": "FLL",
+      "city": "Fort Lauderdale",
+      "state": "Florida",
+      "latitude": 26.1224386,
+      "longitude": -80.13731740000001
+    },
+    {
+      "code": "HNL",
+      "city": "Honolulu",
+      "state": "Hawaii",
+      "latitude": 21.3069444,
+      "longitude": -157.8583333
+    },
+    {
+      "code": "IAD",
+      "city": "Washington",
+      "state": "District of Columbia",
+      "latitude": 38.9474444,
+      "longitude": -77.4599444
+    },
+    {
+      "code": "IAH",
+      "city": "Houston",
+      "state": "Texas",
+      "latitude": 29.7604267,
+      "longitude": -95.3698028
+    },
+    {
+      "code": "JAX",
+      "city": "Jacksonville",
+      "state": "Florida",
+      "latitude": 30.3321838,
+      "longitude": -81.65565099999999
+    },
+    {
+      "code": "JFK",
+      "city": "New York",
+      "state": "New York",
+      "latitude": 40.6399257,
+      "longitude": -73.7786950
+    },
+    {
+      "code": "LAS",
+      "city": "Las Vegas",
+      "state": "Nevada",
+      "latitude": 36.1699412,
+      "longitude": -115.1398296
+    },
+    {
+      "code": "LAX",
+      "city": "Los Angeles",
+      "state": "California",
+      "latitude": 34.0522342,
+      "longitude": -118.2436849
+    },
+    {
+      "code": "LGA",
+      "city": "New York",
+      "state": "New York",
+      "latitude": 40.7772500,
+      "longitude": -73.8726111
+    },
+    {
+      "code": "MCI",
+      "city": "Kansas City",
+      "state": "Missouri",
+      "latitude": 39.0997265,
+      "longitude": -94.5785667
+    },
+    {
+      "code": "MCO",
+      "city": "Orlando",
+      "state": "Florida",
+      "latitude": 28.5383355,
+      "longitude": -81.3792365
+    },
+    {
+      "code": "MEM",
+      "city": "Memphis",
+      "state": "Tennessee",
+      "latitude": 35.1495343,
+      "longitude": -90.0489801
+    },
+    {
+      "code": "MIA",
+      "city": "Miami",
+      "state": "Florida",
+      "latitude": 25.7616798,
+      "longitude": -80.1917902
+    },
+    {
+      "code": "MSP",
+      "city": "Minneapolis",
+      "state": "Minnesota",
+      "latitude": 44.977753,
+      "longitude": -93.2650108
+    },
+    {
+      "code": "MSY",
+      "city": "New Orleans",
+      "state": "Louisiana",
+      "latitude": 29.95106579999999,
+      "longitude": -90.0715323
+    },
+    {
+      "code": "OKC",
+      "city": "Oklahoma City",
+      "state": "Oklahoma",
+      "latitude": 35.4675602,
+      "longitude": -97.5164276
+    },
+    {
+      "code": "ORD",
+      "city": "Chicago",
+      "state": "Illinois",
+      "latitude": 41.8781136,
+      "longitude": -87.6297982
+    },
+    {
+      "code": "PHL",
+      "city": "Philadelphia",
+      "state": "Pennsylvania",
+      "latitude": 39.9525839,
+      "longitude": -75.1652215
+    },
+    {
+      "code": "PHX",
+      "city": "Phoenix",
+      "state": "Arizona",
+      "latitude": 33.4483771,
+      "longitude": -112.0740373
+    },
+    {
+      "code": "PIT",
+      "city": "Pittsburgh",
+      "state": "Pennsylvania",
+      "latitude": 40.44062479999999,
+      "longitude": -79.9958864
+    },
+    {
+      "code": "PVD",
+      "city": "Providence",
+      "state": "Rhode Island",
+      "latitude": 41.8239891,
+      "longitude": -71.4128343
+    },
+    {
+      "code": "RDU",
+      "city": "Raleigh/Durham",
+      "state": "North Carolina",
+      "latitude": 35.8776389,
+      "longitude": -78.7874722
+    },
+    {
+      "code": "RIC",
+      "city": "Richmond",
+      "state": "Virginia",
+      "latitude": 37.5407246,
+      "longitude": -77.4360481
+    },
+    {
+      "code": "RSW",
+      "city": "Fort Myers",
+      "state": "Florida",
+      "latitude": 26.640628,
+      "longitude": -81.8723084
+    },
+    {
+      "code": "SAN",
+      "city": "San Diego",
+      "state": "California",
+      "latitude": 32.715738,
+      "longitude": -117.1610838
+    },
+    {
+      "code": "SAT",
+      "city": "San Antonio",
+      "state": "Texas",
+      "latitude": 29.4241219,
+      "longitude": -98.49362819999999
+    },
+    {
+      "code": "SEA",
+      "city": "Seattle",
+      "state": "Washington",
+      "latitude": 47.6062095,
+      "longitude": -122.3320708
+    },
+    {
+      "code": "SFO",
+      "city": "San Francisco",
+      "state": "California",
+      "latitude": 37.7749295,
+      "longitude": -122.4194155
+    },
+    {
+      "code": "SJC",
+      "city": "San Jose",
+      "state": "California",
+      "latitude": 37.3382082,
+      "longitude": -121.8863286
+    },
+    {
+      "code": "SJU",
+      "city": "San Juan",
+      "state": "Puerto Rico",
+      "latitude": 18.4393987,
+      "longitude": -66.0021348
+    },
+    {
+      "code": "SMF",
+      "city": "Sacramento",
+      "state": "California",
+      "latitude": 38.5815719,
+      "longitude": -121.4943996
+    },
+    {
+      "code": "SNA",
+      "city": "Santa Ana",
+      "state": "California",
+      "latitude": 33.7455731,
+      "longitude": -117.8678338
+    },
+    {
+      "code": "STL",
+      "city": "St. Louis",
+      "state": "Missouri",
+      "latitude": 38.6270025,
+      "longitude": -90.19940419999999
+    },
+    {
+      "code": "TPA",
+      "city": "Tampa",
+      "state": "Florida",
+      "latitude": 27.950575,
+      "longitude": -82.4571776
+    },
+    {
+      "code": "ABQ",
+      "city": "Albuquerque",
+      "state": "New Mexico",
+      "latitude": 35.0853336,
+      "longitude": -106.6055534
+    },
+    {
+      "code": "ANC",
+      "city": "Anchorage",
+      "state": "Alaska",
+      "latitude": 61.2180556,
+      "longitude": -149.9002778
+    },
+    {
+      "code": "BOI",
+      "city": "Boise City",
+      "state": "Idaho",
+      "latitude": 43.6187102,
+      "longitude": -116.2146068
+    },
+    {
+      "code": "COS",
+      "city": "Colorado Springs",
+      "state": "Colorado",
+      "latitude": 38.8338816,
+      "longitude": -104.8213634
+    },
+    {
+      "code": "DAY",
+      "city": "Dayton",
+      "state": "Ohio",
+      "latitude": 39.7589478,
+      "longitude": -84.1916069
+    },
+    {
+      "code": "DSM",
+      "city": "Des Moines",
+      "state": "Iowa",
+      "latitude": 41.6005448,
+      "longitude": -93.6091064
+    },
+    {
+      "code": "DTW",
+      "city": "Detroit",
+      "state": "Michigan",
+      "latitude": 42.331427,
+      "longitude": -83.0457538
+    },
+    {
+      "code": "ELP",
+      "city": "El Paso",
+      "state": "Texas",
+      "latitude": 31.7775757,
+      "longitude": -106.4424559
+    },
+    {
+      "code": "FAT",
+      "city": "Fresno",
+      "state": "California",
+      "latitude": 36.7468422,
+      "longitude": -119.7725868
+    },
+    {
+      "code": "ILM",
+      "city": "Wilmington",
+      "state": "North Carolina",
+      "latitude": 34.2257255,
+      "longitude": -77.9447102
+    },
+    {
+      "code": "IND",
+      "city": "Indianapolis",
+      "state": "Indiana",
+      "latitude": 39.768403,
+      "longitude": -86.158068
+    },
+    {
+      "code": "JAC",
+      "city": "Jackson",
+      "state": "Wyoming",
+      "latitude": 43.6073333,
+      "longitude": -110.7377500
+    },
+    {
+      "code": "MFE",
+      "city": "Mission/McAllen/Edinburg",
+      "state": "Texas",
+      "latitude": 26.1758333,
+      "longitude": -98.2386111
+    },
+    {
+      "code": "MKE",
+      "city": "Milwaukee",
+      "state": "Wisconsin",
+      "latitude": 43.0389025,
+      "longitude": -87.9064736
+    },
+    {
+      "code": "OAK",
+      "city": "Oakland",
+      "state": "California",
+      "latitude": 37.8043637,
+      "longitude": -122.2711137
+    },
+    {
+      "code": "OMA",
+      "city": "Omaha",
+      "state": "Nebraska",
+      "latitude": 41.2523634,
+      "longitude": -95.99798829999999
+    },
+    {
+      "code": "ONT",
+      "city": "Ontario",
+      "state": "California",
+      "latitude": 34.0633443,
+      "longitude": -117.6508876
+    },
+    {
+      "code": "ORF",
+      "city": "Norfolk",
+      "state": "Virginia",
+      "latitude": 36.8507689,
+      "longitude": -76.28587259999999
+    },
+    {
+      "code": "PBI",
+      "city": "West Palm Beach/Palm Beach",
+      "state": "Florida",
+      "latitude": 26.6831667,
+      "longitude": -80.0955833
+    },
+    {
+      "code": "PDX",
+      "city": "Portland",
+      "state": "Oregon",
+      "latitude": 45.5230622,
+      "longitude": -122.6764816
+    },
+    {
+      "code": "PSP",
+      "city": "Palm Springs",
+      "state": "California",
+      "latitude": 33.8302961,
+      "longitude": -116.5452921
+    },
+    {
+      "code": "PWM",
+      "city": "Portland",
+      "state": "Maine",
+      "latitude": 43.66147100000001,
+      "longitude": -70.2553259
+    },
+    {
+      "code": "RNO",
+      "city": "Reno",
+      "state": "Nevada",
+      "latitude": 39.5296329,
+      "longitude": -119.8138027
+    },
+    {
+      "code": "SLC",
+      "city": "Salt Lake City",
+      "state": "Utah",
+      "latitude": 40.7607793,
+      "longitude": -111.8910474
+    },
+    {
+      "code": "SYR",
+      "city": "Syracuse",
+      "state": "New York",
+      "latitude": 43.0481221,
+      "longitude": -76.14742439999999
+    },
+    {
+      "code": "TUL",
+      "city": "Tulsa",
+      "state": "Oklahoma",
+      "latitude": 36.1539816,
+      "longitude": -95.99277500000001
+    },
+    {
+      "code": "TUS",
+      "city": "Tucson",
+      "state": "Arizona",
+      "latitude": 32.2217429,
+      "longitude": -110.926479
+    }
+  ]
+
