@@ -1,0 +1,302 @@
+[
+	{
+		"city": "Montgomery",
+		"state": "Alabama",
+		"latitude": 32.361538,
+      	"longitude": -84.3879824
+	},
+	{
+		"city": "Juneau",
+		"state": "Alaska",
+		"latitude": 58.301935,
+      	"longitude": -134.419740
+	},
+	{
+		"city": "Phoenix",
+		"state": "Arizona",
+		"latitude": 33.448457,
+      	"longitude": -112.073844
+	},
+	{
+		"city": "Little Rock",
+		"state": "Arkansas",
+		"latitude": 34.736009,
+      	"longitude": -92.331122
+	},
+	{
+		"city": "Sacramento",
+		"state": "California",
+		"latitude": 38.555605,
+      	"longitude": -121.468926
+	},
+	{
+		"city": "Denver",
+		"state": "Colorado",
+		"latitude": 39.7391667,
+      	"longitude": -104.984167
+	},
+	{
+		"city": "Hartford",
+		"state": "Connecticut",
+		"latitude": 41.767,
+      	"longitude": -72.677
+	},
+	{
+		"city": "Dover",
+		"state": "Delaware",
+		"latitude": 39.161921,
+      	"longitude": -75.526755
+	},
+	{
+		"city": "Tallahassee",
+		"state": "Florida",
+		"latitude": 30.4518,
+      	"longitude": -84.27277
+	},
+	{
+		"city": "Atlanta",
+		"state": "Georgia",
+		"latitude": 33.76,
+      	"longitude": -84.39
+	},
+	{
+		"city": "Honolulu",
+		"state": "Hawaii",
+		"latitude": 21.30895,
+      	"longitude": -157.826182
+	},
+	{
+		"city": "Boise",
+		"state": "Idaho",
+		"latitude": 43.613739,
+      	"longitude": -116.237651
+	},
+	{
+		"city": "Springfield",
+		"state": "Illinois",
+		"latitude": 39.783250,
+      	"longitude": -89.650373
+	},
+	{
+		"city": "Indianapolis",
+		"state": "Indiana",
+		"latitude": 39.790942,
+      	"longitude": -86.147685
+	},
+	{
+		"city": "Des Moines",
+		"state": "Iowa",
+		"latitude": 41.590939,
+      	"longitude": -93.620866
+	},
+	{
+		"city": "Topeka",
+		"state": "Kansas",
+		"latitude": 39.04,
+      	"longitude": -95.69
+	},
+	{
+		"city": "Frankfort",
+		"state": "Kentucky",
+		"latitude": 38.197274,
+      	"longitude": -84.86311
+	},
+	{
+		"city": "Baton Rouge",
+		"state": "Louisiana",
+		"latitude": 30.45809,
+      	"longitude": -91.140229
+	},
+	{
+		"city": "Augusta",
+		"state": "Maine",
+		"latitude": 44.323535,
+      	"longitude": -69.765261
+	},
+	{
+		"city": "Annapolis",
+		"state": "Maryland",
+		"latitude": 38.972945,
+      	"longitude": -76.501157
+	},
+	{
+		"city": "Boston",
+		"state": "Massachusetts",
+		"latitude": 42.2352,
+      	"longitude": -71.0275
+	},
+	{
+		"city": "Lansing",
+		"state": "Michigan",
+		"latitude": 42.7335,
+      	"longitude": -84.5467
+	},
+	{
+		"city": "Saint Paul",
+		"state": "Minnesota",
+		"latitude": 44.95,
+      	"longitude": -93.094
+	},
+	{
+		"city": "Jackson",
+		"state": "Mississippi",
+		"latitude": 32.320,
+      	"longitude": -90.207
+	},
+	{
+		"city": "Jefferson City",
+		"state": "Missouri",
+		"latitude": 38.572954,
+      	"longitude": -92.189283
+	},
+	{
+		"city": "Helana",
+		"state": "Montana",
+		"latitude": 46.595805,
+      	"longitude": -112.027031
+	},
+	{
+		"city": "Lincoln",
+		"state": "Nebraska",
+		"latitude": 40.809868,
+      	"longitude": -96.675345
+	},
+	{
+		"city": "Carson City",
+		"state": "Nevada",
+		"latitude": 39.160949,
+      	"longitude": -119.753877
+	},
+	{
+		"city": "Concord",
+		"state": "New Hampshire",
+		"latitude": 43.220093,
+      	"longitude": -71.549127
+	},
+	{
+		"city": "Trenton",
+		"state": "New Jersey",
+		"latitude": 40.221741,
+      	"longitude": -74.756138
+	},
+	{
+		"city": "Santa Fe",
+		"state": "New Mexico",
+		"latitude": 35.667231,
+      	"longitude": -105.964575
+	},
+	{
+		"city": "Albany",
+		"state": "New York",
+		"latitude": 42.659829,
+      	"longitude": -73.781339
+	},
+	{
+		"city": "Raleigh",
+		"state": "North Carolina",
+		"latitude": 35.771,
+      	"longitude": -78.638
+	},
+	{
+		"city": "Bismarck",
+		"state": "North Dakota",
+		"latitude": 48.813343,
+      	"longitude": -100.779004
+	},
+	{
+		"city": "Columbus",
+		"state": "Ohio",
+		"latitude": 39.962245,
+      	"longitude": -83.000647
+	},
+	{
+		"city": "Oklahoma City",
+		"state": "Oklahoma",
+		"latitude": 35.482309,
+      	"longitude": -97.534994
+	},
+	{
+		"city": "Salem",
+		"state": "Oregon",
+		"latitude": 44.931109,
+      	"longitude": -123.029159
+	},
+	{
+		"city": "Harrisburg",
+		"state": "Pennsylvania",
+		"latitude": 40.269789,
+      	"longitude": -76.875613
+	},
+	{
+		"city": "Providence",
+		"state": "Rhode Island",
+		"latitude": 41.82355,
+      	"longitude": -71.422132
+	},
+	{
+		"city": "Columbia",
+		"state": "South Carolina",
+		"latitude": 34.000,
+      	"longitude": -81.035
+	},
+	{
+		"city": "Pierre",
+		"state": "South Dakota",
+		"latitude": 44.367966,
+      	"longitude": -100.336378
+	},
+	{
+		"city": "Nashville",
+		"state": "Tennessee",
+		"latitude": 36.165,
+      	"longitude": -86.784
+	},
+	{
+		"city": "Austin",
+		"state": "Texas",
+		"latitude": 30.266667,
+      	"longitude": -97.75
+	},
+	{
+		"city": "Salt Lake City",
+		"state": "Utah",
+		"latitude": 40.7547,
+      	"longitude": -111.892622
+	},
+	{
+		"city": "Montpelier",
+		"state": "Vermont",
+		"latitude": 44.26639,
+      	"longitude": -72.57194
+	},
+	{
+		"city": "Richmond",
+		"state": "Virginia",
+		"latitude": 37.54,
+      	"longitude": -77.46
+	},
+	{
+		"city": "Olympia",
+		"state": "Washington",
+		"latitude": 47.042418,
+      	"longitude": -122.893077
+	},
+	{
+		"city": "Charleston",
+		"state": "West Virginia",
+		"latitude": 38.349497,
+      	"longitude": -81.633294
+	},
+	{
+		"city": "Madison",
+		"state": "Wisconsin",
+		"latitude": 43.074722,
+      	"longitude": -89.384444
+	},
+	{
+		"city": "Cheyenne",
+		"state": "Wyoming",
+		"latitude": 41.145548,
+      	"longitude": -104.802042
+	}
+]
