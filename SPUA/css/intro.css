@@ -25,9 +25,6 @@ a {
   transition: all 0.35s;
   color: #F05F40;
 }
-.link{
-  font-size: 30px;
-}
 a:hover,
 a:focus {
   color: #eb3812;
@@ -62,12 +59,10 @@ aside {
   padding: 200px 0;
 }
 .video {
-/*  position: absolute;
+  position: absolute;
   left: 31%;
-  bottom: -370%;
-  margin-bottom: 50px;*/
-  /*display: block;*/
-  text-align: center;
+  bottom: -440%;
+  margin-bottom: 50px;
 }
 .no-padding {
   padding: 0;
@@ -166,7 +161,7 @@ header {
   background-size: cover;
   -o-background-size: cover;
   background-position: center;
-  background-image: url('http://www.cyberwar.news/wp-content/uploads/sites/32/2015/12/power_grid_sun_yellow.jpg');
+  background-image: url('http://s.hswstatic.com/gif/power-grid-orig.jpg');
   text-align: center;
   color: white;
 }
@@ -253,9 +248,8 @@ header .header-content .header-content-inner p {
   margin-top: 0;
 }
 .image-cropper {
-    width: auto;
-    height: auto;
-    max-height: 300px;
+    width: 250px;
+    height: 250px;
     position: relative;
     overflow: hidden;
     border-radius: 50%;
