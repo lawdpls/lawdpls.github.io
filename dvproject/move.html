@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvas" style="border: 1px solid" width="600" height="600"></canvas>
+
+</body>
+<script>
+
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+var raf;
+
+
+var ball= {
+  x1: 10,
+  y1: 10,
+  x2: 200,
+  y2: 200,
+  vx: 10,
+  vy: 5,
+  radius: 3,
+  color: 'blue',
+  draw: function() {
+    ctx.beginPath();
+    ctx.arc(this.x1, this.y1, this.radius, 0, Math.PI*2, true);
+    ctx.closePath();
+    ctx.fillStyle = this.color;
+    ctx.fill();
+  }
+
+
+};
+
+function update() {
+    if(balls.length==0) {
+        return;
+    }
+    //console.log(balls);
+    for(var i= 0;i<balls.length;i++) {
+        //ctx.clearRect(balls[i].x1-5, balls[i].y1-5, 10, 10);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+        ctx.fillRect(0, 0, balls[i].x1,balls[i].y1);
+        if (balls[i].x1 + balls[i].vx <= balls[i].x2 &&
+                balls[i].y1 + balls[i].vy <= balls[i].y2) {
+            balls[i].x1 += balls[i].vx;
+            balls[i].y1 += balls[i].vy;
+
+
+        } else {
+            ctx.clearRect(balls[i].x2 - balls[i].vx, balls[i].y2 - balls[i].vy, 20, 20);
+        }
+
+        balls[i].draw();
+
+
+    }
+
+
+
+};
+var intervals;
+var balls=[];
+
+
+function add_ball(){
+    //ball.draw();
+    var ball = {
+      x1: 10,
+      y1: 10,
+      x2: 200,
+      y2: 200,
+      vx: 10,
+      vy: 5,
+      radius: 3,
+      color: 'blue',
+      draw: function() {
+        ctx.beginPath();
+        ctx.arc(this.x1, this.y1, this.radius, 0, Math.PI*2, true);
+        ctx.closePath();
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+
+
+    };
+    if(balls.length<=4){
+        ball.draw();
+        balls.push(ball);
+    }
+
+};
+
+
+function add_update(){
+    add_ball();
+    update();
+}
+function set_interval_func() {
+    //add_ball();
+    window.setInterval(add_update, 500);
+}
+
+raf = window.requestAnimationFrame(set_interval_func);
+/*
+canvas.addEventListener('mouseover', function(e) {
+  raf = window.requestAnimationFrame(draw);
+});
+
+canvas.addEventListener("mouseout", function(e) {
+  window.cancelAnimationFrame(raf);
+});
+*/
+
+//ball.draw();
+
+</script>
+</html>
