@@ -853,9 +853,9 @@ function mini() {
   }
 
   function renderer(){
-		ctx1.fillStyle = 'rgba(0, 0, 32, 0.1)';
+    ctx1.fillStyle = 'rgba(0, 0, 32, 0.1)';
         ctx1.fillRect(0, 0, canvas1.width, canvas1.height);
-		window.requestAnimationFrame(renderer);
+    window.requestAnimationFrame(renderer);
   }
 
 
@@ -963,10 +963,10 @@ function autoAdvance(){
 }
 
 var playTimer = setInterval(function(){
-  if (autoplay == true && clicked == true && massflag.length == 49){
+  if (autoplay == true && clicked == true && massflag.length == 50){
     autoAdvance();
   }
-}, 7000);
+}, 6000);
 
 d3.selectAll("#auto")
   .on("click", function(d){
