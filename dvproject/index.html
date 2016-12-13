@@ -378,6 +378,9 @@ style="position: absolute;left: 0;top:0;z-index: 1;"></canvas>
                       .style('opacity', 0)
                       .style('fill', 'white');
         bar05.on('click', function(d){
+          for (var i=0;i<names.length;i++){
+            names[i].num = 0;
+          }
           massflag = [];
           count = 0;
           d3.selectAll('.yearz')
@@ -389,6 +392,9 @@ style="position: absolute;left: 0;top:0;z-index: 1;"></canvas>
           mini();
         })
         bar06.on('click', function(d){
+          for (var i=0;i<names.length;i++){
+            names[i].num = 0;
+          }
           massflag = [];
           count = 0;
           d3.selectAll('.yearz')
@@ -400,6 +406,9 @@ style="position: absolute;left: 0;top:0;z-index: 1;"></canvas>
           mini();
         })
         bar07.on('click', function(d){
+          for (var i=0;i<names.length;i++){
+            names[i].num = 0;
+          }
           massflag = [];
           count = 0;
           d3.selectAll('.yearz')
@@ -411,6 +420,9 @@ style="position: absolute;left: 0;top:0;z-index: 1;"></canvas>
           mini();
         })
         bar08.on('click', function(d){
+          for (var i=0;i<names.length;i++){
+            names[i].num = 0;
+          }
           massflag = [];
           count = 0;
           d3.selectAll('.yearz')
@@ -422,6 +434,9 @@ style="position: absolute;left: 0;top:0;z-index: 1;"></canvas>
           mini();
         })
         bar09.on('click', function(d){
+          for (var i=0;i<names.length;i++){
+            names[i].num = 0;
+          }
           massflag = [];
           count = 0;
           d3.selectAll('.yearz')
@@ -433,6 +448,9 @@ style="position: absolute;left: 0;top:0;z-index: 1;"></canvas>
           mini();
         })
         bar10.on('click', function(d){
+          for (var i=0;i<names.length;i++){
+            names[i].num = 0;
+          }
           massflag = [];
           count = 0;
           d3.selectAll('.yearz')
@@ -444,6 +462,9 @@ style="position: absolute;left: 0;top:0;z-index: 1;"></canvas>
           mini();
         })
         bar11.on('click', function(d){
+          for (var i=0;i<names.length;i++){
+            names[i].num = 0;
+          }
           massflag = [];
           count = 0;
           d3.selectAll('.yearz')
@@ -455,6 +476,9 @@ style="position: absolute;left: 0;top:0;z-index: 1;"></canvas>
           mini();
         })
         bar12.on('click', function(d){
+          for (var i=0;i<names.length;i++){
+            names[i].num = 0;
+          }
           massflag = [];
           count = 0;
           d3.selectAll('.yearz')
@@ -466,6 +490,9 @@ style="position: absolute;left: 0;top:0;z-index: 1;"></canvas>
           mini();
         })
         bar13.on('click', function(d){
+          for (var i=0;i<names.length;i++){
+            names[i].num = 0;
+          }
           massflag = [];
           count = 0;
           d3.selectAll('.yearz')
@@ -477,6 +504,9 @@ style="position: absolute;left: 0;top:0;z-index: 1;"></canvas>
           mini();
         })
         bar14.on('click', function(d){
+          for (var i=0;i<names.length;i++){
+            names[i].num = 0;
+          }
           massflag = [];
           count = 0;
           d3.selectAll('.yearz')
@@ -488,6 +518,9 @@ style="position: absolute;left: 0;top:0;z-index: 1;"></canvas>
           mini();
         })
         bar15.on('click', function(d){
+          for (var i=0;i<names.length;i++){
+            names[i].num = 0;
+          }
           massflag = [];
           count = 0;
           d3.selectAll('.yearz')
@@ -586,6 +619,9 @@ style="position: absolute;left: 0;top:0;z-index: 1;"></canvas>
                 selected = "";
               })
               .on("click", function(d){
+                for (var i=0;i<names.length;i++){
+            names[i].num = 0;
+          }
                 massflag = [];
                 count = 0;
                 d3.selectAll(".linez")
@@ -958,6 +994,9 @@ function autoAdvance(){
     d3.selectAll(".yearz").style("opacity",0);
     d3.select("#bar"+year).style("opacity",0.6);
     massflag = []; 
+    for (var i=0;i<names.length;i++){
+            names[i].num = 0;
+          }
     flow(canvas_capital, revNames[target]);
     mini();
 }
