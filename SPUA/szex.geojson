@@ -1,0 +1,25 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "latitude": 22.522390, "longitude": 114.065170, "time": 1, "id": "route1", "name":"Office" }, "geometry": { "type": "Point", "coordinates": [ 114.06517, 22.52239 ] } },
+{ "type": "Feature", "properties": { "latitude": 22.521580, "longitude": 114.065480, "time": 2, "id": "route1", "name":"Along route"  }, "geometry": { "type": "Point", "coordinates": [ 114.06548, 22.52158 ] } },
+{ "type": "Feature", "properties": { "latitude": 22.521280, "longitude": 114.064720, "time": 3, "id": "route1", "name":"Along route"   }, "geometry": { "type": "Point", "coordinates": [ 114.06472, 22.52128 ] } },
+{ "type": "Feature", "properties": { "latitude": 22.520890, "longitude": 114.063760, "time": 4, "id": "route1" , "name":"Along route"  }, "geometry": { "type": "Point", "coordinates": [ 114.06376, 22.52089 ] } },
+{ "type": "Feature", "properties": { "latitude": 22.521580, "longitude": 114.063480, "time": 5, "id": "route1", "name":"Along route"   }, "geometry": { "type": "Point", "coordinates": [ 114.06348, 22.52158 ] } },
+{ "type": "Feature", "properties": { "latitude": 22.522310, "longitude": 114.063220, "time": 6, "id": "route1", "name":"Along route"   }, "geometry": { "type": "Point", "coordinates": [ 114.06322, 22.52231 ] } },
+{ "type": "Feature", "properties": { "latitude": 22.522470, "longitude": 114.063160, "time": 7, "id": "route1", "name":"Along route"   }, "geometry": { "type": "Point", "coordinates": [ 114.06316, 22.52247 ] } },
+{ "type": "Feature", "properties": { "latitude": 22.523580, "longitude": 114.062740, "time": 8, "id": "route1", "name":"Along route"   }, "geometry": { "type": "Point", "coordinates": [ 114.06274, 22.52358 ] } },
+{ "type": "Feature", "properties": { "latitude": 22.525190, "longitude": 114.062150, "time": 9, "id": "route1", "name":"Along route"   }, "geometry": { "type": "Point", "coordinates": [ 114.06215, 22.52519 ] } },
+{ "type": "Feature", "properties": { "latitude": 22.525590, "longitude": 114.062020, "time": 10, "id": "route1", "name":"Along route"   }, "geometry": { "type": "Point", "coordinates": [ 114.06202, 22.52559 ] } },
+{ "type": "Feature", "properties": { "latitude": 22.525390, "longitude": 114.061510, "time": 11, "id": "route1", "name":"Along route"   }, "geometry": { "type": "Point", "coordinates": [ 114.06151, 22.52539 ] } },
+{ "type": "Feature", "properties": { "latitude": 22.524180, "longitude": 114.058650, "time": 12, "id": "route1", "name":"Along route"   }, "geometry": { "type": "Point", "coordinates": [ 114.05865, 22.52418 ] } },
+{ "type": "Feature", "properties": { "latitude": 22.523900, "longitude": 114.057980, "time": 13, "id": "route1", "name":"Along route"   }, "geometry": { "type": "Point", "coordinates": [ 114.05798, 22.5239 ] } },
+{ "type": "Feature", "properties": { "latitude": 22.524550, "longitude": 114.057510, "time": 14, "id": "route1", "name":"Along route"   }, "geometry": { "type": "Point", "coordinates": [ 114.05751, 22.52455 ] } },
+{ "type": "Feature", "properties": { "latitude": 22.526370, "longitude": 114.056180, "time": 15, "id": "route1", "name":"Along route"   }, "geometry": { "type": "Point", "coordinates": [ 114.05618, 22.52637 ] } },
+{ "type": "Feature", "properties": { "latitude": 22.526960, "longitude": 114.055750, "time": 16, "id": "route1", "name":"Along route"   }, "geometry": { "type": "Point", "coordinates": [ 114.05575, 22.52696 ] } },
+{ "type": "Feature", "properties": { "latitude": 22.527570, "longitude": 114.055310, "time": 17, "id": "route1", "name":"Along route"   }, "geometry": { "type": "Point", "coordinates": [ 114.05531, 22.52757 ] } },
+{ "type": "Feature", "properties": { "latitude": 22.527250, "longitude": 114.054550, "time": 18, "id": "route1", "name":"Home"   }, "geometry": { "type": "Point", "coordinates": [ 114.05455, 22.52725 ] } }
+]
+}
