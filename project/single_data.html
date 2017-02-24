@@ -32,7 +32,7 @@ d3.json("https://lawdpls.github.io/project/single_result.json", function(collect
             fillColor: '#f03',
             fillOpacity: 0.5,
             className: 'circles',
-            radius: 0.001
+            radius: 0.01
         }).addTo(mapLeaflet);
         cir.bindPopup(popup);
         cir.on('mouseover', function(){
@@ -57,6 +57,37 @@ d3.json("https://lawdpls.github.io/project/single_result.json", function(collect
         opacity: 0.5,
         lineJoin:'round'
     }).addTo(mapLeaflet);
+    first = [line[0][0][1], line[0][0][0]]
+    last = [line[1][99][1], line[1][99][0]]
+    // console.log(line)
+    L.circle(first, {
+            color: 'green',
+            fillColor: 'green',
+            fillOpacity: 1,
+            className: 'circles',
+            radius: 250
+        }).addTo(mapLeaflet);
+        cir.bindPopup(popup);
+        cir.on('mouseover', function(){
+            this.openPopup();
+        });
+        cir.on('mouseout', function (e) {
+            this.closePopup();
+        });
+    L.circle(last, {
+            color: 'green',
+            fillColor: 'green',
+            fillOpacity: 1,
+            className: 'circles',
+            radius: 250
+        }).addTo(mapLeaflet);
+        cir.bindPopup(popup);
+        cir.on('mouseover', function(){
+            this.openPopup();
+        });
+        cir.on('mouseout', function (e) {
+            this.closePopup();
+        });
     // console.log(point)
 })
 // var f = [[-41.286, 174.796],
