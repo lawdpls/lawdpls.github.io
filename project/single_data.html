@@ -29,8 +29,8 @@ d3.json("https://lawdpls.github.io/project/single_result.json", function(collect
             .setContent("n_pairs: "+hub[i].n_pairs+"<br>Volume: "+hub[i].volume);
         var cir = L.circle(loc, {
             color: 'yellow',
-            fillColor: '#f03',
-            fillOpacity: 0.5,
+            fillColor: 'yellow',
+            fillOpacity: 1,
             className: 'circles',
             radius: 250
         }).addTo(mapLeaflet);
