@@ -17,7 +17,7 @@
 L.mapbox.accessToken = 'pk.eyJ1IjoicmhhZGFtYW50aHlzMDQiLCJhIjoiY2l6NzhzaWM1MDAyODMzcG80cWtmM2dpYyJ9.6YwZBaNJIFNspvE6_P35aQ';
 var mapLeaflet = L.mapbox.map('map-leaflet', 'mapbox.light')
   .setView([22.5453673, 113.9045327], 11);
-d3.json("https://lawdpls.github.io/SPUA/single_data.json", function(collection) {
+d3.json("https://lawdpls.github.io/project/single_result.json", function(collection) {
     console.log(collection.H3_D2_T1)
     var hub = collection.H3_D2_T1.hub.result;
     var line = collection.H3_D2_T1.direct.result;
