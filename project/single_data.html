@@ -4,7 +4,7 @@
   <meta charset=utf-8 />
   <title></title>
   <script src='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.js'></script>
-  <script src="https://d3js.org/d3.v3.min.js" type="text/javascript"></script>
+  <script src="http://d3js.org/d3.v3.min.js" type="text/javascript"></script>
   <link href='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.css' rel='stylesheet' />
   <style>
     body { margin:0; padding:0; }
@@ -15,7 +15,7 @@
 <div id='map-leaflet' class='map'> </div>
 <script>
 L.mapbox.accessToken = 'pk.eyJ1IjoicmhhZGFtYW50aHlzMDQiLCJhIjoiY2l6NzhzaWM1MDAyODMzcG80cWtmM2dpYyJ9.6YwZBaNJIFNspvE6_P35aQ';
-var mapLeaflet = L.mapbox.map('map-leaflet', 'mapbox.light')
+var mapLeaflet = L.mapbox.map('map-leaflet', 'mapbox.dark')
   .setView([22.5453673, 113.9045327], 11);
 d3.json("https://lawdpls.github.io/project/single_result.json", function(collection) {
     console.log(collection.H3_D2_T1)
@@ -26,13 +26,13 @@ d3.json("https://lawdpls.github.io/project/single_result.json", function(collect
         loc[0] = hub[i].loc_lat;
         loc[1] = hub[i].loc_lng;
         var popup = L.popup()
-            .setContent("n_pairs: "+hub[i].n_pairs+"Volume: "+hub[i].volume);
+            .setContent("n_pairs: "+hub[i].n_pairs+"<br>Volume: "+hub[i].volume);
         var cir = L.circle(loc, {
-            color: 'red',
+            color: 'yellow',
             fillColor: '#f03',
             fillOpacity: 0.5,
             className: 'circles',
-            radius: 500
+            radius: 0.001
         }).addTo(mapLeaflet);
         cir.bindPopup(popup);
         cir.on('mouseover', function(){
@@ -51,15 +51,20 @@ d3.json("https://lawdpls.github.io/project/single_result.json", function(collect
             point.push(temp)
         }       
     }
-    L.polyline(point).addTo(mapLeaflet);
+    L.polyline(point,{
+        color:'red',
+        weight: 5,
+        opacity: 0.5,
+        lineJoin:'round'
+    }).addTo(mapLeaflet);
     // console.log(point)
 })
-var f = [[-41.286, 174.796],
-            [-41.281, 174.786],
-            [-41.279, 174.776],
-            [-41.290, 174.775],
-            [-41.292, 174.788]]
-            console.log(f)
+// var f = [[-41.286, 174.796],
+//             [-41.281, 174.786],
+//             [-41.279, 174.776],
+//             [-41.290, 174.775],
+//             [-41.292, 174.788]]
+//             console.log(f)
 // L.polyline(f).addTo(mapLeaflet);
 // L.circle([22.5453673, 114.0545327], {
 //     color: 'red',
