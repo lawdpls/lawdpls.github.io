@@ -15,7 +15,7 @@
 <div id='map-leaflet' class='map'> </div>
 <script>
 L.mapbox.accessToken = 'pk.eyJ1IjoicmhhZGFtYW50aHlzMDQiLCJhIjoiY2l6NzhzaWM1MDAyODMzcG80cWtmM2dpYyJ9.6YwZBaNJIFNspvE6_P35aQ';
-var mapLeaflet = L.mapbox.map('map-leaflet', 'mapbox.dark')
+var mapLeaflet = L.mapbox.map('map-leaflet', 'mapbox.light')
   .setView([22.5453673, 113.9045327], 11);
 d3.json("https://lawdpls.github.io/project/single_result.json", function(collection) {
     console.log(collection.H3_D2_T1)
@@ -26,14 +26,9 @@ d3.json("https://lawdpls.github.io/project/single_result.json", function(collect
         loc[0] = hub[i].loc_lat;
         loc[1] = hub[i].loc_lng;
         var popup = L.popup()
-            .setContent("n_pairs: "+hub[i].n_pairs+"<br>Volume: "+hub[i].volume);
-        var cir = L.circle(loc, {
-            color: 'yellow',
-            fillColor: 'yellow',
-            fillOpacity: 1,
-            className: 'circles',
-            radius: 250
-        }).addTo(mapLeaflet);
+            .setContent("n_pairs: "+hub[i].n_pairs+"<br>Volume: "+
+                Math.floor(hub[i].volume));
+        var cir = L.marker(loc).addTo(mapLeaflet);
         cir.bindPopup(popup);
         cir.on('mouseover', function(){
             this.openPopup();
@@ -44,50 +39,56 @@ d3.json("https://lawdpls.github.io/project/single_result.json", function(collect
     }
 
     var num = line.length;
-    var point = [];
     for (var k = 0; k<num; k++) {
+        var point = [];
+        var sp = L.popup()
+            .setContent("Start");
+        var lp = L.popup()
+            .setContent("End");
+        var len = line[k].length,
+            first = [line[k][0][1], line[k][0][0]]
+            last = [line[num-1][len-1][1], line[num-1][len-1][0]]
         for (var i = 0; i<line[k].length;i++){
             var temp = [line[k][i][1],line[k][i][0]];
             point.push(temp)
-        }       
+        }
+        L.polyline(point,{
+                color:'red',
+                weight: 5,
+                opacity: 0.5,
+                lineJoin:'round'
+        }).addTo(mapLeaflet);
+        var star = L.circleMarker(first, {
+            color: '#88E188',
+            opacity: 0.5,
+            fillColor: '#88E188',
+            fillOpacity: 0.5
+            // className: 'circles',
+            // radius: 400
+        }).addTo(mapLeaflet);
+        star.bindPopup(sp);
+        star.on('mouseover', function(){
+            this.openPopup();
+        });
+        star.on('mouseout', function (e) {
+            this.closePopup();
+        });
+        var end = L.circleMarker(last, {
+            color: '#98FB98',
+            opacity: 0.5,
+            fillColor: '#98FB98',
+            fillOpacity: 0.5
+            // className: 'circles',
+            // radius: 400
+        }).addTo(mapLeaflet);
+        end.bindPopup(lp);
+        end.on('mouseover', function(){
+            this.openPopup();
+        });
+        end.on('mouseout', function (e) {
+            this.closePopup();
+        });
     }
-    L.polyline(point,{
-        color:'red',
-        weight: 5,
-        opacity: 0.5,
-        lineJoin:'round'
-    }).addTo(mapLeaflet);
-    first = [line[0][0][1], line[0][0][0]]
-    last = [line[1][99][1], line[1][99][0]]
-    // console.log(line)
-    L.circle(first, {
-            color: 'green',
-            fillColor: 'green',
-            fillOpacity: 1,
-            className: 'circles',
-            radius: 250
-        }).addTo(mapLeaflet);
-        cir.bindPopup(popup);
-        cir.on('mouseover', function(){
-            this.openPopup();
-        });
-        cir.on('mouseout', function (e) {
-            this.closePopup();
-        });
-    L.circle(last, {
-            color: 'green',
-            fillColor: 'green',
-            fillOpacity: 1,
-            className: 'circles',
-            radius: 250
-        }).addTo(mapLeaflet);
-        cir.bindPopup(popup);
-        cir.on('mouseover', function(){
-            this.openPopup();
-        });
-        cir.on('mouseout', function (e) {
-            this.closePopup();
-        });
     // console.log(point)
 })
 // var f = [[-41.286, 174.796],
