@@ -32,7 +32,7 @@
 <div id='container'>
 <div id='panel'>
     <span>Time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    <input id="lol1" type="range" min="1" max="5" value="1" step="1" onchange="showTime(this.value)" />
+    <input id="lol1" type="range" min="1" max="7" value="1" step="1" onchange="showTime(this.value)" />
     <span id="display1">0am-5am</span><br>
     <span>Hub Number</span>
     <input id="lol2" type="range" min="1" max="10" value="1" step="1" onchange="showValue(this.value, this.id)" />
@@ -50,13 +50,17 @@ function showTime(newValue)
     if (newValue == "1"){
         document.getElementById("display1").innerHTML="0am-5am";
     } else if (newValue == "2"){
-        document.getElementById("display1").innerHTML="6am-9am";
+        document.getElementById("display1").innerHTML="6am-8am";
     } else if (newValue == "3"){
-        document.getElementById("display1").innerHTML="10am-15pm";
+        document.getElementById("display1").innerHTML="9am-11am";
     } else if (newValue == "4"){
-        document.getElementById("display1").innerHTML="16pm-18pm";
+        document.getElementById("display1").innerHTML="12pm-14pm";
+    } else if (newValue == "5"){
+        document.getElementById("display1").innerHTML="15pm-17pm";
+    } else if (newValue == "6"){
+        document.getElementById("display1").innerHTML="18pm-20pm";
     } else {
-        document.getElementById("display1").innerHTML="19pm-23pm";
+        document.getElementById("display1").innerHTML="21pm-23pm";
     }
 }
 function showValue(newValue, which)
@@ -69,9 +73,17 @@ function showValue(newValue, which)
 }
 </script>
 <script>
+var time = new Date();
+console.log(time.getHours()<6)
 L.mapbox.accessToken = 'pk.eyJ1IjoicmhhZGFtYW50aHlzMDQiLCJhIjoiY2l6NzhzaWM1MDAyODMzcG80cWtmM2dpYyJ9.6YwZBaNJIFNspvE6_P35aQ';
-var mapLeaflet = L.mapbox.map('map-leaflet', 'mapbox.light')
-  .setView([22.5453673, 113.945617], 11);
+if(time.getHours() <= 18 || time.getHours() >= 6){
+    var mapLeaflet = L.mapbox.map('map-leaflet', 'mapbox.light')
+                      .setView([22.5453673, 113.945617], 11);
+} else {
+    var mapLeaflet = L.mapbox.map('map-leaflet', 'mapbox.dark')
+                      .setView([22.5453673, 113.945617], 11);
+}
+
 
 function map(){
     var t = document.getElementById("lol1").value;
@@ -88,18 +100,18 @@ for(i in mapLeaflet._layers) {
             }
         }
     }
-d3.json("https://lawdpls.github.io/project/result_shrink.json", function(collection) {
-    // console.log(combo)
+d3.json("https://lawdpls.github.io/project/data_stable.json", function(collection) {
+    console.log(collection)
     var hub,
     line;
     for (var item in collection) {
         if (item == combo){
-            console.log(collection[item]);
+            // console.log(collection[item]);
             hub = collection[item].hub.result;
             line = collection[item].direct.result;
         }
     }
-    console.log(hub)
+    // console.log(hub)
     for (var i = 0; i<hub.length;i++){
         var loc = [];
         loc[0] = hub[i].loc_lat;
@@ -139,7 +151,7 @@ d3.json("https://lawdpls.github.io/project/result_shrink.json", function(collect
             first = [point[0][0], point[0][1]]
             last = [point[len-1][0], point[len-1][1]];
         var path = L.polyline.antPath(point,{
-        		snakingSpeed: 200,
+                snakingSpeed: 200,
                 color:'red',
                 weight: 5,
                 opacity: 0.5,
