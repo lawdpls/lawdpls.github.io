@@ -32,8 +32,8 @@
 <div id='container'>
 <div id='panel'>
     <span>Time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    <input id="lol1" type="range" min="1" max="5" value="1" step="1" onchange="showValue(this.value, this.id)" />
-    <span id="display1">1</span><br>
+    <input id="lol1" type="range" min="1" max="5" value="1" step="1" onchange="showTime(this.value)" />
+    <span id="display1">0am-5am</span><br>
     <span>Hub Number</span>
     <input id="lol2" type="range" min="1" max="10" value="1" step="1" onchange="showValue(this.value, this.id)" />
     <span id="display2">1</span><br>
@@ -45,20 +45,25 @@
 <div id='map-leaflet' class='map'> </div>
 </div>
 <script type="text/javascript">
-function ya(){
-    var t = document.getElementById("lol1").value;
-    var tt = document.getElementById("lol2").value;
-    var ttt = document.getElementById("lol3").value;
-    var combo = "H"+tt+"_"+"D"+ttt+"_"+"T"+t;
-    console.log(combo)
+function showTime(newValue)
+{
+    if (newValue == "1"){
+        document.getElementById("display1").innerHTML="0am-5am";
+    } else if (newValue == "2"){
+        document.getElementById("display1").innerHTML="6am-9am";
+    } else if (newValue == "3"){
+        document.getElementById("display1").innerHTML="10am-15pm";
+    } else if (newValue == "4"){
+        document.getElementById("display1").innerHTML="16pm-18pm";
+    } else {
+        document.getElementById("display1").innerHTML="19pm-23pm";
+    }
 }
 function showValue(newValue, which)
 {
-    if (which == "lol1"){
-        document.getElementById("display1").innerHTML=newValue;
-    } else if (which == "lol2"){
+    if (which == "lol2"){
         document.getElementById("display2").innerHTML=newValue;
-    } else {
+    } else if (which == "lol3"){
         document.getElementById("display3").innerHTML=newValue;
     }
 }
