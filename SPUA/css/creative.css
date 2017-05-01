@@ -166,7 +166,7 @@ header {
   background-size: cover;
   -o-background-size: cover;
   background-position: center;
-  background-image: url('http://www.cyberwar.news/wp-content/uploads/sites/32/2015/12/power_grid_sun_yellow.jpg');
+  background-image: url('../img/bg1.jpg');
   text-align: center;
   color: white;
 }
@@ -180,7 +180,7 @@ header {
   background-size: cover;
   -o-background-size: cover;
   background-position: center;
-  background-image: url('http://s.hswstatic.com/gif/power-grid-orig.jpg');
+  background-image: url('../img/bg2.jpg');
   text-align: center;
   color: white;
 }
