@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Facility Distribution</title>
+
+<link href="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet.css" rel="stylesheet" type="text/css" />
+<!-- <script src="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet.js"></script> -->
+<script src="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet-src.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+
+<script src="L.Polyline.SnakeAnim.js"></script>
+<script src="/papa/papaparse.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<body>
+	<div id="map" style="width: 100%; height: 600px; border: 1px solid #ccc"></div>
+	<div id="display" style="text-align: center; padding-top: 0; font-size: 2.5em">View</div>
+
+	<!-- <div style="text-align: center;"><button onclick='snake()'>Generate</button></div> -->
+	<div style="text-align: center;"><button onclick='generateMap()'>Change View</button></div>
+
+	<script>
+// 		for (var i = 0, latlngs = [], len = route.length; i < len; i++) {
+// 			latlngs.push(new L.LatLng(route[i][0], route[i][1]));
+// 		}
+		// $.getJSON("refinedgps.json", function(json) {
+		//     console.log(json); // this will show the info it in firebug console
+		// });
+		var map = L.map('map').setView([42.5000, -72.8227], 7);
+		var positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+		}).addTo(map);
+		var counter = 0;
+		var serial = "";
+
+		var csvfile = "sample.csv";
+
+    	$.get(csvfile, function (data) {
+        	Papa.parse(data,{
+        		header: true,
+        		complete: function(rawdata) {
+        			var csvdata = [];
+		        	for (i = 0; i < Math.floor(rawdata.data.length/2); i++) {
+		        		csvdata[i] = rawdata.data[2*i+1];
+		        	}
+		        	// console.log(csvdata)
+		        	generateMap(csvdata);
+        		}
+        	});
+    	});
+		// var trd = [63.5, 11],
+		//     mad = [40.5, -3.5],
+		//     lnd = [51.5, -0.5],
+		//     ams = [52.3, 4.75],
+		//     vlc = [39.5, -0.5];
+		var a1 = [38.521776, -121.749016]
+			a2 = [36.174256, -86.810198]
+			a3 = [36.193205, -86.8083]
+			a4 = [36.174256, -86.810198]
+			b1 = [33.440695, -111.856967]
+			b2 = [33.276539, -112.187170]
+			b3 = [40.691917, -73.85666]
+			c1 = [38.521776, -121.749016]
+			c2 = [28.586197, -82.395858]
+			c3 = [28.604951, -82.531987]
+			d1 = [33.999433, -118.213255]
+			d2 = [29.681312, -82.353862]
+			d3 = [29.68041, -82.345739]
+		// var route = L.featureGroup([
+		// 	L.marker(trd),
+		// 	L.polyline([trd, ams]),
+		// 	L.marker(ams),
+		// 	L.polyline([ams, lnd]),
+		// 	L.marker(lnd),
+		// 	L.polyline([lnd, mad]),
+		// 	L.marker(mad),
+		// 	L.polyline([mad, vlc]),
+		// 	L.marker(vlc)
+		// ]);
+		var route = L.featureGroup([
+			L.marker(a1),
+			L.polyline([a1, a2]),
+			L.marker(a2),
+			L.polyline([a2, a3]),
+			L.marker(a3),
+			L.polyline([a3, a4]),
+			L.marker(a4)
+			]);
+function generateMap(csvdata) {
+		function style(feature) {
+			var op = Number(feature.Frenquency) / 2000
+			return {
+				"fillColor": "#ff7800",
+				"stroke": false,
+				"radius": Number(feature.Frenquency)/300,
+				"fillOpacity": 0.8
+			};
+		}
+		var options = {
+		    radius: 4,
+		    fillColor: "#ff7800",
+		    color: "#000",
+		    weight: 1,
+		    opacity: 1,
+		    fillOpacity: 0.8
+		};
+		for (i = 0; i < csvdata.length; i++){
+			console.log(csvdata[i])
+			var target = csvdata[i];
+			var marker = new L.circleMarker([target.Lat, target.Lng], style(target))
+			marker.bindPopup(target.Facility_Name + ", " + target.Facility_Type)
+			map.addLayer(marker);
+		}
+// 		map.addLayer(new L.Marker(latlngs[0]));
+// 		map.addLayer(new L.Marker(latlngs[len - 1]));
+		// map.removeLayer(route);
+	}
+function snake() {
+			map.removeLayer(route);
+			if (counter == 0) {
+				serial = "9405510200883500970464";
+				route = L.featureGroup([
+				L.circleMarker(a1),
+				L.polyline([a1, a2]),
+				L.circleMarker(a2),
+				L.polyline([a2, a3]),
+				L.circleMarker(a3),
+				L.polyline([a3, a4]),
+				L.circleMarker(a4)
+				]);
+				counter++;
+			} else if (counter == 1){
+				serial = "9405510200883500967334";
+				route = L.featureGroup([
+				L.circleMarker(b1),
+				L.polyline([b1, b2]),
+				L.circleMarker(b2),
+				L.polyline([b2, b3]),
+				L.circleMarker(b3)
+				]);
+				counter++;
+			} else if (counter == 2){
+				serial = "9405510200883500971317";
+				route = L.featureGroup([
+				L.circleMarker(c1),
+				L.polyline([c1, c2]),
+				L.circleMarker(c2),
+				L.polyline([c2, c3]),
+				L.circleMarker(c3)
+				]);
+				counter++;
+			} else if (counter == 3){
+				serial = "9405510200883500967723";
+				route = L.featureGroup([
+				L.circleMarker(d1),
+				L.polyline([d1, d2]),
+				L.circleMarker(d2),
+				L.polyline([d2, d3]),
+				L.circleMarker(d3)
+				]);
+				counter=0;
+			}
+			
+			map.fitBounds(route.getBounds());
+			map.addLayer(route);
+			route.snakeIn();
+			document.getElementById('display').innerHTML = serial
+		}
+		// route.on('snakestart snake snakeend', function(ev){
+			// console.log(ev.type);
+		// });
+	</script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Delivery Trajectory</title>
+
+<link href="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet.css" rel="stylesheet" type="text/css" />
+<!-- <script src="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet.js"></script> -->
+<script src="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet-src.js"></script>
+
+
+<script src="L.Polyline.SnakeAnim.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<body>
+	<div id="map" style="width: 100%; height: 600px; border: 1px solid #ccc"></div>
+	<div id="display" style="text-align: center; padding-top: 0; font-size: 2.5em">Serial Number</div>
+
+	<div style="text-align: center;"><button onclick='snake()'>Generate</button></div>
+
+	<script>
+// 		for (var i = 0, latlngs = [], len = route.length; i < len; i++) {
+// 			latlngs.push(new L.LatLng(route[i][0], route[i][1]));
+// 		}
+		$.getJSON("refinedgps.json", function(json) {
+		    console.log(json); // this will show the info it in firebug console
+		});
+		// var trd = [63.5, 11],
+		//     mad = [40.5, -3.5],
+		//     lnd = [51.5, -0.5],
+		//     ams = [52.3, 4.75],
+		//     vlc = [39.5, -0.5];
+		var a1 = [38.521776, -121.749016]
+			a2 = [36.174256, -86.810198]
+			a3 = [36.193205, -86.8083]
+			a4 = [36.174256, -86.810198]
+			b1 = [33.440695, -111.856967]
+			b2 = [33.276539, -112.187170]
+			b3 = [40.691917, -73.85666]
+			c1 = [38.521776, -121.749016]
+			c2 = [28.586197, -82.395858]
+			c3 = [28.604951, -82.531987]
+			d1 = [33.999433, -118.213255]
+			d2 = [29.681312, -82.353862]
+			d3 = [29.68041, -82.345739]
+		// var route = L.featureGroup([
+		// 	L.marker(trd),
+		// 	L.polyline([trd, ams]),
+		// 	L.marker(ams),
+		// 	L.polyline([ams, lnd]),
+		// 	L.marker(lnd),
+		// 	L.polyline([lnd, mad]),
+		// 	L.marker(mad),
+		// 	L.polyline([mad, vlc]),
+		// 	L.marker(vlc)
+		// ]);
+		var route = L.featureGroup([
+			L.marker(a1),
+			L.polyline([a1, a2]),
+			L.marker(a2),
+			L.polyline([a2, a3]),
+			L.marker(a3),
+			L.polyline([a3, a4]),
+			L.marker(a4)
+			]);
+		var map = L.map('map').setView([39.833333, -98.583333], 4.3);
+		var positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+		}).addTo(map);
+		
+// 		map.addLayer(new L.Marker(latlngs[0]));
+// 		map.addLayer(new L.Marker(latlngs[len - 1]));
+		// map.removeLayer(route);
+		var counter = 0;
+		var serial = "";
+		function snake() {
+			map.removeLayer(route);
+			if (counter == 0) {
+				serial = "9405510200883500970464";
+				route = L.featureGroup([
+				L.marker(a1),
+				L.polyline([a1, a2]),
+				L.marker(a2),
+				L.polyline([a2, a3]),
+				L.marker(a3),
+				L.polyline([a3, a4]),
+				L.marker(a4)
+				]);
+				counter++;
+			} else if (counter == 1){
+				serial = "9405510200883500967334";
+				route = L.featureGroup([
+				L.marker(b1),
+				L.polyline([b1, b2]),
+				L.marker(b2),
+				L.polyline([b2, b3]),
+				L.marker(b3)
+				]);
+				counter++;
+			} else if (counter == 2){
+				serial = "9405510200883500971317";
+				route = L.featureGroup([
+				L.marker(c1),
+				L.polyline([c1, c2]),
+				L.marker(c2),
+				L.polyline([c2, c3]),
+				L.marker(c3)
+				]);
+				counter++;
+			} else if (counter == 3){
+				serial = "9405510200883500967723";
+				route = L.featureGroup([
+				L.marker(d1),
+				L.polyline([d1, d2]),
+				L.marker(d2),
+				L.polyline([d2, d3]),
+				L.marker(d3)
+				]);
+				counter=0;
+			}
+			
+			map.fitBounds(route.getBounds());
+			map.addLayer(route);
+			route.snakeIn();
+			document.getElementById('display').innerHTML = serial
+		}
+		// route.on('snakestart snake snakeend', function(ev){
+			// console.log(ev.type);
+		// });
+	</script>
+</body>
+</html>
